@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700;1,800;1,900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#000;color:#F2F2F2;font-family:'Golos Text',sans-serif;}
+  a{color:#FF4A0A;text-decoration:none;} a:hover{color:#FF7A45;}
+  ::selection{background:#FF4A0A;color:#000;}
+  input,textarea,button{font-family:inherit;}
+  @keyframes glowpulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#000;position:relative;overflow-x:clip;">
+  <div aria-hidden="true" style="position:absolute;left:50%;top:-500px;width:1400px;height:1400px;margin-left:-700px;background:radial-gradient(circle,rgba(255,74,10,.12),rgba(255,45,138,.05) 35%,transparent 60%);pointer-events:none;"></div>
+
+  <header data-screen-label="Шапка" style="position:sticky;top:0;z-index:50;background:rgba(0,0,0,.9);backdrop-filter:blur(14px);border-bottom:1px solid #1A1A1A;">
+    <div style="max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:12px clamp(18px,4vw,40px);">
+      <a href="index.html" style="display:flex;flex:none;"><span style="display:flex;align-items:center;gap:6px;"><img src="assets/flame-trim.png" alt="" style="height:52px;width:auto;display:block;"><img src="assets/logo-text-trim.png" alt="illuminator" style="height:26px;width:auto;display:block;"></span></a>
+      <span style="font-family:'JetBrains Mono';font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#9A9A9A;border-left:1px solid #262626;padding-left:20px;">Карьера</span>
+      <a href="index.html" style="margin-left:auto;font-size:13px;font-weight:600;color:#9A9A9A;padding:10px 4px;" style-hover="color:#FFFFFF;">← На сайт</a>
+    </div>
+  </header>
+
+  <section data-screen-label="Карьера — интро" style="position:relative;max-width:1320px;margin:0 auto;padding:72px clamp(18px,4vw,40px) 40px;">
+    <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>Карьера в Illuminator</div>
+    <h1 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(42px,6vw,92px);line-height:.92;letter-spacing:-.02em;margin:18px 0 0;color:#FFFFFF;max-width:14ch;">Зажигайте миры <span style="background:linear-gradient(90deg,#FFB13B,#FF4A0A 40%,#FF2D8A 75%,#8B4DFF);-webkit-background-clip:text;background-clip:text;color:transparent;">вместе с нами</span></h1>
+    <p style="font-size:17px;line-height:1.65;color:#B5B5B5;margin:22px 0 0;max-width:56ch;text-wrap:pretty;">Нет подходящей вакансии? Расскажите о себе — мы читаем каждый отклик и возвращаемся с ответом в течение 5 рабочих дней.</p>
+  </section>
+
+  <section data-screen-label="Карьера — форма" style="position:relative;max-width:1320px;margin:0 auto;padding:20px clamp(18px,4vw,40px) 96px;display:grid;grid-template-columns:{{ cols }};gap:clamp(28px,4vw,56px);align-items:start;">
+    <aside style="position:{{ asidePos }};top:96px;display:flex;flex-direction:column;gap:24px;">
+      <div style="background:#0A0A0A;border:1px solid #1F1F1F;padding:26px;">
+        <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FF4A0A;">Как мы нанимаем</div>
+        <ol style="list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:18px;">
+          <sc-for list="{{ process }}" as="p" hint-placeholder-count="4">
+            <li style="display:grid;grid-template-columns:36px 1fr;gap:14px;">
+              <span style="width:32px;height:32px;border:1px solid #FF4A0A;color:#FF4A0A;display:flex;align-items:center;justify-content:center;font-family:'Exo 2';font-style:italic;font-weight:900;font-size:15px;">{{ p.n }}</span>
+              <div><div style="font-weight:600;color:#FFFFFF;font-size:15px;">{{ p.t }}</div><div style="font-size:13px;color:#8A8A8A;margin-top:4px;line-height:1.5;">{{ p.d }}</div></div>
+            </li>
+          </sc-for>
+        </ol>
+      </div>
+      <div style="background:#0A0A0A;border:1px solid #1F1F1F;padding:22px 26px;font-size:14px;color:#A3A3A3;line-height:1.6;">
+        Вопросы о найме: <a href="mailto:jobs@illuminator.games" style="font-weight:600;">jobs@illuminator.games</a>
+      </div>
+    </aside>
+
+    <div style="position:relative;">
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="background:#0A0A0A;border:1px solid #1F1F1F;border-top:3px solid #FF4A0A;padding:clamp(32px,5vw,64px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;">
+          <img src="assets/flame.png" alt="" style="width:110px;filter:drop-shadow(0 0 24px rgba(255,90,30,.55));animation:glowpulse 3s ease-in-out infinite;">
+          <div style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(28px,3.4vw,44px);color:#FFFFFF;">Отклик получен, {{ firstName }}</div>
+          <p style="font-size:15px;color:#A3A3A3;max-width:46ch;line-height:1.6;margin:0;">Мы напишем на {{ email }} в течение 5 рабочих дней. Пока можно посмотреть наши игры.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px;">
+            <a href="index.html#catalog" style="font-family:'Exo 2';font-style:italic;font-size:15px;font-weight:800;text-transform:uppercase;padding:15px 28px;background:#FF4A0A;color:#000;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);">Смотреть игры</a>
+            <button onClick="{{ reset }}" style="font-size:14px;font-weight:600;padding:14px 22px;border:1px solid #333333;background:transparent;color:#F2F2F2;cursor:pointer;" style-hover="border-color:#FF4A0A;">Отправить ещё один</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ formOn }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#050505;border:1px solid #1F1F1F;">
+          <div style="position:sticky;top:65px;z-index:5;background:rgba(5,5,5,.95);backdrop-filter:blur(10px);padding:18px clamp(20px,3vw,34px);border-bottom:1px solid #1A1A1A;display:flex;align-items:center;gap:16px;">
+            <div style="flex:1;height:4px;background:#1F1F1F;position:relative;overflow:hidden;"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ progress }};background:linear-gradient(90deg,#FFB13B,#FF4A0A 40%,#FF2D8A 75%,#8B4DFF);transition:width .35s;"></div></div>
+            <span style="font-family:'JetBrains Mono';font-size:12px;font-weight:700;color:#F2F2F2;white-space:nowrap;">Заполнено {{ progress }}</span>
+          </div>
+
+          <div style="padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;gap:34px;">
+            <fieldset style="border:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;">
+              <legend style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:22px;color:#FFFFFF;padding:0;margin-bottom:16px;">01 · О вас</legend>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;">
+                <sc-for list="{{ contactFields }}" as="f" hint-placeholder-count="4">
+                  <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#C2C2C2;">
+                    <span>{{ f.label }}<span style="color:#FF4A0A;">{{ f.req }}</span></span>
+                    <input type="{{ f.type }}" value="{{ f.value }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" autocomplete="{{ f.ac }}" style="background:#0A0A0A;border:1px solid {{ f.line }};padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;" style-focus="border-color:#FF4A0A;">
+                    <sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:500;color:#FF8A5C;">{{ f.errText }}</span></sc-if>
+                  </label>
+                </sc-for>
+              </div>
+            </fieldset>
+
+            <fieldset style="border:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px;">
+              <legend style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:22px;color:#FFFFFF;padding:0;margin-bottom:16px;">02 · Опыт</legend>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="font-size:13px;font-weight:600;color:#C2C2C2;">Направление<span style="color:#FF4A0A;"> *</span></div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <sc-for list="{{ roles }}" as="o" hint-placeholder-count="10">
+                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};transition:all .2s;">{{ o.label }}</button>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ roleErr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#FF8A5C;">Выберите направление</span></sc-if>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:22px;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div style="font-size:13px;font-weight:600;color:#C2C2C2;">Уровень</div>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #262626;background:#0A0A0A;padding:3px;gap:3px;">
+                    <sc-for list="{{ levels }}" as="o" hint-placeholder-count="4">
+                      <button onClick="{{ o.pick }}" style="font-size:13px;font-weight:600;padding:10px 4px;border:none;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};">{{ o.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div style="font-size:13px;font-weight:600;color:#C2C2C2;">Опыт в индустрии<span style="color:#FF4A0A;"> *</span></div>
+                  <div style="display:grid;grid-template-columns:repeat(5,1fr);border:1px solid {{ expLine }};background:#0A0A0A;padding:3px;gap:3px;">
+                    <sc-for list="{{ exps }}" as="o" hint-placeholder-count="5">
+                      <button onClick="{{ o.pick }}" style="font-size:13px;font-weight:600;padding:10px 2px;border:none;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};white-space:nowrap;">{{ o.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="font-size:13px;font-weight:600;color:#C2C2C2;">Формат работы <span style="color:#6B6B6B;font-weight:500;">— можно несколько</span></div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <sc-for list="{{ formats }}" as="o" hint-placeholder-count="3">
+                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};"><span style="width:14px;height:14px;border:1px solid {{ o.boxLine }};background:{{ o.box }};display:flex;align-items:center;justify-content:center;font-size:10px;color:#000;">{{ o.tick }}</span>{{ o.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;">
+                <sc-for list="{{ extraFields }}" as="f" hint-placeholder-count="2">
+                  <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#C2C2C2;">
+                    <span>{{ f.label }}</span>
+                    <input type="{{ f.type }}" value="{{ f.value }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="background:#0A0A0A;border:1px solid #262626;padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;" style-focus="border-color:#FF4A0A;">
+                  </label>
+                </sc-for>
+              </div>
+            </fieldset>
+
+            <fieldset style="border:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;">
+              <legend style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:22px;color:#FFFFFF;padding:0;margin-bottom:16px;">03 · Резюме</legend>
+              <label onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}" style="display:flex;align-items:center;gap:18px;padding:22px;border:1px dashed {{ dropLine }};background:{{ dropBg }};cursor:pointer;transition:all .2s;flex-wrap:wrap;">
+                <input type="file" accept=".pdf,.doc,.docx" onChange="{{ onFile }}" style="display:none;">
+                <span style="width:46px;height:46px;flex:none;border:1px solid #FF4A0A;color:#FF4A0A;display:flex;align-items:center;justify-content:center;font-size:20px;">↑</span>
+                <div style="flex:1;min-width:180px;">
+                  <div style="font-weight:600;color:#FFFFFF;font-size:15px;">{{ fileTitle }}</div>
+                  <div style="font-size:13px;color:#8A8A8A;margin-top:4px;">{{ fileSub }}</div>
+                </div>
+                <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ clearFile }}" style="font-size:13px;font-weight:600;padding:9px 14px;border:1px solid #333333;background:transparent;color:#C2C2C2;cursor:pointer;" style-hover="border-color:#FF4A0A;">Убрать</button>
+                </sc-if>
+              </label>
+              <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#C2C2C2;">
+                <span style="display:flex;justify-content:space-between;gap:10px;"><span>Расскажите о себе</span><span style="font-family:'JetBrains Mono';font-weight:500;color:{{ aboutInk }};">{{ aboutCount }} / 1000</span></span>
+                <textarea value="{{ about }}" onInput="{{ onAbout }}" maxlength="1000" rows="5" placeholder="Чем хотите заниматься, каким проектом гордитесь, почему Illuminator" style="background:#0A0A0A;border:1px solid #262626;padding:14px 16px;color:#F2F2F2;font-size:15px;line-height:1.55;outline:none;resize:vertical;" style-focus="border-color:#FF4A0A;"></textarea>
+              </label>
+            </fieldset>
+
+            <div style="display:flex;flex-direction:column;gap:18px;padding-top:24px;border-top:1px solid #1A1A1A;">
+              <button onClick="{{ toggleConsent }}" style="display:flex;align-items:flex-start;gap:12px;text-align:left;background:none;border:none;padding:0;cursor:pointer;color:#A3A3A3;font-size:13px;line-height:1.55;">
+                <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid {{ consentLine }};background:{{ consentBg }};display:flex;align-items:center;justify-content:center;font-size:12px;color:#000;">{{ consentTick }}</span>
+                <span>Согласен на обработку персональных данных для рассмотрения кандидатуры. Храним отклик не дольше 12 месяцев.<span style="color:#FF4A0A;"> *</span></span>
+              </button>
+              <sc-if value="{{ formErr }}" hint-placeholder-val="{{ false }}">
+                <div role="alert" style="padding:12px 16px;border:1px solid #FF4A0A;background:rgba(255,74,10,.08);color:#FFC9B3;font-size:13px;">{{ formErrText }}</div>
+              </sc-if>
+              <button onClick="{{ submit }}" style="align-self:flex-start;font-family:'Exo 2';font-style:italic;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:18px 40px;border:none;cursor:pointer;background:#FF4A0A;color:#000;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Отправить отклик</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #1A1A1A;">
+    <div style="max-width:1320px;margin:0 auto;padding:28px clamp(18px,4vw,40px);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+      <img src="assets/logo.png" alt="illuminator" style="height:32px;">
+      <a href="index.html" style="font-size:13px;color:#9A9A9A;" style-hover="color:#FFFFFF;">Главная</a>
+      <a href="cabinet.html" style="font-size:13px;color:#9A9A9A;" style-hover="color:#FFFFFF;">Кабинет оператора</a>
+      <span style="margin-left:auto;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;color:#6B6B6B;">© 2026 Illuminator</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ACC = '#FF4A0A';
+const ROLES = ['Гейм-дизайн', 'Математика игр', '2D/3D-арт', 'Анимация и VFX', 'HTML5-разработка', 'Бэкенд', 'QA', 'Продюсирование', 'Маркетинг', 'Другое'];
+const LEVELS = ['Junior', 'Middle', 'Senior', 'Lead'];
+const EXPS = ['Нет', '<1', '1–3', '3–5', '5+'];
+const FORMATS = ['Офис', 'Гибрид', 'Удалённо'];
+const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+class Component extends DCLogic {
+  state = { W: window.innerWidth, name: '', email: '', contact: '', city: '', role: '', level: '', exp: '', formats: [], salary: '', link: '', file: null, about: '', consent: false, tried: false, sent: false, drag: false };
+  componentDidMount() { this._rs = () => this.setState({ W: window.innerWidth }); window.addEventListener('resize', this._rs); requestAnimationFrame(this._rs); }
+  componentWillUnmount() { window.removeEventListener('resize', this._rs); }
+  setFile(f) {
+    if (!f) return;
+    if (f.size > 10 * 1024 * 1024) { this.setState({ fileErr: 'Файл больше 10 МБ' }); return; }
+    this.setState({ file: { name: f.name, size: (f.size / 1024 / 1024).toFixed(1) + ' МБ' }, fileErr: '' });
+  }
+  renderVals() {
+    const s = this.state, W = s.W || 1280, wide = W >= 1000, t = s.tried;
+    const set = k => e => this.setState({ [k]: e.target.value });
+    const req = [s.name.trim(), emailOk(s.email), s.role, s.exp, s.consent];
+    const progress = Math.round(req.filter(Boolean).length / req.length * 100) + '%';
+    const errs = [];
+    if (!s.name.trim()) errs.push('имя');
+    if (!emailOk(s.email)) errs.push('почту');
+    if (!s.role) errs.push('направление');
+    if (!s.exp) errs.push('опыт');
+    if (!s.consent) errs.push('согласие');
+    const field = (k, label, type, ph, ac, required, errText) => ({
+      label, type, ph, ac, req: required ? ' *' : '', value: s[k], onInput: set(k),
+      err: t && required && (k === 'email' ? !emailOk(s.email) : !s[k].trim()), errText,
+      line: t && required && (k === 'email' ? !emailOk(s.email) : !s[k].trim()) ? ACC : '#262626'
+    });
+    const chip = (on, extra) => ({ bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#000000' : '#A3A3A3', line: on ? '#FFFFFF' : '#2E2E2E', on: on ? 'true' : 'false', ...extra });
+    const seg = on => ({ bg: on ? ACC : 'transparent', ink: on ? '#000000' : '#A3A3A3' });
+    return {
+      cols: wide ? '340px minmax(0,1fr)' : 'minmax(0,1fr)', asidePos: wide ? 'sticky' : 'static',
+      process: [
+        { n: '1', t: 'Отклик', d: 'Читаем каждую анкету — ответим в течение 5 рабочих дней.' },
+        { n: '2', t: 'Знакомство', d: '30 минут онлайн с командой направления.' },
+        { n: '3', t: 'Тестовое', d: 'Небольшое и оплачиваемое — или разбор портфолио вместо него.' },
+        { n: '4', t: 'Оффер', d: 'Финальная встреча и предложение.' }
+      ],
+      sent: s.sent, formOn: !s.sent, firstName: s.name.trim().split(' ')[0] || '', email: s.email,
+      reset: () => this.setState({ sent: false, tried: false, name: '', email: '', contact: '', city: '', role: '', level: '', exp: '', formats: [], salary: '', link: '', file: null, about: '', consent: false }),
+      progress,
+      contactFields: [
+        field('name', 'Имя и фамилия', 'text', 'Анна Смирнова', 'name', true, 'Укажите имя'),
+        field('email', 'E-mail', 'email', 'anna@mail.com', 'email', true, 'Проверьте адрес почты'),
+        field('contact', 'Telegram или телефон', 'text', '@username', 'tel', false, ''),
+        field('city', 'Город / часовой пояс', 'text', 'Москва, UTC+3', 'address-level2', false, '')
+      ],
+      roles: ROLES.map(r => chip(s.role === r, { label: r, pick: () => this.setState({ role: r }) })),
+      roleErr: t && !s.role,
+      levels: LEVELS.map(l => ({ label: l, ...seg(s.level === l), pick: () => this.setState({ level: s.level === l ? '' : l }) })),
+      exps: EXPS.map(l => ({ label: l === 'Нет' || l === '5+' ? l : l, ...seg(s.exp === l), pick: () => this.setState({ exp: l }) })),
+      expLine: t && !s.exp ? ACC : '#262626',
+      formats: FORMATS.map(f => { const on = s.formats.includes(f); return chip(on, { label: f, box: on ? ACC : 'transparent', boxLine: on ? ACC : '#555555', tick: on ? '✓' : '', pick: () => this.setState(st => ({ formats: on ? st.formats.filter(x => x !== f) : [...st.formats, f] })) }); }),
+      extraFields: [
+        { label: 'Портфолио, GitHub или LinkedIn', type: 'url', ph: 'https://', value: s.link, onInput: set('link') },
+        { label: 'Ожидания по доходу', type: 'text', ph: 'Сумма и валюта', value: s.salary, onInput: set('salary') }
+      ],
+      hasFile: !!s.file,
+      fileTitle: s.file ? s.file.name : 'Перетащите резюме или выберите файл',
+      fileSub: s.fileErr || (s.file ? s.file.size : 'PDF, DOC или DOCX, до 10 МБ'),
+      dropLine: s.drag ? ACC : s.file ? '#FF4A0A88' : '#3A3A3A', dropBg: s.drag ? 'rgba(255,74,10,.08)' : '#0A0A0A',
+      onFile: e => this.setFile(e.target.files && e.target.files[0]),
+      onDragOver: e => { e.preventDefault(); if (!s.drag) this.setState({ drag: true }); },
+      onDragLeave: () => this.setState({ drag: false }),
+      onDrop: e => { e.preventDefault(); this.setState({ drag: false }); this.setFile(e.dataTransfer.files && e.dataTransfer.files[0]); },
+      clearFile: e => { e.preventDefault(); e.stopPropagation(); this.setState({ file: null, fileErr: '' }); },
+      about: s.about, onAbout: set('about'), aboutCount: s.about.length, aboutInk: s.about.length > 900 ? ACC : '#6B6B6B',
+      toggleConsent: () => this.setState(st => ({ consent: !st.consent })),
+      consentBg: s.consent ? ACC : 'transparent', consentLine: s.consent ? ACC : (t && !s.consent ? ACC : '#555555'), consentTick: s.consent ? '✓' : '',
+      formErr: t && errs.length > 0, formErrText: 'Осталось заполнить: ' + errs.join(', ') + '.',
+      submit: () => { if (errs.length) return this.setState({ tried: true }); this.setState({ sent: true }); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

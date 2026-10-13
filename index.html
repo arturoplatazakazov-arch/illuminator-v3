@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>illuminator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
@@ -10,199 +9,301 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700;1,800;1,900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <style>
-  html{background:#000000;} html,body{margin:0;padding:0;} body{background:transparent;color:#F2F2F2;font-family:'Manrope',sans-serif;}
+  html,body{margin:0;padding:0;background:#000;color:#F2F2F2;font-family:'Golos Text',sans-serif;}
   html{scroll-behavior:smooth;}
-  a{color:#FFB21E;text-decoration:none;} a:hover{color:#FFD27A;}
-  ::selection{background:#FFB21E;color:#000;}
+  a{color:#FF4A0A;text-decoration:none;} a:hover{color:#FF7A45;}
+  ::selection{background:#FF4A0A;color:#000;}
   @keyframes sparkfly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
   @keyframes hintpulse{0%,100%{opacity:.5}50%{opacity:1}}
-  @keyframes breathe{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
-  @keyframes swarm{0%,55%,100%{background:#1A1A1A;box-shadow:none;transform:scale(1)}12%{background:#F28C00;box-shadow:0 0 16px #F28C00;transform:scale(1.12)}28%{background:#FFB21E;box-shadow:0 0 8px #FFB21E88;transform:scale(1)}}
+  @keyframes flick{0%,100%{transform:scale(1,1) skewX(0deg)}20%{transform:scale(.97,1.04) skewX(1.6deg)}45%{transform:scale(1.03,.97) skewX(-1.2deg)}70%{transform:scale(.98,1.03) skewX(.8deg)}}
+  @keyframes glowpulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+  @keyframes swarm{0%,55%,100%{background:#141414;box-shadow:none;transform:scale(1)}12%{background:#FF4A0A;box-shadow:0 0 16px #FF4A0A;transform:scale(1.12)}28%{background:#F2F2F2;box-shadow:none;transform:scale(1)}}
   @keyframes beam{0%{transform:rotate(-34deg)}100%{transform:rotate(34deg)}}
-  @keyframes floodcell{0%,100%{background:#1A1A1A;box-shadow:none}20%,35%{background:#FFE3A3;box-shadow:0 0 14px #FFB21E}55%{background:#1A1A1A;box-shadow:none}}
-  @keyframes blackcell{0%,8%{background:#FFE3A3;box-shadow:0 0 10px #FFE3A3}25%,88%{background:#0A0A0A;box-shadow:none}100%{background:#FFE3A3;box-shadow:0 0 10px #FFE3A3}}
-  @keyframes starburst{0%,58%{opacity:0;transform:scale(.3)}70%{opacity:1;transform:scale(1.7)}82%{opacity:1;transform:scale(1)}95%,100%{opacity:0;transform:scale(.6)}}
-
-  @keyframes twinkle{0%,100%{opacity:.18;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
-  @keyframes flare{0%,70%,100%{opacity:0;transform:scale(.4) rotate(0deg)}82%{opacity:1;transform:scale(1.2) rotate(20deg)}}
-  @keyframes shoot{0%{opacity:0;translate:0 0}2%{opacity:1}9%{opacity:0;translate:46vw 12vw}100%{opacity:0;translate:46vw 12vw}}
-  @keyframes drift{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-2%,-3%,0)}}
-  @media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-iteration-count:1!important}}
+  @keyframes floodcell{0%,100%{background:#141414;box-shadow:none}20%,35%{background:#FFFFFF;box-shadow:0 0 14px rgba(255,74,10,.8)}55%{background:#141414;box-shadow:none}}
+  @keyframes blackcell{0%,8%{background:#FF4A0A;box-shadow:0 0 10px #FF4A0A}25%,88%{background:#070707;box-shadow:none}100%{background:#FF4A0A;box-shadow:0 0 10px #FF4A0A}}
+  @keyframes starburst{0%,58%{opacity:0;transform:rotate(45deg) scale(.3)}70%{opacity:1;transform:rotate(45deg) scale(1.7)}82%{opacity:1;transform:rotate(45deg) scale(1)}95%,100%{opacity:0;transform:rotate(45deg) scale(.6)}}
+  @keyframes heromarq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  @keyframes ember{0%{transform:translate(0,0);opacity:0}12%{opacity:1}100%{transform:translate(var(--dx),-760px);opacity:0}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes stagepulse{0%,100%{opacity:.55}50%{opacity:1}}
 </style>
 </helmet>
 
-<!-- 01 · ЗАСТАВКА-КОМЕТА -->
+<div ref="{{ bgRef }}" aria-hidden="true" style="position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden;mix-blend-mode:screen;--sy:0;">
+  <div style="position:absolute;left:-12vw;top:10vh;width:46vw;height:46vw;border-radius:50%;background:radial-gradient(circle,rgba(255,74,10,.10),transparent 65%);transform:translate3d(calc(var(--sy) * 0.04px),calc(var(--sy) * -0.12px),0);will-change:transform;"></div>
+  <div style="position:absolute;right:-14vw;top:60vh;width:52vw;height:52vw;border-radius:50%;background:radial-gradient(circle,rgba(255,45,138,.07),transparent 65%);transform:translate3d(calc(var(--sy) * -0.05px),calc(var(--sy) * -0.2px),0);will-change:transform;"></div>
+  <div style="position:absolute;left:30vw;top:140vh;width:40vw;height:40vw;border-radius:50%;background:radial-gradient(circle,rgba(123,61,255,.07),transparent 65%);transform:translate3d(0,calc(var(--sy) * -0.32px),0);will-change:transform;"></div>
+  <div style="position:absolute;left:8vw;top:72vh;width:26px;height:26px;border:1px solid rgba(255,74,10,.28);transform:translate3d(0,calc(var(--sy) * -0.18px),0) rotate(calc(45deg + var(--sy) * 0.06deg));"></div>
+  <div style="position:absolute;right:10vw;top:22vh;width:14px;height:14px;background:rgba(255,45,138,.22);transform:translate3d(0,calc(var(--sy) * -0.1px),0) rotate(calc(45deg - var(--sy) * 0.08deg));"></div>
+  <div style="position:absolute;right:26vw;top:120vh;width:40px;height:40px;border:1px solid rgba(255,255,255,.10);transform:translate3d(0,calc(var(--sy) * -0.28px),0) rotate(calc(45deg + var(--sy) * 0.04deg));"></div>
+  <div style="position:absolute;left:44vw;top:48vh;width:8px;height:8px;background:rgba(123,61,255,.3);transform:translate3d(0,calc(var(--sy) * -0.24px),0) rotate(45deg);"></div>
+  <div style="position:absolute;left:18vw;top:190vh;width:18px;height:18px;border:1px solid rgba(255,74,10,.25);transform:translate3d(0,calc(var(--sy) * -0.36px),0) rotate(calc(45deg - var(--sy) * 0.05deg));"></div>
+</div>
+
 <sc-if value="{{ gateOn }}" hint-placeholder-val="{{ true }}">
-  <div data-screen-label="01 Заставка" onWheel="{{ onWheel }}" onTouchStart="{{ onTouchStart }}" onTouchMove="{{ onTouchMove }}" onPointerDown="{{ onGrab }}" onPointerMove="{{ onGatePointerMove }}" style="position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse 70% 55% at 50% 40%,#120C02 0%,#000 70%);opacity:{{ gateOpacity }};transition:opacity 1s ease .45s;pointer-events:{{ gatePointer }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:20px;touch-action:none;user-select:none;overflow:hidden;cursor:grab;">
-    <div style="position:absolute;inset:0;background-image:radial-gradient(1px 1px at 8% 12%,#fff,transparent),radial-gradient(1px 1px at 22% 68%,#FFE3A3,transparent),radial-gradient(1.5px 1.5px at 35% 22%,#fff,transparent),radial-gradient(1px 1px at 47% 81%,#fff,transparent),radial-gradient(1px 1px at 58% 9%,#FFB21E,transparent),radial-gradient(1.5px 1.5px at 66% 44%,#fff,transparent),radial-gradient(1px 1px at 74% 18%,#fff,transparent),radial-gradient(1px 1px at 83% 62%,#FFE3A3,transparent),radial-gradient(1.5px 1.5px at 91% 30%,#fff,transparent),radial-gradient(1px 1px at 14% 40%,#fff,transparent),radial-gradient(1px 1px at 30% 92%,#FFB21E,transparent),radial-gradient(1px 1px at 52% 56%,#fff,transparent),radial-gradient(1px 1px at 96% 86%,#fff,transparent),radial-gradient(1px 1px at 4% 78%,#FFE3A3,transparent);background-size:420px 420px;opacity:.8;pointer-events:none;"></div>
-    <img src="assets/brand/earth.png" alt="" style="position:absolute;left:50%;bottom:0;width:max(1672px,120vw);transform:translate(-50%,{{ earthY }});opacity:{{ earthOp }};transition:opacity .3s,transform .3s;pointer-events:none;">
-    <div style="position:relative;width:{{ stW }};height:{{ stH }};transform:scale({{ camScale }});transform-origin:{{ camOrigin }};transition:transform 1.5s cubic-bezier(.7,0,.25,1);">
-      <div style="position:absolute;left:0;top:0;width:800px;height:290px;transform:scale({{ stK }});transform-origin:0 0;">
-        <img src="assets/brand/logo-word.png" alt="illuminator" draggable="false" style="position:absolute;left:40px;top:130px;width:720px;opacity:{{ wordOp }};filter:{{ wordGlow }};transition:opacity .3s,filter .6s;pointer-events:none;">
-        <svg viewBox="0 0 800 290" width="800" height="290" style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none;">
-          <defs><linearGradient id="cometG" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#F28C00" stop-opacity="0"></stop><stop offset=".55" stop-color="#FFB21E"></stop><stop offset="1" stop-color="#FFFFFF"></stop></linearGradient></defs>
-          <path d="M108 106 Q400 16 699 111" fill="none" stroke="#2A2A2A" stroke-width="1.2" stroke-dasharray="1 7" stroke-linecap="round"></path>
-          <path d="M108 106 Q400 16 699 111" fill="none" stroke="url(#cometG)" stroke-width="5" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="{{ dashOff }}" style="filter:drop-shadow(0 0 6px #FFB21E);transition:stroke-dashoffset .15s;"></path>
-        </svg>
-        <div style="position:absolute;left:0;top:0;width:0;height:0;offset-path:path('M108 106 Q400 16 699 111');offset-distance:{{ pPct }};offset-rotate:0deg;transition:offset-distance .15s;pointer-events:none;">
-          <div style="position:absolute;left:0;top:0;transform:scale({{ flareScale }});opacity:{{ flareOp }};transition:transform .5s cubic-bezier(.2,1.5,.4,1),opacity .2s;">
-            <span style="position:absolute;left:-40px;top:-40px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0%,rgba(255,178,30,.85) 18%,rgba(242,140,0,.25) 45%,transparent 70%);"></span>
-            <span style="position:absolute;left:-60px;top:-1px;width:120px;height:2px;background:linear-gradient(90deg,transparent,#FFFFFF,transparent);"></span>
-            <span style="position:absolute;left:-1px;top:-70px;width:2px;height:140px;background:linear-gradient(180deg,transparent,#FFFFFF,transparent);"></span>
-            <span style="position:absolute;left:-28px;top:-1px;width:56px;height:2px;background:linear-gradient(90deg,transparent,#FFE3A3,transparent);transform:rotate(45deg);"></span>
-            <span style="position:absolute;left:-28px;top:-1px;width:56px;height:2px;background:linear-gradient(90deg,transparent,#FFE3A3,transparent);transform:rotate(-45deg);"></span>
+  <div data-screen-label="01 Заставка Zippo" onWheel="{{ onWheel }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}" style="position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse 55% 50% at 50% 42%,#161616 0%,#050505 60%,#000 100%);opacity:{{ gateOpacity }};transition:opacity .9s ease .35s;pointer-events:{{ gatePointer }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px;touch-action:none;user-select:none;overflow:hidden;">
+    <div style="position:absolute;left:50%;top:40%;width:1500px;height:1500px;margin:-750px 0 0 -750px;border-radius:50%;background:radial-gradient(circle,rgba(255,120,30,.34) 0%,rgba(255,45,138,.14) 22%,rgba(123,61,255,.07) 38%,transparent 58%);opacity:{{ warmOp }};transform:scale({{ warmSc }});transition:opacity .9s ease,transform 1.4s cubic-bezier(.2,1,.3,1);pointer-events:none;"></div>
+    <div style="position:absolute;left:50%;top:0;width:520px;height:70%;margin-left:-260px;background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(255,255,255,.07),transparent 70%);pointer-events:none;"></div>
+
+    <div style="position:relative;transform:scale({{ camScale }});transform-origin:50% 30%;transition:transform 1.4s cubic-bezier(.7,0,.25,1);padding-top:{{ zPadTop }};">
+      <div style="position:relative;width:{{ zW }};height:{{ zH }};">
+        <div onClick="{{ onStep }}" role="button" aria-label="{{ hintText }}" style="position:absolute;left:0;top:0;width:170px;height:316px;transform:scale({{ zs }});transform-origin:0 0;cursor:pointer;">
+          <div style="position:absolute;left:-40px;right:-40px;bottom:-28px;height:34px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.9),transparent 70%);"></div>
+          <div style="position:absolute;left:-30px;right:-30px;bottom:-34px;height:30px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,120,30,.35),transparent 70%);opacity:{{ warmOp }};transition:opacity .8s;"></div>
+
+          <div style="position:absolute;left:-31px;top:-139px;width:240px;height:260px;opacity:{{ flameOp }};transition:opacity .5s;pointer-events:none;"><div style="width:100%;height:100%;background:radial-gradient(ellipse 50% 45% at 50% 82%,rgba(255,150,50,.75),rgba(255,45,138,.25) 55%,transparent 75%);filter:blur(12px);animation:glowpulse 1.4s ease-in-out infinite;"></div></div>
+          <div style="position:absolute;z-index:1;left:-6px;top:-118px;width:210px;height:202px;transform-origin:45% 100%;transform:scale({{ flameSc }});opacity:{{ flameOp }};transition:transform .6s cubic-bezier(.2,1.5,.4,1),opacity .25s;pointer-events:none;">
+            <img src="assets/flame-zippo.png" alt="" draggable="false" style="width:100%;height:100%;display:block;transform-origin:45% 100%;animation:flick 1.1s ease-in-out infinite;">
           </div>
-          <div style="position:absolute;left:0;top:0;">{{ sparksEl }}</div>
+
+          <img src="assets/zippo-body.png" alt="" draggable="false" style="position:absolute;z-index:2;left:-1px;top:76px;width:173.2px;height:239.8px;display:block;filter:drop-shadow(0 30px 40px rgba(0,0,0,.9));">
+          <div style="position:absolute;z-index:2;left:20px;top:80px;width:130px;height:90px;background:radial-gradient(ellipse 50% 60% at 50% 30%,rgba(255,150,60,.55),transparent 70%);mix-blend-mode:screen;opacity:{{ flameOp }};transition:opacity .5s;pointer-events:none;"></div>
+          <div style="position:absolute;z-index:2;left:0;top:165px;width:170px;height:150px;border-radius:0 0 18px 18px;background:linear-gradient(180deg,rgba(255,150,60,.45),rgba(255,45,138,.12) 40%,transparent 70%);mix-blend-mode:overlay;opacity:{{ warmOp }};transition:opacity .8s;pointer-events:none;"></div>
+          <div style="position:absolute;z-index:3;left:138px;top:116px;">{{ sparksEl }}</div>
+          <div style="position:absolute;z-index:4;left:-1px;top:46px;width:176px;height:115px;transform-origin:96% 100%;transform:rotate({{ lidRot }});transition:transform .6s cubic-bezier(.25,1.45,.45,1);">
+            <img src="assets/zippo-lid.png" alt="" draggable="false" style="width:100%;height:100%;display:block;">
+            <div style="position:absolute;inset:4px 8px 8px 1px;border-radius:14px 14px 2px 2px;background:linear-gradient(0deg,rgba(255,150,60,.5),transparent 70%);mix-blend-mode:overlay;opacity:{{ warmOp }};transition:opacity .8s;pointer-events:none;"></div>
+          </div>
         </div>
       </div>
     </div>
-    <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;opacity:{{ uiOpacity }};transition:opacity .4s ease;">
-      <div style="font-family:'Jost';font-size:13px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFFFFF;animation:hintpulse 2s infinite;">Запустите комету, чтобы войти</div>
-      <div style="font-size:13px;color:#8A8A8A;max-width:40ch;line-height:1.55;">Крутите колёсико вниз · свайп вверх · или ведите курсором с зажатой кнопкой</div>
-      <div style="width:220px;height:2px;background:#1F1F1F;border-radius:2px;overflow:hidden;">
-        <div style="height:100%;width:{{ pPct }};background:linear-gradient(90deg,#F28C00,#FFB21E,#FFFFFF);transition:width .15s;"></div>
+
+    <img src="assets/logo-text.png" alt="illuminator" draggable="false" style="position:relative;width:min(70vw,340px);display:block;opacity:{{ txtOp }};transform:translateY({{ txtY }});transition:opacity .6s ease .15s,transform .8s cubic-bezier(.2,1,.3,1) .15s;filter:drop-shadow(0 0 18px rgba(255,120,30,.5));">
+
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;opacity:{{ uiOpacity }};transition:opacity .4s ease;margin-top:-58px;">
+      <div style="display:flex;gap:26px;">
+        <sc-for list="{{ gateSteps }}" as="gs" hint-placeholder-count="2">
+          <div style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:{{ gs.ink }};transition:color .3s;">
+            <span style="width:8px;height:8px;transform:rotate(45deg);background:{{ gs.dot }};box-shadow:{{ gs.glow }};transition:all .3s;"></span>{{ gs.label }}
+          </div>
+        </sc-for>
       </div>
-      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:6px;">
-        <button onClick="{{ onAgeYes }}" style="font-family:'Jost';font-size:15px;font-weight:500;letter-spacing:.06em;padding:13px 28px;border-radius:999px;border:1px solid rgba(255,178,30,.5);background:rgba(0,0,0,.6);color:#FFFFFF;cursor:pointer;" style-hover="border-color:#FFB21E;box-shadow:0 0 24px -6px rgba(255,178,30,.6);">Мне есть 18</button>
-        <button onClick="{{ onAgeNo }}" style="font-family:'Manrope';font-size:13px;background:none;border:none;color:#808080;cursor:pointer;text-decoration:underline;text-underline-offset:3px;">Мне нет 18</button>
+      <div style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(20px,3vw,28px);color:#FFFFFF;animation:hintpulse 2.2s infinite;">{{ hintTitle }}</div>
+      <div style="font-size:13px;color:#8A8A8A;max-width:42ch;line-height:1.55;">{{ hintText }}</div>
+      <div style="display:flex;gap:22px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:6px;">
+        <button onClick="{{ onAgeYes }}" style="font-family:'Exo 2';font-style:italic;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:13px 28px;border:none;background:#FF4A0A;color:#000;cursor:pointer;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);" style-hover="background:#FFFFFF;">Мне есть 18</button>
+        <button onClick="{{ onAgeNo }}" style="font-family:'Golos Text';font-size:13px;background:none;border:none;color:#7A7A7A;cursor:pointer;text-decoration:underline;text-underline-offset:3px;">Мне нет 18</button>
       </div>
     </div>
   </div>
 </sc-if>
 <sc-if value="{{ deniedOn }}" hint-placeholder-val="{{ false }}">
-  <div data-screen-label="01 Заглушка 18-" style="position:fixed;inset:0;z-index:110;background:#000000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center;">
-    <img src="assets/brand/emblem.png" alt="" style="width:160px;opacity:.7;">
-    <div style="font-family:'Jost';font-size:28px;font-weight:500;color:#FFFFFF;">Сайт доступен с 18 лет</div>
+  <div data-screen-label="01 Заглушка 18-" style="position:fixed;inset:0;z-index:110;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px;text-align:center;">
+    <img src="assets/flame-mono.png" alt="" style="width:110px;opacity:.35;">
+    <div style="font-family:'Exo 2';font-style:italic;font-size:32px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">Сайт доступен с 18 лет</div>
     <div style="font-size:14px;color:#8A8A8A;max-width:40ch;line-height:1.6;">Illuminator создаёт игры для взрослой аудитории. Возвращайтесь, когда исполнится 18.</div>
-    <button onClick="{{ onBackToGate }}" style="font-family:'Manrope';font-size:13px;background:none;border:none;color:#808080;cursor:pointer;text-decoration:underline;text-underline-offset:3px;">Я ошибся — вернуться</button>
+    <button onClick="{{ onBackToGate }}" style="font-family:'Golos Text';font-size:13px;background:none;border:none;color:#7A7A7A;cursor:pointer;text-decoration:underline;text-underline-offset:3px;">Я ошибся — вернуться</button>
   </div>
 </sc-if>
 
-<div style="min-height:100vh;overflow-x:clip;">
-  <div aria-hidden="true" style="position:fixed;inset:-4%;z-index:-1;pointer-events:none;overflow:hidden;">{{ skyEl }}</div>
+<div style="min-height:100vh;background:#000;overflow-x:clip;">
 
-  <!-- 02 · ШАПКА -->
   <header data-screen-label="02 Шапка" style="position:sticky;top:0;z-index:50;background:{{ headerBg }};backdrop-filter:blur({{ headerBlur }});-webkit-backdrop-filter:blur({{ headerBlur }});border-bottom:1px solid {{ headerLine }};transition:background .3s,border-color .3s;">
-    <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:10px clamp(18px,4vw,40px);">
-      <a href="#hero" style="display:flex;align-items:center;flex:none;"><img src="assets/brand/logo-full.png" alt="illuminator" style="height:66px;margin:-10px 0;display:block;"></a>
+    <div style="max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:28px;padding:12px clamp(18px,4vw,40px);">
+      <a href="#hero" style="display:flex;align-items:center;flex:none;"><span style="display:flex;align-items:center;gap:6px;"><img src="assets/flame-trim.png" alt="" style="height:54px;width:auto;display:block;"><img src="assets/logo-text-trim.png" alt="illuminator" style="height:27px;width:auto;display:block;"></span></a>
       <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
-        <nav style="display:flex;gap:28px;margin:0 auto;font-size:14px;font-weight:600;">
-          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
-            <a href="{{ n.href }}" style="color:#BDBDBD;" style-hover="color:#FFFFFF;">{{ n.label }}</a>
+        <nav style="display:flex;gap:28px;margin:0 auto;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+            <a href="{{ n.href }}" style="color:#9A9A9A;" style-hover="color:#FFFFFF;">{{ n.label }}</a>
           </sc-for>
         </nav>
       </sc-if>
       <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
         <sc-if value="{{ showToggle }}" hint-placeholder-val="{{ true }}">
-          <div style="display:flex;padding:3px;border-radius:999px;background:#121212;border:1px solid #262626;">
+          <div style="display:flex;padding:3px;background:#0A0A0A;border:1px solid #262626;">
             <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
-              <button onClick="{{ m.pick }}" style="font-family:'Manrope';font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;border:none;cursor:pointer;background:{{ m.bg }};color:{{ m.ink }};transition:all .2s;">{{ m.label }}</button>
+              <button onClick="{{ m.pick }}" style="font-family:'Golos Text';font-size:13px;font-weight:600;padding:8px 14px;border:none;cursor:pointer;background:{{ m.bg }};color:{{ m.ink }};transition:all .2s;">{{ m.label }}</button>
             </sc-for>
           </div>
-          <a href="cabinet.html" style="font-family:'Jost';font-size:14px;font-weight:600;padding:10px 20px;border-radius:999px;background:linear-gradient(90deg,#FFB21E,#F28C00);color:#000000;">Кабинет</a>
+          <a href="cabinet.html" style="font-family:'Exo 2';font-style:italic;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:11px 24px;background:#FF4A0A;color:#000;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);" style-hover="background:#FFFFFF;color:#000;">Кабинет</a>
         </sc-if>
         <sc-if value="{{ showBurger }}" hint-placeholder-val="{{ false }}">
-          <button onClick="{{ toggleMenu }}" aria-label="Меню" style="width:44px;height:44px;border-radius:12px;border:1px solid #262626;background:#121212;color:#FFFFFF;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">{{ burgerIcon }}</button>
+          <button onClick="{{ toggleMenu }}" aria-label="Меню" style="width:44px;height:44px;border:1px solid #262626;background:#0A0A0A;color:#FFFFFF;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">{{ burgerIcon }}</button>
         </sc-if>
       </div>
     </div>
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <div style="border-top:1px solid #1A1A1A;background:#070707;padding:16px clamp(18px,4vw,40px) 24px;display:flex;flex-direction:column;gap:6px;">
-        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
-          <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="font-family:'Jost';font-size:20px;color:#FFFFFF;padding:12px 0;border-bottom:1px solid #161616;">{{ n.label }}</a>
+      <div style="border-top:1px solid #1A1A1A;background:#050505;padding:16px clamp(18px,4vw,40px) 24px;display:flex;flex-direction:column;gap:4px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+          <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="font-family:'Exo 2';font-style:italic;font-weight:800;text-transform:uppercase;font-size:24px;color:#FFFFFF;padding:12px 0;border-bottom:1px solid #161616;">{{ n.label }}</a>
         </sc-for>
         <sc-if value="{{ toggleInMenu }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
-            <div style="display:flex;padding:3px;border-radius:999px;background:#121212;border:1px solid #262626;">
+            <div style="display:flex;padding:3px;background:#0A0A0A;border:1px solid #262626;">
               <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
-                <button onClick="{{ m.pick }}" style="font-family:'Manrope';font-size:14px;font-weight:600;padding:11px 16px;border-radius:999px;border:none;cursor:pointer;background:{{ m.bg }};color:{{ m.ink }};">{{ m.label }}</button>
+                <button onClick="{{ m.pick }}" style="font-family:'Golos Text';font-size:14px;font-weight:600;padding:11px 16px;border:none;cursor:pointer;background:{{ m.bg }};color:{{ m.ink }};">{{ m.label }}</button>
               </sc-for>
             </div>
-            <a href="cabinet.html" onClick="{{ closeMenu }}" style="font-family:'Jost';font-size:15px;font-weight:600;padding:13px 22px;border-radius:999px;background:linear-gradient(90deg,#FFB21E,#F28C00);color:#000000;">Кабинет</a>
+            <a href="cabinet.html" onClick="{{ closeMenu }}" style="font-family:'Exo 2';font-style:italic;font-size:15px;font-weight:800;text-transform:uppercase;padding:14px 26px;background:#FF4A0A;color:#000;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);">Кабинет</a>
           </div>
         </sc-if>
       </div>
     </sc-if>
   </header>
 
-  <!-- 03 · ПЕРВЫЙ ЭКРАН СО СЛАЙДЕРОМ -->
-  <section id="hero" data-screen-label="03 Первый экран" style="position:relative;max-width:1280px;margin:0 auto;padding:48px clamp(18px,4vw,40px) clamp(200px,22vw,320px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:40px;align-items:center;">
-    <div aria-hidden="true" style="position:absolute;z-index:0;top:-90px;bottom:0;left:50%;width:100vw;margin-left:-50vw;overflow:hidden;pointer-events:none;">
-      <div style="position:absolute;inset:0;background-image:radial-gradient(1px 1px at 8% 12%,#fff,transparent),radial-gradient(1px 1px at 22% 68%,#FFE3A3,transparent),radial-gradient(1.5px 1.5px at 35% 22%,#fff,transparent),radial-gradient(1px 1px at 47% 81%,#fff,transparent),radial-gradient(1px 1px at 58% 9%,#FFB21E,transparent),radial-gradient(1.5px 1.5px at 66% 44%,#fff,transparent),radial-gradient(1px 1px at 74% 18%,#fff,transparent),radial-gradient(1px 1px at 83% 62%,#FFE3A3,transparent),radial-gradient(1.5px 1.5px at 91% 30%,#fff,transparent),radial-gradient(1px 1px at 14% 40%,#fff,transparent),radial-gradient(1px 1px at 30% 92%,#FFB21E,transparent),radial-gradient(1px 1px at 52% 56%,#fff,transparent),radial-gradient(1px 1px at 96% 86%,#fff,transparent),radial-gradient(1px 1px at 4% 78%,#FFE3A3,transparent);background-size:420px 420px;opacity:.75;"></div>
-      <svg viewBox="0 0 1440 400" preserveAspectRatio="none" style="position:absolute;left:0;top:40px;width:100%;height:340px;opacity:.55;"><defs><linearGradient id="heroArc" x1="0" x2="1"><stop offset="0" stop-color="#F28C00" stop-opacity="0"></stop><stop offset=".7" stop-color="#FFB21E" stop-opacity=".7"></stop><stop offset="1" stop-color="#FFFFFF"></stop></linearGradient></defs><path d="M-40 320 Q700 -20 1480 140" fill="none" stroke="url(#heroArc)" stroke-width="1.5"></path></svg>
-      <img src="assets/brand/earth.png" alt="" style="position:absolute;left:50%;bottom:-2px;width:max(1672px,116vw);transform:translateX(-50%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 28%);mask-image:linear-gradient(to bottom,transparent 0%,#000 28%);">
-    </div>
-    <div style="position:relative;z-index:2;">
-      <div style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#BDBDBD;"><span style="color:#FFB21E;">✦</span>{{ heroEyebrow }}</div>
-      <h1 style="font-family:'Jost';font-weight:300;font-size:clamp(42px,5.4vw,74px);line-height:1.02;letter-spacing:-.02em;margin:20px 0 0;color:#FFFFFF;">Одна искра.<br><span style="background:linear-gradient(90deg,#FFFFFF,#FFE3A3 30%,#FFB21E 65%,#F28C00);-webkit-background-clip:text;background-clip:text;color:transparent;">Много миров.</span></h1>
-      <p style="max-width:44ch;font-size:17px;line-height:1.65;color:#BDBDBD;margin:22px 0 0;">Оригинальные игры на собственных механиках — SwarmWays, Floodlight и Blackout. Сильная математика, узнаваемый арт, свой свет у каждого мира.</p>
-      <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;">
-        <a href="{{ heroCtaHref }}" style="font-family:'Jost';font-size:15px;font-weight:600;padding:16px 28px;border-radius:999px;background:linear-gradient(90deg,#FFB21E,#F28C00);color:#000000;box-shadow:0 10px 40px -10px rgba(242,140,0,.7);">{{ heroCta }}</a>
-        <a href="#mechanics" style="font-family:'Jost';font-size:15px;font-weight:500;padding:16px 26px;border-radius:999px;border:1px solid #2E2E2E;background:rgba(0,0,0,.6);color:#F2F2F2;" style-hover="border-color:#FFE3A3;">Наши механики</a>
+  <sc-if value="{{ heroMob }}" hint-placeholder-val="{{ false }}">
+  <section id="hero" data-screen-label="03 Первый экран (моби)" style="position:relative;overflow:hidden;min-height:calc(100svh - 66px);display:flex;flex-direction:column;background:#000;">
+    <sc-for list="{{ heroBgs }}" as="hb" hint-placeholder-count="3">
+      <div style="position:absolute;inset:0;background-image:{{ hb.bgP }};background-size:cover;background-position:center;opacity:{{ hb.op }};transform:scale({{ hb.sc }});filter:blur(6px) saturate(1.2);transition:opacity .9s ease,transform 6s ease-out;pointer-events:none;"></div>
+    </sc-for>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.55) 38%,rgba(0,0,0,.7) 62%,#000 100%);pointer-events:none;"></div>
+    <div style="position:absolute;left:50%;top:58%;width:900px;height:900px;margin:-450px 0 0 -450px;background:repeating-conic-gradient(from 0deg,transparent 0deg 10deg,rgba(255,74,10,.16) 10deg 10.5deg);-webkit-mask:radial-gradient(circle,#000 0%,transparent 55%);mask:radial-gradient(circle,#000 0%,transparent 55%);pointer-events:none;"></div>
+    <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:28px 18px 24px;">
+      <div style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono';font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#C2C2C2;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);box-shadow:0 0 10px #FF4A0A;"></span>{{ heroEyebrow }}</div>
+      <h1 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(42px,13.5vw,72px);line-height:.88;letter-spacing:-.02em;margin:16px 0 0;color:#FFFFFF;">Одна искра.<br><span style="background:linear-gradient(90deg,#FFB13B,#FF4A0A 40%,#FF2D8A 75%,#8B4DFF);-webkit-background-clip:text;background-clip:text;color:transparent;">Много миров.</span></h1>
+      <div onPointerDown="{{ onHeroDown }}" onPointerUp="{{ onHeroUp }}" style="position:relative;height:{{ heroH }};margin-top:18px;perspective:1200px;touch-action:pan-y;user-select:none;">
+        <sc-for list="{{ heroCards }}" as="c" hint-placeholder-count="3">
+          <div onClick="{{ c.pick }}" style="position:absolute;left:50%;top:50%;width:{{ cardW }};height:{{ cardH }};margin-left:{{ cardML }};margin-top:{{ cardMT }};transform:translateX({{ c.tx }}) scale({{ c.sc }}) rotateY({{ c.ry }});filter:brightness({{ c.br }});z-index:{{ c.z }};transition:transform .55s cubic-bezier(.3,.8,.3,1),filter .55s;overflow:hidden;background:#0A0A0A;box-shadow:0 30px 60px -20px rgba(255,74,10,.45);clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px));">
+            <div style="position:absolute;inset:0;"><image-slot id="{{ c.slot }}" src="{{ c.src }}" shape="rect" placeholder="{{ c.name }} — обложка"></image-slot></div>
+            <div style="position:absolute;top:0;left:0;width:{{ c.barW }};height:3px;background:linear-gradient(90deg,#FF4A0A,#FF2D8A);pointer-events:none;"></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:16px;">
+        <span style="font-family:'JetBrains Mono';font-size:12px;font-weight:700;color:#FF4A0A;">{{ heroNum }}<span style="color:#6B6B6B;"> / 03</span></span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Exo 2';font-style:italic;font-size:22px;font-weight:900;text-transform:uppercase;line-height:1;color:#FFFFFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ heroCurName }}</div>
+          <div style="font-family:'JetBrains Mono';font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#A3A3A3;margin-top:6px;">{{ heroCurMech }}</div>
+        </div>
+        <button onClick="{{ heroPrev }}" aria-label="Предыдущая игра" style="width:44px;height:44px;flex:none;border:1px solid #333333;background:rgba(0,0,0,.5);color:#FFFFFF;font-size:18px;cursor:pointer;" style-active="border-color:#FF4A0A;">←</button>
+        <button onClick="{{ heroNext }}" aria-label="Следующая игра" style="width:44px;height:44px;flex:none;border:1px solid #FF4A0A;background:#FF4A0A;color:#000;font-size:18px;cursor:pointer;" style-active="transform:scale(.95);">→</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px;">
+        <sc-for list="{{ heroDots }}" as="d" hint-placeholder-count="3">
+          <span style="height:3px;background:{{ d.bg }};transition:background .4s;"></span>
+        </sc-for>
+      </div>
+      <p style="font-size:15px;line-height:1.6;color:#C2C2C2;margin:20px 0 0;text-wrap:pretty;">Оригинальные игры на собственных механиках — SwarmWays, Floodlight и Blackout. Сильная математика, узнаваемый арт, свой свет у каждого мира.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px;">
+        <a href="{{ heroCtaHref }}" style="display:flex;align-items:center;justify-content:center;min-height:52px;font-family:'Exo 2';font-style:italic;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;text-align:center;background:#FF4A0A;color:#000;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);">{{ heroCta }}</a>
+        <a href="#mechanics" style="display:flex;align-items:center;justify-content:center;min-height:52px;font-family:'Exo 2';font-style:italic;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;text-align:center;border:1px solid #444444;background:rgba(0,0,0,.4);color:#FFFFFF;">Наши механики</a>
       </div>
     </div>
-    <div style="position:relative;z-index:1;">
-      <div onPointerDown="{{ onHeroDown }}" onPointerUp="{{ onHeroUp }}" style="position:relative;height:{{ heroH }};perspective:1400px;touch-action:pan-y;user-select:none;cursor:grab;">
-        <sc-for list="{{ heroCards }}" as="c" hint-placeholder-count="3">
-          <div onClick="{{ c.pick }}" style="position:absolute;left:50%;top:50%;width:{{ cardW }};height:{{ cardH }};margin-left:{{ cardML }};margin-top:{{ cardMT }};transform:translateX({{ c.tx }}) scale({{ c.sc }}) rotateY({{ c.ry }});filter:brightness({{ c.br }});z-index:{{ c.z }};transition:transform .55s cubic-bezier(.3,.8,.3,1),filter .55s;border-radius:22px;overflow:hidden;background:#0D0D0D;border:1px solid {{ c.line }};box-shadow:{{ c.shadow }};">
-            <div style="position:absolute;inset:0;"><image-slot id="{{ c.slot }}" src="{{ c.src }}" shape="rect" placeholder="{{ c.name }} — обложка"></image-slot></div>
-            <div style="position:absolute;left:0;right:0;bottom:0;padding:60px 20px 20px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.94) 60%);pointer-events:none;">
-              <div style="font-family:'Jost';font-size:24px;font-weight:600;color:#FFFFFF;">{{ c.name }}</div>
-              <div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:{{ c.c }};margin-top:6px;">{{ c.mech }}</div>
+    <div style="position:relative;z-index:2;border-top:1px solid #1F1F1F;border-bottom:1px solid #1F1F1F;background:#050505;overflow:hidden;padding:12px 0;">
+      <div style="display:flex;gap:28px;width:max-content;animation:heromarq 16s linear infinite;">
+        <sc-for list="{{ heroMarq }}" as="m" hint-placeholder-count="8">
+          <span style="display:flex;align-items:center;gap:28px;font-family:'Exo 2';font-style:italic;font-size:16px;font-weight:900;text-transform:uppercase;color:{{ m.ink }};white-space:nowrap;">{{ m.t }}<span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span></span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</sc-if>
+<sc-if value="{{ heroDesk }}" hint-placeholder-val="{{ true }}">
+  <section id="hero" data-screen-label="03 Первый экран" style="position:relative;overflow:hidden;">
+    <sc-for list="{{ heroBgs }}" as="hb" hint-placeholder-count="3">
+      <div style="position:absolute;inset:-40px;background-image:{{ hb.bgL }};background-size:cover;background-position:center;opacity:{{ hb.op }};transform:scale({{ hb.sc }});filter:blur(16px) saturate(1.25);transition:opacity 1s ease,transform 7s ease-out;pointer-events:none;"></div>
+    </sc-for>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.72) 42%,rgba(0,0,0,.42) 100%);pointer-events:none;"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(180deg,transparent,#000);pointer-events:none;"></div>
+    <div style="position:absolute;right:-10%;top:-30%;width:1400px;height:1400px;background:repeating-conic-gradient(from 200deg,transparent 0deg 9deg,rgba(255,255,255,.05) 9deg 9.4deg);-webkit-mask:radial-gradient(circle,#000 0%,transparent 60%);mask:radial-gradient(circle,#000 0%,transparent 60%);pointer-events:none;"></div>
+    <div style="position:relative;max-width:1320px;margin:0 auto;padding:56px clamp(18px,4vw,40px) 88px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:40px;align-items:center;">
+      <div style="position:relative;z-index:2;">
+        <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#B5B5B5;"><span style="width:8px;height:8px;background:#FF4A0A;transform:rotate(45deg);box-shadow:0 0 10px #FF4A0A;"></span>{{ heroEyebrow }}</div>
+        <h1 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(48px,6.6vw,104px);line-height:.92;letter-spacing:-.02em;margin:24px 0 0;color:#FFFFFF;">Одна искра.<br><span style="background:linear-gradient(90deg,#FFB13B,#FF4A0A 40%,#FF2D8A 75%,#8B4DFF);-webkit-background-clip:text;background-clip:text;color:transparent;">Много миров.</span></h1>
+        <p style="max-width:46ch;font-size:17px;line-height:1.65;color:#C2C2C2;margin:26px 0 0;text-wrap:pretty;">Оригинальные игры на собственных механиках — SwarmWays, Floodlight и Blackout. Сильная математика, узнаваемый арт, свой свет у каждого мира.</p>
+        <div style="display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;">
+          <a href="{{ heroCtaHref }}" style="font-family:'Exo 2';font-style:italic;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:18px 36px;background:#FF4A0A;color:#000;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);" style-hover="background:#FFFFFF;color:#000;">{{ heroCta }}</a>
+          <a href="#mechanics" style="font-family:'Exo 2';font-style:italic;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:17px 30px;border:1px solid #444444;background:rgba(0,0,0,.35);color:#FFFFFF;" style-hover="border-color:#FFFFFF;color:#FFFFFF;">Наши механики</a>
+        </div>
+      </div>
+      <div>
+        <div onPointerDown="{{ onHeroDown }}" onPointerUp="{{ onHeroUp }}" style="position:relative;height:{{ heroH }};perspective:1400px;touch-action:pan-y;user-select:none;cursor:grab;">
+          <sc-for list="{{ heroCards }}" as="c" hint-placeholder-count="3">
+            <div onClick="{{ c.pick }}" style="position:absolute;left:50%;top:50%;width:{{ cardW }};height:{{ cardH }};margin-left:{{ cardML }};margin-top:{{ cardMT }};transform:translateX({{ c.tx }}) scale({{ c.sc }}) rotateY({{ c.ry }});filter:brightness({{ c.br }});z-index:{{ c.z }};transition:transform .55s cubic-bezier(.3,.8,.3,1),filter .55s;overflow:hidden;background:#0A0A0A;box-shadow:0 40px 80px -30px rgba(255,74,10,.5);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px));">
+              <div style="position:absolute;inset:0;"><image-slot id="{{ c.slot }}" src="{{ c.src }}" shape="rect" placeholder="{{ c.name }} — обложка"></image-slot></div>
+              <div style="position:absolute;left:0;right:0;bottom:0;padding:70px 22px 26px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.95) 60%);pointer-events:none;">
+                <div style="font-family:'Exo 2';font-style:italic;font-size:26px;font-weight:900;text-transform:uppercase;line-height:1;color:#FFFFFF;">{{ c.name }}</div>
+                <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#FF4A0A;margin-top:10px;">{{ c.mech }}</div>
+              </div>
+              <div style="position:absolute;top:0;left:0;width:{{ c.barW }};height:3px;background:linear-gradient(90deg,#FF4A0A,#FF2D8A);pointer-events:none;"></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px;">
+          <button onClick="{{ heroPrev }}" aria-label="Назад" style="width:46px;height:46px;border:1px solid #444444;background:rgba(0,0,0,.4);color:#FFFFFF;cursor:pointer;font-size:18px;" style-hover="border-color:#FF4A0A;color:#FF4A0A;">←</button>
+          <div style="font-family:'JetBrains Mono';font-size:14px;letter-spacing:.12em;color:#8A8A8A;"><span style="color:#FFFFFF;">{{ heroNum }}</span> / 03</div>
+          <button onClick="{{ heroNext }}" aria-label="Вперёд" style="width:46px;height:46px;border:1px solid #444444;background:rgba(0,0,0,.4);color:#FFFFFF;cursor:pointer;font-size:18px;" style-hover="border-color:#FF4A0A;color:#FF4A0A;">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+  <section id="mechanics" data-screen-label="04 Механики" style="position:relative;border-top:1px solid #1A1A1A;background:radial-gradient(ellipse 50% 50% at 50% 0%,rgba(255,74,10,.08),transparent 70%);">
+    <div style="max-width:1320px;margin:0 auto;padding:88px clamp(18px,4vw,40px);">
+      <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>Фирменные механики</div>
+      <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(36px,4.4vw,60px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">Три источника света</h2>
+      <p style="font-size:15px;color:#9A9A9A;margin:14px 0 0;">Нажмите на механику — покажем все игры на ней.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin-top:36px;">
+        <sc-for list="{{ mechanics }}" as="m" hint-placeholder-count="3">
+          <div onClick="{{ m.go }}" role="button" style="background:#0A0A0A;border:1px solid #1F1F1F;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .3s,transform .3s;" style-hover="border-color:#FF4A0A;transform:translateY(-4px);">
+            <div style="height:230px;display:flex;align-items:center;justify-content:center;background:#050505;border-bottom:1px solid #1A1A1A;position:relative;overflow:hidden;">{{ m.anim }}<span style="position:absolute;top:14px;left:16px;font-family:'JetBrains Mono';font-size:11px;color:#5C5C5C;letter-spacing:.14em;">{{ m.num }}</span></div>
+            <div style="padding:24px 24px 26px;display:flex;flex-direction:column;flex:1;">
+              <div style="font-family:'Exo 2';font-style:italic;font-size:28px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">{{ m.name }}<sup style="font-size:12px;color:#FF4A0A;margin-left:3px;">™</sup></div>
+              <p style="font-size:14px;line-height:1.6;color:#A3A3A3;margin:12px 0 0;text-wrap:pretty;flex:1;">{{ m.desc }}</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid #1A1A1A;font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;">
+                <span style="color:#8A8A8A;">{{ m.count }}</span>
+                <span style="color:#FF4A0A;">Смотреть игры →</span>
+              </div>
             </div>
           </div>
         </sc-for>
       </div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-top:22px;">
-        <button onClick="{{ heroPrev }}" aria-label="Назад" style="width:46px;height:46px;border-radius:50%;border:1px solid #2E2E2E;background:transparent;color:#FFFFFF;cursor:pointer;font-size:18px;" style-hover="border-color:#F28C00;">←</button>
-        <div style="font-family:'Jost';font-size:15px;letter-spacing:.12em;color:#8A8A8A;"><span style="color:#FFFFFF;">{{ heroNum }}</span> / 03</div>
-        <button onClick="{{ heroNext }}" aria-label="Вперёд" style="width:46px;height:46px;border-radius:50%;border:1px solid #2E2E2E;background:transparent;color:#FFFFFF;cursor:pointer;font-size:18px;" style-hover="border-color:#F28C00;">→</button>
-      </div>
     </div>
   </section>
 
-  <!-- 04 · КАТАЛОГ ИГР -->
-  <section id="catalog" data-screen-label="04 Каталог" style="border-top:1px solid #161616;">
-    <div style="max-width:1280px;margin:0 auto;padding:80px clamp(18px,4vw,40px);">
+  <section id="catalog" data-screen-label="05 Каталог" style="position:relative;border-top:1px solid #1A1A1A;">
+    <div style="max-width:1320px;margin:0 auto;padding:88px clamp(18px,4vw,40px);">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;">
         <div>
-          <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>Каталог</div>
-          <h2 style="font-family:'Jost';font-weight:300;font-size:40px;margin:12px 0 0;color:#FFFFFF;">Все игры</h2>
+          <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>Каталог</div>
+          <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(36px,4.4vw,60px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">{{ catTitle }}</h2>
         </div>
-        <div style="display:flex;align-items:center;gap:10px;background:#0D0D0D;border:1px solid #262626;border-radius:999px;padding:0 18px;width:min(320px,100%);">
-          <span style="color:#6E6E6E;">⌕</span>
-          <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Поиск по названию" style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:#F2F2F2;font-family:'Manrope';font-size:14px;padding:13px 0;">
+        <div style="display:flex;align-items:center;gap:10px;background:#0A0A0A;border:1px solid #262626;padding:0 18px;width:min(340px,100%);" style-focus-within="border-color:#FF4A0A;">
+          <span style="color:#6B6B6B;">⌕</span>
+          <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Поиск по названию" style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:#F2F2F2;font-family:'Golos Text';font-size:14px;padding:14px 0;">
         </div>
       </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:28px;">
         <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
-          <button onClick="{{ f.pick }}" style="font-family:'Manrope';font-size:13px;font-weight:600;padding:10px 18px;border-radius:999px;cursor:pointer;background:{{ f.bg }};color:{{ f.ink }};border:1px solid {{ f.line }};transition:all .2s;">{{ f.label }}</button>
+          <button onClick="{{ f.pick }}" style="font-family:'Golos Text';font-size:13px;font-weight:600;padding:10px 18px;cursor:pointer;background:{{ f.bg }};color:{{ f.ink }};border:1px solid {{ f.line }};transition:all .2s;">{{ f.label }}</button>
         </sc-for>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px;margin-top:30px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;">
+        <span style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#6B6B6B;margin-right:6px;">Механика</span>
+        <sc-for list="{{ mechFilters }}" as="f" hint-placeholder-count="4">
+          <button onClick="{{ f.pick }}" style="display:flex;align-items:center;gap:8px;font-family:'Golos Text';font-size:13px;font-weight:600;padding:10px 16px;cursor:pointer;background:{{ f.bg }};color:{{ f.ink }};border:1px solid {{ f.line }};box-shadow:{{ f.glow }};transition:all .25s;"><span style="width:6px;height:6px;transform:rotate(45deg);background:{{ f.dot }};"></span>{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px;margin-top:32px;">
         <sc-for list="{{ catalog }}" as="g" hint-placeholder-count="6">
-          <div onClick="{{ g.open }}" style="border-radius:18px;overflow:hidden;background:#0D0D0D;border:1px solid rgba(255,178,30,.16);cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s;" style-hover="transform:translateY(-6px);border-color:{{ g.c }};box-shadow:0 20px 50px -20px {{ g.c }};">
-            <div style="position:relative;aspect-ratio:16/10;">
-              <image-slot id="{{ g.slot }}" src="{{ g.land }}" shape="rect" placeholder="{{ g.name }} — обложка"></image-slot>
+          <div onClick="{{ g.open }}" onMouseEnter="{{ g.vIn }}" onMouseLeave="{{ g.vOut }}" style="position:relative;overflow:hidden;background:#050505;border:1px solid #1F1F1F;cursor:pointer;transition:background .3s,border-color .3s,transform .3s;" style-hover="background:#0D0D0D;border-color:#FF4A0A;transform:translateY(-3px);">
+            <div style="position:relative;aspect-ratio:16/10;overflow:hidden;background:#0A0A0A;">
+              <image-slot id="{{ g.slot }}" src="{{ g.land }}" shape="rect" placeholder="{{ g.name }} — постер видео"></image-slot>
+              <sc-if value="{{ g.hasVideo }}" hint-placeholder-val="{{ false }}">
+                <video src="{{ g.video }}" preload="none" loop="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;pointer-events:none;"></video>
+              </sc-if>
+              <span style="position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;background:rgba(0,0,0,.75);color:#F2F2F2;pointer-events:none;"><span style="width:0;height:0;border-left:7px solid #FF4A0A;border-top:4px solid transparent;border-bottom:4px solid transparent;"></span>Превью</span>
               <sc-if value="{{ g.badge }}" hint-placeholder-val="{{ false }}">
-                <span style="position:absolute;top:12px;left:12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:rgba(0,0,0,.75);color:{{ g.c }};pointer-events:none;">{{ g.badge }}</span>
+                <span style="position:absolute;top:14px;left:14px;font-family:'Exo 2';font-style:italic;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 14px;background:{{ g.badgeBg }};color:#000;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);pointer-events:none;">{{ g.badge }}</span>
               </sc-if>
             </div>
-            <div style="padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px;">
+            <div style="padding:20px 22px 22px;display:flex;flex-direction:column;gap:16px;">
               <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;">
-                <div style="font-family:'Jost';font-size:21px;font-weight:600;color:#FFFFFF;">{{ g.name }}</div>
-                <div style="font-size:12px;font-weight:600;color:{{ g.c }};white-space:nowrap;">{{ g.mech }}</div>
+                <div style="font-family:'Exo 2';font-style:italic;font-size:22px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">{{ g.name }}</div>
+                <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:500;letter-spacing:.08em;color:#FF4A0A;white-space:nowrap;">{{ g.mech }}</div>
               </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px;color:#8A8A8A;">
-                <div>RTP<div style="font-family:'Jost';font-size:16px;color:#F2F2F2;margin-top:3px;">{{ g.rtp }}</div></div>
-                <div>Макс. выигрыш<div style="font-family:'Jost';font-size:16px;color:#F2F2F2;margin-top:3px;">{{ g.max }}</div></div>
-                <div>Волатильность
-                  <div style="display:flex;gap:3px;margin-top:9px;">
-                    <sc-for list="{{ g.segs }}" as="sg" hint-placeholder-count="5"><span style="flex:1;height:5px;border-radius:2px;background:{{ sg.bg }};"></span></sc-for>
-                  </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:#7A7A7A;">
+                <div>RTP<div style="font-family:'JetBrains Mono';font-size:15px;font-weight:700;color:#F2F2F2;margin-top:4px;">{{ g.rtp }}</div></div>
+                <div>Макс. выигрыш<div style="font-family:'JetBrains Mono';font-size:15px;font-weight:700;color:#F2F2F2;margin-top:4px;">{{ g.max }}</div></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:14px;border-top:1px solid #161616;font-size:12px;color:#7A7A7A;">
+                <span>Волатильность</span>
+                <div style="display:flex;gap:4px;align-items:flex-end;">
+                  <sc-for list="{{ g.segs }}" as="sg" hint-placeholder-count="5"><img src="assets/flame-ico.png" alt="" style="width:20px;height:19px;display:block;opacity:{{ sg.op }};filter:{{ sg.f }};"></sc-for>
                 </div>
               </div>
             </div>
@@ -210,418 +311,373 @@
         </sc-for>
       </div>
       <sc-if value="{{ catalogEmpty }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:20px;padding:56px 24px;border:1px dashed #2E2E2E;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
-          <img src="assets/brand/emblem.png" alt="" style="width:80px;opacity:.35;">
-          <div style="font-family:'Jost';font-size:20px;color:#FFFFFF;">Ничего не нашлось</div>
-          <div style="font-size:14px;color:#8A8A8A;">По запросу «{{ query }}» игр нет. Проверьте написание или сбросьте фильтры.</div>
-          <button onClick="{{ resetCatalog }}" style="margin-top:6px;font-family:'Manrope';font-size:13px;font-weight:600;padding:10px 18px;border-radius:999px;border:1px solid #2E2E2E;background:transparent;color:#F2F2F2;cursor:pointer;">Сбросить</button>
+        <div style="margin-top:20px;padding:60px 24px;border:1px dashed #333333;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+          <img src="assets/flame-mono.png" alt="" style="width:70px;opacity:.25;">
+          <div style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:22px;color:#FFFFFF;margin-top:8px;">Ничего не нашлось</div>
+          <div style="font-size:14px;color:#8A8A8A;">Под выбранные фильтры игр нет. Проверьте запрос или сбросьте фильтры.</div>
+          <button onClick="{{ resetCatalog }}" style="margin-top:6px;font-family:'Golos Text';font-size:13px;font-weight:600;padding:10px 18px;border:1px solid #333333;background:transparent;color:#F2F2F2;cursor:pointer;" style-hover="border-color:#FF4A0A;">Сбросить</button>
         </div>
       </sc-if>
     </div>
   </section>
 
-  <!-- 05 · МЕХАНИКИ -->
-  <section id="mechanics" data-screen-label="05 Механики" style="border-top:1px solid #161616;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(242,140,0,.06),transparent 70%);">
-    <div style="max-width:1280px;margin:0 auto;padding:80px clamp(18px,4vw,40px);">
-      <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>Фирменные механики</div>
-      <h2 style="font-family:'Jost';font-weight:300;font-size:40px;margin:12px 0 0;color:#FFFFFF;">Три источника света</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px;margin-top:34px;">
-        <sc-for list="{{ mechanics }}" as="m" hint-placeholder-count="3">
-          <div style="border-radius:20px;background:#0D0D0D;border:1px solid rgba(255,178,30,.16);overflow:hidden;display:flex;flex-direction:column;" style-hover="border-color:{{ m.c }};">
-            <div style="height:220px;display:flex;align-items:center;justify-content:center;background:#070707;border-bottom:1px solid #1A1A1A;position:relative;overflow:hidden;">{{ m.anim }}</div>
-            <div style="padding:22px 22px 26px;">
-              <div style="font-family:'Jost';font-size:24px;font-weight:600;color:#FFFFFF;">{{ m.name }}<sup style="font-size:12px;color:{{ m.c }};margin-left:2px;">™</sup></div>
-              <p style="font-size:14px;line-height:1.6;color:#A6A6A6;margin:10px 0 0;">{{ m.desc }}</p>
+  <section id="roadmap" data-screen-label="06 Следующий релиз" style="position:relative;overflow:hidden;border-top:1px solid #1A1A1A;">
+    <div style="position:absolute;left:-10%;top:10%;width:70%;height:90%;background:radial-gradient(ellipse at 30% 50%,rgba(255,45,138,.08),transparent 60%);pointer-events:none;"></div>
+    <div style="position:relative;max-width:1320px;margin:0 auto;padding:88px clamp(18px,4vw,40px);">
+      <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>Следующий релиз</div>
+      <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(36px,4.4vw,60px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">Скоро загорится</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,4vw,56px);margin-top:40px;align-items:stretch;">
+        <div ref="{{ rvRef }}" onPointerMove="{{ onRvMove }}" onPointerLeave="{{ onRvLeave }}" style="position:relative;width:100%;min-width:0;aspect-ratio:16/11;overflow:hidden;background:#000;border:1px solid #1F1F1F;cursor:crosshair;touch-action:pan-y;--mx:50%;--my:50%;clip-path:polygon(0 0,calc(100% - 30px) 0,100% 30px,100% 100%,30px 100%,0 calc(100% - 30px));">
+          <img src="{{ teaser.src }}" alt="" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.13) grayscale(.75) blur(2px);transform:scale(1.04);">
+          <img src="{{ teaser.src }}" alt="Boom Shaft — тизер" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;-webkit-mask-image:radial-gradient(circle 160px at var(--mx) var(--my),#000 20%,transparent 72%);mask-image:radial-gradient(circle 160px at var(--mx) var(--my),#000 20%,transparent 72%);">
+          <div style="position:absolute;left:var(--mx);top:var(--my);width:360px;height:360px;margin:-180px 0 0 -180px;border-radius:50%;background:radial-gradient(circle,rgba(255,150,60,.22),rgba(255,45,138,.08) 40%,transparent 62%);mix-blend-mode:screen;pointer-events:none;"></div>
+          <div style="position:absolute;left:var(--mx);top:var(--my);width:14px;height:14px;margin:-7px 0 0 -7px;border:1px solid rgba(255,255,255,.6);transform:rotate(45deg);pointer-events:none;"></div>
+          <span style="position:absolute;top:18px;left:18px;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:7px 12px;background:rgba(0,0,0,.7);border:1px solid #333333;color:#F2F2F2;"><span style="width:6px;height:6px;background:#FF4A0A;transform:rotate(45deg);animation:stagepulse 1.4s infinite;"></span>Засекречено</span>
+          <span style="position:absolute;left:18px;bottom:18px;font-size:12px;color:#B5B5B5;background:rgba(0,0,0,.6);padding:6px 10px;">{{ rvHint }}</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:22px;justify-content:center;min-width:0;">
+          <div>
+            <div style="font-family:'JetBrains Mono';font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#FF4A0A;overflow-wrap:anywhere;">{{ teaser.date }} · {{ teaser.mech }}</div>
+            <div style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(34px,5.6vw,80px);line-height:.9;color:#FFFFFF;margin-top:10px;overflow-wrap:anywhere;">{{ teaser.name }}</div>
+            <p style="font-size:15px;line-height:1.65;color:#A3A3A3;margin:14px 0 0;max-width:48ch;text-wrap:pretty;">{{ teaser.desc }}</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(4px,1vw,8px);">
+            <sc-for list="{{ countdown }}" as="cd" hint-placeholder-count="4">
+              <div style="min-width:0;background:#0A0A0A;border:1px solid #1F1F1F;padding:14px 2px 12px;text-align:center;">
+                <div style="font-family:'JetBrains Mono';font-weight:700;font-size:clamp(20px,3vw,36px);color:#FFFFFF;line-height:1;">{{ cd.v }}</div>
+                <div style="font-size:clamp(9px,1.2vw,11px);color:#7A7A7A;margin-top:8px;text-transform:uppercase;letter-spacing:.02em;overflow-wrap:anywhere;">{{ cd.l }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,110px),1fr));gap:14px 6px;">
+              <sc-for list="{{ stages }}" as="st" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div style="position:relative;height:4px;background:#1F1F1F;overflow:hidden;"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ st.w }};background:linear-gradient(90deg,#FF4A0A,#FF2D8A);animation:{{ st.anim }};"></div></div>
+                  <div style="font-size:12px;font-weight:600;line-height:1.3;color:{{ st.ink }};text-wrap:pretty;">{{ st.label }}</div>
+                </div>
+              </sc-for>
             </div>
           </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:1px;background:#1F1F1F;border:1px solid #1F1F1F;">
+            <div style="background:#050505;padding:14px 16px;font-size:12px;color:#7A7A7A;">Сетка<div style="font-family:'JetBrains Mono';font-weight:700;font-size:16px;color:#F2F2F2;margin-top:4px;">{{ teaser.grid }}</div></div>
+            <div style="background:#050505;padding:14px 16px;font-size:12px;color:#7A7A7A;">Макс. выигрыш<div style="font-family:'JetBrains Mono';font-weight:700;font-size:16px;color:#F2F2F2;margin-top:4px;">{{ teaser.max }}</div></div>
+            <div style="background:#050505;padding:14px 16px;font-size:12px;color:#7A7A7A;">RTP<div style="font-family:'JetBrains Mono';font-weight:700;font-size:16px;color:#F2F2F2;margin-top:4px;filter:blur(5px);user-select:none;">96.9%</div></div>
+            <div style="background:#050505;padding:14px 16px;font-size:12px;color:#7A7A7A;">Волатильность
+              <div style="display:flex;gap:3px;margin-top:6px;"><sc-for list="{{ teaser.segs }}" as="sg" hint-placeholder-count="5"><img src="assets/flame-ico.png" alt="" style="width:17px;height:16px;display:block;opacity:{{ sg.op }};filter:{{ sg.f }};"></sc-for></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <input value="{{ rmEmail }}" onInput="{{ onRmEmail }}" placeholder="E-mail — сообщим первыми" style="flex:1 1 220px;min-width:0;padding:16px 18px;border:1px solid {{ rmLine }};background:#0A0A0A;color:#F2F2F2;font-family:'Golos Text';font-size:15px;outline:none;" style-focus="border-color:#FF4A0A;">
+            <button onClick="{{ onRmSub }}" style="font-family:'Exo 2';font-style:italic;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;flex:1 0 auto;padding:16px 28px;border:none;cursor:pointer;background:{{ rmBtnBg }};color:#000;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);" style-hover="background:#FFFFFF;">{{ rmBtn }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" ref="{{ ctRef }}" onPointerMove="{{ onCtMove }}" data-screen-label="07 Контакты" style="position:relative;overflow:hidden;border-top:1px solid #1A1A1A;padding:120px clamp(18px,4vw,40px) 110px;text-align:center;--cx:50%;--cy:40%;">
+    <div style="position:absolute;left:50%;top:150px;width:1700px;height:1700px;margin:-850px 0 0 -850px;background:repeating-conic-gradient(from 90deg,transparent 0deg 10deg,rgba(255,74,10,.2) 10deg 10.5deg);-webkit-mask:radial-gradient(circle,#000 0%,transparent 50%);mask:radial-gradient(circle,#000 0%,transparent 50%);animation:spin 90s linear infinite;pointer-events:none;"></div>
+    <div style="position:absolute;left:var(--cx);top:var(--cy);width:700px;height:700px;margin:-350px 0 0 -350px;border-radius:50%;background:radial-gradient(circle,rgba(255,120,30,.16),rgba(255,45,138,.07) 40%,transparent 65%);pointer-events:none;transition:left .25s ease-out,top .25s ease-out;"></div>
+    {{ embersEl }}
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+      <img src="assets/flame.png" alt="" style="width:96px;display:block;filter:drop-shadow(0 0 24px rgba(255,90,30,.55));animation:glowpulse 3s ease-in-out infinite;">
+      <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(36px,5.4vw,76px);line-height:.95;margin:30px auto 0;color:#FFFFFF;">Зажжём рынки вместе</h2>
+      <p style="font-size:16px;color:#B5B5B5;margin:18px auto 0;max-width:46ch;">Расскажите о своей платформе — пришлём демо и план запуска.</p>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:32px;flex-wrap:wrap;">
+        <input value="{{ cEmail }}" onInput="{{ onCEmail }}" placeholder="Ваш e-mail" style="width:300px;max-width:100%;padding:17px 22px;border:1px solid {{ cLine }};background:rgba(10,10,10,.85);color:#F2F2F2;font-family:'Golos Text';font-size:15px;outline:none;" style-focus="border-color:#FF4A0A;">
+        <button onClick="{{ onContact }}" style="font-family:'Exo 2';font-style:italic;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:17px 36px;border:none;cursor:pointer;background:#FF4A0A;color:#000;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);" style-hover="background:#FFFFFF;">{{ contactLabel }}</button>
+      </div>
+      <sc-if value="{{ cErr }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="font-size:13px;color:#FFC9B3;margin-top:12px;">Проверьте адрес почты.</div>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:14px;margin-top:40px;font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#6B6B6B;"><span style="width:40px;height:1px;background:#333333;"></span>или напишите в мессенджер<span style="width:40px;height:1px;background:#333333;"></span></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;">
+        <sc-for list="{{ messengers }}" as="ms" hint-placeholder-count="4">
+          <a href="{{ ms.href }}" target="_blank" rel="noopener" aria-label="{{ ms.label }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;width:92px;padding:16px 8px 12px;border:1px solid #2A2A2A;background:rgba(10,10,10,.8);color:#F2F2F2;transition:border-color .2s,color .2s,transform .2s;" style-hover="border-color:#FF4A0A;color:#FF4A0A;transform:translateY(-3px);">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ ms.d }}"></path></svg>
+            <span style="font-size:12px;font-weight:600;">{{ ms.label }}</span>
+          </a>
         </sc-for>
       </div>
     </div>
   </section>
 
-  <!-- 06 · СЛАЙДЕР РОАДМАПА -->
-  <section id="roadmap" data-screen-label="06 Роадмап" style="border-top:1px solid #161616;">
-    <div style="max-width:1280px;margin:0 auto;padding:80px clamp(18px,4vw,40px) 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-      <div>
-        <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>План релизов</div>
-        <h2 style="font-family:'Jost';font-weight:300;font-size:40px;margin:12px 0 0;color:#FFFFFF;">Роадмап</h2>
-        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#8A8A8A;">
-          <sc-for list="{{ statusLegend }}" as="sl" hint-placeholder-count="4">
-            <span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:{{ sl.c }};"></span>{{ sl.label }}</span>
-          </sc-for>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;">
-        <button onClick="{{ rmPrev }}" aria-label="Назад" style="width:46px;height:46px;border-radius:50%;border:1px solid #2E2E2E;background:transparent;color:#FFFFFF;cursor:pointer;font-size:18px;" style-hover="border-color:#F28C00;">←</button>
-        <button onClick="{{ rmNext }}" aria-label="Вперёд" style="width:46px;height:46px;border-radius:50%;border:1px solid #2E2E2E;background:transparent;color:#FFFFFF;cursor:pointer;font-size:18px;" style-hover="border-color:#F28C00;">→</button>
-      </div>
-    </div>
-    <div ref="{{ rmRef }}" onScroll="{{ onRmScroll }}" onPointerDown="{{ onRmDown }}" onPointerMove="{{ onRmMove }}" style="display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;padding:0 clamp(18px,4vw,40px) 10px max(clamp(18px,4vw,40px),calc((100vw - 1280px)/2 + 40px));cursor:grab;user-select:none;">
-      <sc-for list="{{ roadmap }}" as="r" hint-placeholder-count="5">
-        <div style="flex:none;width:{{ r.w }};border-radius:20px;background:#0D0D0D;border:1px solid {{ r.line }};overflow:hidden;display:flex;flex-direction:column;">
-          <div style="position:relative;height:{{ r.coverH }};border-bottom:1px solid #1A1A1A;">
-            <sc-if value="{{ r.hasCover }}" hint-placeholder-val="{{ true }}">
-              <image-slot id="{{ r.slot }}" src="{{ r.src }}" shape="rect" placeholder="{{ r.name }}"></image-slot>
-            </sc-if>
-            <sc-if value="{{ r.untitled }}" hint-placeholder-val="{{ false }}">
-              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#0D0D0D 0 10px,#111111 10px 20px);"><img src="assets/brand/emblem.png" alt="" style="width:90px;opacity:.25;"></div>
-            </sc-if>
-          </div>
-          <div style="padding:18px 20px 22px;display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
-              <span style="font-family:'Jost';font-size:14px;font-weight:600;color:#BDBDBD;">{{ r.date }}</span>
-              <span style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:{{ r.c }};background:{{ r.chipBg }};padding:5px 10px;border-radius:999px;"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.c }};"></span>{{ r.status }}</span>
-            </div>
-            <div style="font-family:'Jost';font-size:{{ r.nameSize }};font-weight:600;color:{{ r.nameInk }};">{{ r.name }}</div>
-            <div style="font-size:13px;color:#8A8A8A;">{{ r.mech }}</div>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-    <div style="max-width:1280px;margin:0 auto;padding:22px clamp(18px,4vw,40px) 80px;">
-      <div style="position:relative;height:3px;background:#1F1F1F;border-radius:2px;">
-        <div style="position:absolute;top:0;height:3px;left:{{ rmL }};width:{{ rmW }};border-radius:2px;background:linear-gradient(90deg,#FFE3A3,#FFB21E,#F28C00);box-shadow:0 0 10px rgba(242,140,0,.5);"></div>
-      </div>
-      <div style="font-size:12px;color:#6E6E6E;margin-top:10px;">Листайте стрелками, свайпом или колесом с зажатым Shift</div>
-    </div>
-  </section>
-
-  <!-- 07 · ПРОЖЕКТОР -->
-  <section id="spotlight" data-screen-label="07 Прожектор" style="border-top:1px solid #161616;">
-    <div style="max-width:1280px;margin:0 auto;padding:80px clamp(18px,4vw,40px);">
-      <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>Прожектор</div>
-      <h2 style="font-family:'Jost';font-weight:300;font-size:40px;margin:12px 0 0;color:#FFFFFF;">Промо-ролики релизов</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin-top:34px;">
-        <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
-          <div style="display:flex;flex-direction:column;gap:14px;">
-            <div style="position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(255,178,30,.16);background:#0D0D0D;">
-              <image-slot id="{{ v.slot }}" src="{{ v.src }}" shape="rect" placeholder="Кадр из {{ v.name }}"></image-slot>
-              <button onClick="{{ v.play }}" aria-label="Смотреть" style="position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.92);color:#000000;font-size:20px;padding-left:5px;box-shadow:0 0 0 8px rgba(255,255,255,.15),0 10px 30px rgba(0,0,0,.5);transition:transform .2s;" style-hover="transform:scale(1.08);">▶</button>
-              <span style="position:absolute;right:12px;bottom:12px;font-size:12px;font-weight:700;padding:4px 9px;border-radius:6px;background:rgba(0,0,0,.8);color:#F2F2F2;pointer-events:none;">{{ v.durLabel }}</span>
-            </div>
-            <div onClick="{{ v.play }}" style="cursor:pointer;">
-              <div style="font-family:'Jost';font-size:19px;font-weight:600;color:#FFFFFF;">{{ v.name }}</div>
-              <div style="font-size:13px;color:{{ v.c }};margin-top:4px;">{{ v.mech }}</div>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-
-  <!-- КОНТАКТЫ -->
-  <section id="contact" data-screen-label="Контакты" style="position:relative;overflow:hidden;border-top:1px solid #161616;padding:100px clamp(18px,4vw,40px) clamp(220px,24vw,340px);text-align:center;">
-    <img src="assets/brand/earth.png" alt="" aria-hidden="true" style="position:absolute;left:50%;bottom:-2px;width:max(1672px,116vw);transform:translateX(-50%);pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 28%);mask-image:linear-gradient(to bottom,transparent 0%,#000 28%);">
-    <div style="position:relative;">
-    <img src="assets/brand/emblem.png" alt="" style="width:240px;animation:breathe 3s ease-in-out infinite;">
-    <h2 style="font-family:'Jost';font-weight:300;font-size:clamp(30px,4vw,48px);line-height:1.1;margin:14px auto 0;color:#FFFFFF;">Зажжём рынки вместе</h2>
-    <p style="font-size:16px;color:#A6A6A6;margin:14px auto 0;max-width:46ch;">Расскажите о своей платформе — пришлём демо и план запуска.</p>
-    <div style="display:flex;gap:10px;justify-content:center;margin-top:28px;flex-wrap:wrap;">
-      <input placeholder="Ваш e-mail" style="width:280px;max-width:100%;padding:16px 22px;border-radius:999px;border:1px solid #2E2E2E;background:#0D0D0D;color:#F2F2F2;font-family:'Manrope';font-size:15px;outline:none;">
-      <button onClick="{{ onContact }}" style="font-family:'Jost';font-size:15px;font-weight:600;padding:16px 30px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(90deg,#FFB21E,#F28C00);color:#000000;">{{ contactLabel }}</button>
-    </div>
-    </div>
-  </section>
-
-  <footer style="border-top:1px solid #161616;">
-    <div style="max-width:1280px;margin:0 auto;padding:24px clamp(18px,4vw,40px);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
-      <img src="assets/brand/logo-full.png" alt="illuminator" style="height:56px;margin:-6px 0;display:block;">
-      <span style="font-size:12px;color:#6E6E6E;">18+ · Играйте ответственно</span>
-      <span style="margin-left:auto;font-size:12px;color:#6E6E6E;">© 2026 Illuminator</span>
+  <footer style="position:relative;border-top:1px solid #1A1A1A;background:#000;">
+    <div style="max-width:1320px;margin:0 auto;padding:30px clamp(18px,4vw,40px);display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+      <img src="assets/logo.png" alt="illuminator" style="height:34px;">
+      <nav style="display:flex;gap:22px;flex-wrap:wrap;font-size:13px;">
+        <a href="cabinet.html" style="color:#9A9A9A;" style-hover="color:#FFFFFF;">Кабинет оператора</a>
+        <a href="career.html" style="color:#9A9A9A;" style-hover="color:#FFFFFF;">Карьера</a>
+        <a href="#contact" style="color:#9A9A9A;" style-hover="color:#FFFFFF;">Контакты</a>
+      </nav>
+      <span style="font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6B6B6B;">18+ · Играйте ответственно</span>
+      <span style="margin-left:auto;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;color:#6B6B6B;">© 2026 Illuminator</span>
     </div>
   </footer>
 </div>
 
-<!-- 04 · Окно игры -->
 <sc-if value="{{ modalOn }}" hint-placeholder-val="{{ false }}">
-  <div data-screen-label="04 Окно игры" onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;">
-    <div onClick="{{ stop }}" style="position:relative;width:min(900px,100%);max-height:90vh;overflow:auto;background:#0D0D0D;border:1px solid #262626;border-radius:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));">
-      <div style="position:relative;min-height:300px;"><image-slot id="{{ mg.slotBig }}" src="{{ mg.land }}" shape="rect" placeholder="{{ mg.name }} — арт"></image-slot></div>
-      <div style="padding:30px 30px 32px;display:flex;flex-direction:column;gap:16px;">
-        <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:{{ mg.c }};">{{ mg.mech }}</div>
-        <div style="font-family:'Jost';font-size:34px;font-weight:600;color:#FFFFFF;line-height:1.1;">{{ mg.name }}</div>
-        <p style="font-size:14px;line-height:1.65;color:#A6A6A6;margin:0;">{{ mg.desc }}</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1F1F1F;border:1px solid #1F1F1F;border-radius:14px;overflow:hidden;">
-          <div style="background:#0D0D0D;padding:14px;font-size:12px;color:#8A8A8A;">RTP<div style="font-family:'Jost';font-size:18px;color:#F2F2F2;margin-top:4px;">{{ mg.rtp }}</div></div>
-          <div style="background:#0D0D0D;padding:14px;font-size:12px;color:#8A8A8A;">Макс. выигрыш<div style="font-family:'Jost';font-size:18px;color:#F2F2F2;margin-top:4px;">{{ mg.max }}</div></div>
-          <div style="background:#0D0D0D;padding:14px;font-size:12px;color:#8A8A8A;">Сетка<div style="font-family:'Jost';font-size:18px;color:#F2F2F2;margin-top:4px;">{{ mg.grid }}</div></div>
-          <div style="background:#0D0D0D;padding:14px;font-size:12px;color:#8A8A8A;">Релиз<div style="font-family:'Jost';font-size:18px;color:#F2F2F2;margin-top:4px;">{{ mg.release }}</div></div>
-        </div>
-        <div style="font-size:12px;color:#8A8A8A;">Волатильность
-          <div style="display:flex;gap:4px;margin-top:8px;"><sc-for list="{{ mg.segs }}" as="sg" hint-placeholder-count="5"><span style="flex:1;height:6px;border-radius:3px;background:{{ sg.bg }};"></span></sc-for></div>
-        </div>
-        <button onClick="{{ requestDemo }}" style="margin-top:6px;font-family:'Jost';font-size:15px;font-weight:600;padding:16px 28px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(90deg,#FFB21E,#F28C00);color:#000000;">{{ demoLabel }}</button>
-      </div>
-      <button onClick="{{ closeModal }}" aria-label="Закрыть" style="position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #2E2E2E;background:rgba(0,0,0,.8);color:#FFFFFF;cursor:pointer;font-size:18px;">✕</button>
-    </div>
-  </div>
-</sc-if>
-
-<!-- 07 · Плеер -->
-<sc-if value="{{ playerOn }}" hint-placeholder-val="{{ false }}">
-  <div data-screen-label="07 Плеер" style="position:fixed;inset:0;z-index:95;background:#000;display:flex;flex-direction:column;">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px clamp(16px,3vw,32px);gap:16px;">
-      <div>
-        <div style="font-family:'Jost';font-size:20px;font-weight:600;color:#FFFFFF;">{{ pv.name }}</div>
-        <div style="font-size:13px;color:{{ pv.c }};">{{ pv.mech }}</div>
-      </div>
-      <button onClick="{{ closePlayer }}" aria-label="Закрыть" style="width:46px;height:46px;border-radius:50%;border:1px solid #2E2E2E;background:transparent;color:#FFFFFF;cursor:pointer;font-size:18px;">✕</button>
-    </div>
-    <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:0 clamp(16px,3vw,32px);">
-      <div onClick="{{ togglePlay }}" style="position:relative;width:min(100%,calc((100vh - 200px) * 16 / 9));aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#0D0D0D;">
-        <image-slot id="{{ pv.slotBig }}" src="{{ pv.src }}" shape="rect" placeholder="Ролик {{ pv.name }}"></image-slot>
-        <sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);pointer-events:none;"><span style="width:84px;height:84px;border-radius:50%;background:rgba(255,255,255,.92);color:#000000;font-size:28px;display:flex;align-items:center;justify-content:center;padding-left:6px;">▶</span></div>
+  <div data-screen-label="05 Окно игры" onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;">
+    <div onClick="{{ stop }}" style="position:relative;width:min(920px,100%);max-height:90vh;overflow:auto;background:#0A0A0A;border:1px solid #262626;border-top:3px solid #FF4A0A;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));">
+      <div style="position:relative;min-height:300px;background:#050505;">
+        <image-slot id="{{ mg.slotBig }}" src="{{ mg.land }}" shape="rect" placeholder="{{ mg.name }} — постер видео"></image-slot>
+        <sc-if value="{{ mg.hasVideo }}" hint-placeholder-val="{{ false }}">
+          <video ref="{{ mvRef }}" src="{{ mg.video }}" loop="" controls="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;"></video>
         </sc-if>
       </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:16px;padding:20px clamp(16px,3vw,32px) 28px;">
-      <button onClick="{{ togglePlay }}" style="width:46px;height:46px;border-radius:50%;border:none;background:#FFFFFF;color:#000000;cursor:pointer;font-size:15px;flex:none;">{{ playIcon }}</button>
-      <div onClick="{{ onSeek }}" style="flex:1;height:20px;display:flex;align-items:center;cursor:pointer;">
-        <div style="position:relative;width:100%;height:4px;background:#2A2A2A;border-radius:2px;">
-          <div style="position:absolute;left:0;top:0;height:4px;width:{{ playPct }};border-radius:2px;background:linear-gradient(90deg,#FFB21E,#F28C00);"></div>
+      <div style="padding:32px 32px 34px;display:flex;flex-direction:column;gap:16px;">
+        <div style="font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#FF4A0A;">{{ mg.mech }}</div>
+        <div style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:38px;color:#FFFFFF;line-height:.95;">{{ mg.name }}</div>
+        <p style="font-size:14px;line-height:1.65;color:#A3A3A3;margin:0;">{{ mg.desc }}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#222222;border:1px solid #222222;">
+          <div style="background:#0A0A0A;padding:14px;font-size:12px;color:#7A7A7A;">RTP<div style="font-family:'JetBrains Mono';font-weight:700;font-size:17px;color:#F2F2F2;margin-top:4px;">{{ mg.rtp }}</div></div>
+          <div style="background:#0A0A0A;padding:14px;font-size:12px;color:#7A7A7A;">Макс. выигрыш<div style="font-family:'JetBrains Mono';font-weight:700;font-size:17px;color:#F2F2F2;margin-top:4px;">{{ mg.max }}</div></div>
+          <div style="background:#0A0A0A;padding:14px;font-size:12px;color:#7A7A7A;">Сетка<div style="font-family:'JetBrains Mono';font-weight:700;font-size:17px;color:#F2F2F2;margin-top:4px;">{{ mg.grid }}</div></div>
+          <div style="background:#0A0A0A;padding:14px;font-size:12px;color:#7A7A7A;">Релиз<div style="font-family:'JetBrains Mono';font-weight:700;font-size:17px;color:#F2F2F2;margin-top:4px;">{{ mg.release }}</div></div>
         </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#7A7A7A;">Волатильность
+          <div style="display:flex;gap:4px;"><sc-for list="{{ mg.segs }}" as="sg" hint-placeholder-count="5"><img src="assets/flame-ico.png" alt="" style="width:22px;height:21px;display:block;opacity:{{ sg.op }};filter:{{ sg.f }};"></sc-for></div>
+        </div>
+        <button onClick="{{ requestDemo }}" style="margin-top:6px;font-family:'Exo 2';font-style:italic;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:17px 28px;border:none;cursor:pointer;background:#FF4A0A;color:#000;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);" style-hover="background:#FFFFFF;">{{ demoLabel }}</button>
       </div>
-      <span style="font-family:'Jost';font-size:14px;color:#BDBDBD;white-space:nowrap;">{{ timeLabel }}</span>
+      <button onClick="{{ closeModal }}" aria-label="Закрыть" style="position:absolute;top:14px;right:14px;width:44px;height:44px;border:1px solid #333333;background:rgba(0,0,0,.85);color:#FFFFFF;cursor:pointer;font-size:18px;" style-hover="border-color:#FF4A0A;">✕</button>
     </div>
   </div>
 </sc-if>
-
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;introPreview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;live&quot;,&quot;0%&quot;,&quot;40%&quot;,&quot;срыв пламени&quot;,&quot;100%&quot;,&quot;уход кадра&quot;,&quot;выкл&quot;],&quot;default&quot;:&quot;live&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;01 Заставка&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;introPreview&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;live&quot;,&quot;закрыта&quot;,&quot;открыта&quot;,&quot;огонь&quot;,&quot;выкл&quot;],&quot;default&quot;:&quot;live&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;01 Заставка&quot;},&quot;videoPreviews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Каталог&quot;}}">
+const ACC = '#FF4A0A';
 const GAMES = [
-  { id: 'volt', name: 'Volt Coins', mech: 'SwarmWays™', rtp: '96.4%', max: 'x5 000', vol: 4, tags: ['new', 'high'], grid: '5×3', release: 'Октябрь 2026', c: '#FFB21E', desc: 'Электрические монеты собираются роем: каждая связка заряжает соседние ячейки и поднимает множитель.' },
-  { id: 'joker', name: 'Neon Joker Spins', mech: 'Floodlight™', rtp: '96.1%', max: 'x4 000', vol: 3, tags: ['new'], grid: '5×3', release: 'Ноябрь 2026', c: '#FFE3A3', desc: 'Неоновый джокер ведёт луч по барабанам — освещённые символы становятся дикими до конца спина.' },
-  { id: 'savannah', name: 'Savannah Kings', mech: 'Blackout™', rtp: '96.2%', max: 'x10 000', vol: 5, tags: ['new', 'high'], grid: '6×4', release: 'Декабрь 2026', c: '#F28C00', desc: 'Закат над саванной гасит поле ячейка за ячейкой. Последний король под солнцем умножает выигрыш.' },
-  { id: 'olympus', name: 'Olympus Thunder', mech: 'Floodlight™', rtp: '96.3%', max: 'x15 000', vol: 5, tags: ['high'], grid: '6×5', release: 'Январь 2027', c: '#FFE3A3', desc: 'Молнии Зевса бьют по барабанам и превращают символы на своём пути в дикие.' },
-  { id: 'sugar', name: 'Sugar Blast', mech: 'SwarmWays™', rtp: '96.5%', max: 'x5 000', vol: 3, tags: [], grid: '7×7', release: 'Февраль 2027', c: '#FF6A3D', desc: 'Конфеты взрываются кластерами, а рой сладостей тянет за собой новые связки.' },
-  { id: 'koi', name: 'Golden Koi Fortune', mech: 'Blackout™', rtp: '96.6%', max: 'x3 000', vol: 2, tags: [], grid: '5×3', release: 'Март 2027', c: '#FFE3A3', desc: 'Пруд темнеет, и только золотой карп остаётся на свету — он и приносит главный приз.' },
-  { id: 'boom', name: 'Boom Shaft', mech: 'Blackout™', rtp: '96.2%', max: 'x12 000', vol: 5, tags: ['soon', 'high'], grid: '6×5', release: 'Q2 2027', c: '#F28C00', desc: 'Шахта, динамит и гаснущие фонари: последний огонь в забое взрывает множитель.' },
-  { id: 'rocket', name: 'Rocket Rush 243', mech: 'SwarmWays™', rtp: '96.3%', max: 'x6 000', vol: 4, tags: ['soon', 'high'], grid: '5×3 · 243 линии', release: 'Q2 2027', c: '#FF6A3D', desc: '243 способа выигрыша и ракетный рой, который разгоняет каждую связку.' },
-  { id: 'pots', name: 'Pots of Gold', mech: 'Floodlight™', rtp: '96.5%', max: 'x2 500', vol: 2, tags: ['soon'], grid: '5×3', release: 'Q3 2027', c: '#FFD27A', desc: 'Радуга-прожектор находит горшки с золотом и делает их дикими.' },
-  { id: 'samba', name: 'Samba Goal', mech: 'SwarmWays™', rtp: '96.4%', max: 'x4 000', vol: 3, tags: ['soon'], grid: '5×4', release: 'Q3 2027', c: '#FFB21E', desc: 'Футбольный карнавал: мяч собирает рой символов и забивает в ворота множителя.' }
+  { id: 'volt', name: 'Volt Coins', mech: 'SwarmWays™', rtp: '96.4%', max: 'x5 000', vol: 4, tags: ['new', 'high'], grid: '5×3', release: 'Октябрь 2026', desc: 'Электрические монеты собираются роем: каждая связка заряжает соседние ячейки и поднимает множитель.' },
+  { id: 'joker', name: 'Neon Joker Spins', mech: 'Floodlight™', rtp: '96.1%', max: 'x4 000', vol: 3, tags: ['new'], grid: '5×3', release: 'Ноябрь 2026', desc: 'Неоновый джокер ведёт луч по барабанам — освещённые символы становятся дикими до конца спина.' },
+  { id: 'savannah', name: 'Savannah Kings', mech: 'Blackout™', rtp: '96.2%', max: 'x10 000', vol: 5, tags: ['new', 'high'], grid: '6×4', release: 'Декабрь 2026', desc: 'Закат над саванной гасит поле ячейка за ячейкой. Последний король под солнцем умножает выигрыш.' },
+  { id: 'olympus', name: 'Olympus Thunder', mech: 'Floodlight™', rtp: '96.3%', max: 'x15 000', vol: 5, tags: ['high'], grid: '6×5', release: 'Январь 2027', desc: 'Молнии Зевса бьют по барабанам и превращают символы на своём пути в дикие.' },
+  { id: 'sugar', name: 'Sugar Blast', mech: 'SwarmWays™', rtp: '96.5%', max: 'x5 000', vol: 3, tags: [], grid: '7×7', release: 'Февраль 2027', desc: 'Конфеты взрываются кластерами, а рой сладостей тянет за собой новые связки.' },
+  { id: 'koi', name: 'Golden Koi Fortune', mech: 'Blackout™', rtp: '96.6%', max: 'x3 000', vol: 2, tags: [], grid: '5×3', release: 'Март 2027', desc: 'Пруд темнеет, и только золотой карп остаётся на свету — он и приносит главный приз.' },
+  { id: 'boom', name: 'Boom Shaft', mech: 'Blackout™', rtp: '96.2%', max: 'x12 000', vol: 5, tags: ['soon', 'high'], grid: '6×5', release: 'Q2 2027', desc: 'Шахта, динамит и гаснущие фонари: последний огонь в забое взрывает множитель.' },
+  { id: 'rocket', name: 'Rocket Rush 243', mech: 'SwarmWays™', rtp: '96.3%', max: 'x6 000', vol: 4, tags: ['soon', 'high'], grid: '5×3 · 243 линии', release: 'Q2 2027', desc: '243 способа выигрыша и ракетный рой, который разгоняет каждую связку.' },
+  { id: 'pots', name: 'Pots of Gold', mech: 'Floodlight™', rtp: '96.5%', max: 'x2 500', vol: 2, tags: ['soon'], grid: '5×3', release: 'Q3 2027', desc: 'Радуга-прожектор находит горшки с золотом и делает их дикими.' },
+  { id: 'samba', name: 'Samba Goal', mech: 'SwarmWays™', rtp: '96.4%', max: 'x4 000', vol: 3, tags: ['soon'], grid: '5×4', release: 'Q3 2027', desc: 'Футбольный карнавал: мяч собирает рой символов и забивает в ворота множителя.' }
 ];
-const STATUS = {
-  ready: { label: 'Готова к релизу', c: '#FFD27A' },
-  cert: { label: 'На сертификации', c: '#FFB21E' },
-  prod: { label: 'В производстве', c: '#FF6A3D' },
-  concept: { label: 'В концепте', c: '#FFE3A3' }
+const MECHS = ['SwarmWays™', 'Floodlight™', 'Blackout™'];
+const TEASER = { id: 'boom', target: new Date('2027-04-15T12:00:00+03:00').getTime(), stage: 1 };
+const LAND = id => `assets/games/${id}-l.jpg`, PORT = id => `assets/games/${id}-p.jpg`, VIDEO = id => `assets/video/${id}.mp4`;
+const pad2 = n => String(n).padStart(2, '0');
+const plural = (n, a, b, c) => { const m10 = n % 10, m100 = n % 100; return m10 === 1 && m100 !== 11 ? a : m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20) ? b : c; };
+const ICONS = {
+  tg: 'M21.5 4.5 2.8 11.6c-.9.4-.9 1.4.1 1.7l4.7 1.5 1.8 5.4c.3.8 1.1.9 1.7.4l2.6-2.4 4.8 3.5c.8.6 1.8.2 2-.8l3.1-14.6c.2-1-.7-1.6-1.6-1.3zM7.6 14.8l9.9-6.3-7.6 7.4',
+  wa: 'M3.5 20.5l1.3-4.3A8.5 8.5 0 1 1 8 19.4zM9 8.3c-.3.9 0 2.6 1.6 4.2s3.4 2 4.3 1.6l.9-1.3-1.9-1-.9.8c-.8-.3-1.8-1.2-2.1-2.1l.8-.9-1-1.9z',
+  li: 'M4 3.5h16a.5.5 0 0 1 .5.5v16a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5zM8 10.5V17M8 7.3v.2M12 17v-6.5M12 13.5c0-2.6 4.5-3 4.5 0V17',
+  em: 'M3.5 5.5h17v13h-17zM3.5 6.5 12 13l8.5-6.5'
 };
-const ROAD = [
-  { date: 'Октябрь 2026', name: 'Volt Coins', mech: 'SwarmWays™', st: 'ready', slot: 'rm4-volt' },
-  { date: 'Ноябрь 2026', name: 'Neon Joker Spins', mech: 'Floodlight™', st: 'cert', slot: 'rm4-joker' },
-  { date: 'Декабрь 2026', name: 'Savannah Kings', mech: 'Blackout™', st: 'cert', slot: 'rm4-savannah' },
-  { date: 'Январь 2027', name: 'Olympus Thunder', mech: 'Floodlight™', st: 'prod', slot: 'rm4-olympus' },
-  { date: 'Q2 2027', name: 'Boom Shaft', mech: 'Blackout™', st: 'concept', slot: 'rm4-boom' },
-  { date: 'Q4 2027', name: 'Без названия', mech: 'SwarmWays™', st: 'concept', untitled: true }
-];
-const VIDEOS = [
-  { id: 'v-volt', name: 'Volt Coins', mech: 'SwarmWays™', dur: 48, c: '#FFB21E' },
-  { id: 'v-joker', name: 'Neon Joker Spins', mech: 'Floodlight™', dur: 62, c: '#FFE3A3' },
-  { id: 'v-savannah', name: 'Savannah Kings', mech: 'Blackout™', dur: 55, c: '#F28C00' }
-];
-const LAND = id => `assets/games/${id}-l.jpg`, PORT = id => `assets/games/${id}-p.jpg`;
-const fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
-
-function buildSky() {
-  const E = React.createElement;
-  let seed = 7; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const stars = Array.from({ length: 110 }, (_, i) => {
-    const big = r() > 0.86, sz = big ? 2.4 : 1 + r() * 0.9, gold = r() > 0.72;
-    return E('span', { key: 's' + i, style: { position: 'absolute', left: (r() * 100).toFixed(2) + '%', top: (r() * 100).toFixed(2) + '%', width: sz, height: sz, borderRadius: '50%', background: gold ? '#FFE3A3' : '#FFFFFF', boxShadow: big ? '0 0 6px 1px ' + (gold ? 'rgba(255,178,30,.8)' : 'rgba(255,255,255,.7)') : 'none', opacity: 0.25, animation: `twinkle ${(2.4 + r() * 4).toFixed(2)}s ease-in-out ${(r() * 6).toFixed(2)}s infinite` } });
-  });
-  const flares = [[12, 22], [78, 14], [88, 64], [24, 76], [55, 40]].map(([x, y], i) => E('span', { key: 'f' + i, style: { position: 'absolute', left: x + '%', top: y + '%', width: 18, height: 18, marginLeft: -9, marginTop: -9, background: 'radial-gradient(circle,#FFFFFF 0,rgba(255,178,30,.6) 12%,transparent 40%),linear-gradient(90deg,transparent 0,rgba(255,227,163,.9) 50%,transparent 100%) center/100% 1px no-repeat,linear-gradient(180deg,transparent 0,rgba(255,227,163,.9) 50%,transparent 100%) center/1px 100% no-repeat', animation: `flare ${(5 + i * 1.3).toFixed(1)}s ease-in-out ${(i * 1.7).toFixed(1)}s infinite` } }));
-  const shooters = [0, 1].map(i => E('span', { key: 'c' + i, style: { position: 'absolute', left: i ? '55%' : '8%', top: i ? '8%' : '18%', width: 160, height: 1.5, borderRadius: 2, background: 'linear-gradient(90deg,transparent,rgba(255,178,30,.7) 70%,#FFFFFF)', boxShadow: '0 0 8px rgba(255,178,30,.6)', opacity: 0, transform: 'rotate(14deg)', animation: `shoot 11s cubic-bezier(.3,.1,.6,1) ${i ? 6.5 : 1.5}s infinite` } }));
-  return E('div', { style: { position: 'absolute', inset: 0, animation: 'drift 140s linear infinite alternate' } }, stars, flares, shooters);
-}
 
 class Component extends DCLogic {
-  skyEl = buildSky();
-  state = { W: window.innerWidth, H: window.innerHeight, p: 0, phase: 'dark', flick: false, flash: false, burst: 0, denied: false,
-    mode: 'players', menuOpen: false, scrolled: false, heroIdx: 0, filter: 'all', query: '', openId: null, demoSent: false,
-    rmL: 0, rmW: 40, playerId: null, playing: false, t: 0, contactSent: false };
-  rmRef = React.createRef();
+  state = { W: window.innerWidth, H: window.innerHeight, stage: 'closed', spin: 0, burst: 0, denied: false,
+    mode: 'players', menuOpen: false, scrolled: false, heroIdx: 0, filter: 'all', mech: 'all', query: '', openId: null, demoSent: false,
+    now: Date.now(), rvTouched: false, rmEmail: '', rmSent: false, rmErr: false, cEmail: '', cSent: false, cErr: false };
+  bgRef = React.createRef();
+  rvRef = React.createRef();
+  ctRef = React.createRef();
+  mvRef = el => { if (el) { el.muted = true; const p = el.play(); p && p.then(() => { el.style.opacity = 1; }).catch(() => {}); } };
 
+  constructor(p) {
+    super(p);
+    const E = React.createElement, cols = ['#FFB13B', '#FF4A0A', '#FF2D8A', '#9B4DFF', '#FFFFFF', '#FF7A1A'];
+    this._embers = E('div', { 'aria-hidden': true, style: { position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' } },
+      Array.from({ length: 42 }, (_, i) => {
+        const s = 2 + Math.random() * 4, c = cols[i % cols.length], d = 6 + Math.random() * 8;
+        return E('span', { key: i, style: { position: 'absolute', left: (Math.random() * 100).toFixed(1) + '%', bottom: '-12px', width: s, height: s, borderRadius: '50%', background: c, boxShadow: `0 0 ${s * 3}px ${c}`, '--dx': ((Math.random() - 0.5) * 160).toFixed(0) + 'px', animation: `ember ${d.toFixed(1)}s linear ${(-Math.random() * d).toFixed(1)}s infinite` } });
+      }));
+  }
   preview() { return this.props.introPreview ?? 'live'; }
   syncLock() {
-    const lock = this.preview() === 'live' && this.state.phase !== 'done' || this.state.denied || this.state.openId || this.state.playerId;
+    const lock = this.preview() === 'live' && this.state.stage !== 'done' || this.state.denied || this.state.openId;
     document.body.style.overflow = lock ? 'hidden' : '';
   }
   componentDidMount() {
     if (this.preview() === 'live') window.scrollTo(0, 0);
     this.syncLock();
-    this._rs = () => this.setState({ W: window.innerWidth, H: window.innerHeight }, () => this.measureRm());
-    this._sc = () => { const s = window.scrollY > 20; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
-    this._key = e => { if (e.key === 'Escape') this.setState({ openId: null, playerId: null, playing: false, menuOpen: false }); };
-    this._up = () => { this._drag = false; this._rmDown = false; };
+    requestAnimationFrame(() => this.setState({ W: window.innerWidth, H: window.innerHeight }));
+    this._rs = () => this.setState({ W: window.innerWidth, H: window.innerHeight });
+    this._sc = () => { if (this.bgRef.current) this.bgRef.current.style.setProperty('--sy', window.scrollY); const s = window.scrollY > 20; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    this._key = e => {
+      if (e.key === 'Escape') this.setState({ openId: null, menuOpen: false });
+      if (this.gateActive() && ['Enter', ' ', 'ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); this.step(); }
+    };
     window.addEventListener('resize', this._rs);
-    this._ro = new ResizeObserver(() => this._rs()); this._ro.observe(document.documentElement);
-    this._rs(); requestAnimationFrame(() => this._rs()); setTimeout(() => this._rs(), 120);
     window.addEventListener('scroll', this._sc, { passive: true });
     window.addEventListener('keydown', this._key);
-    window.addEventListener('pointerup', this._up);
-    this._tick = setInterval(() => {
-      const s = this.state, v = VIDEOS.find(x => x.id === s.playerId);
-      if (v && s.playing) this.setState(st => st.t + 0.25 >= v.dur ? { t: v.dur, playing: false } : { t: st.t + 0.25 });
-    }, 250);
-    setTimeout(() => this.measureRm(), 300);
+    this._heroT = setInterval(() => { if (window.innerWidth < 760 && !this.state.openId && this.state.stage === 'done') this.setState(st => ({ heroIdx: (st.heroIdx + 1) % 3 })); }, 4500);
+    this._clock = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    let t = 0, last = performance.now();
+    const loop = ts => {
+      const dt = Math.min(50, ts - last); last = ts;
+      const el = this.rvRef.current;
+      if (el && !this._rvHover) {
+        t += dt / 1000;
+        el.style.setProperty('--mx', (50 + 32 * Math.sin(t * 0.45)).toFixed(2) + '%');
+        el.style.setProperty('--my', (50 + 26 * Math.sin(t * 0.73 + 1)).toFixed(2) + '%');
+      }
+      this._raf = requestAnimationFrame(loop);
+    };
+    this._raf = requestAnimationFrame(loop);
   }
   componentDidUpdate() { this.syncLock(); }
   componentWillUnmount() {
-    window.removeEventListener('resize', this._rs); window.removeEventListener('scroll', this._sc); this._ro && this._ro.disconnect();
-    window.removeEventListener('keydown', this._key); window.removeEventListener('pointerup', this._up);
-    clearInterval(this._tick); [this._t1, this._t2, this._ft].forEach(clearTimeout);
+    window.removeEventListener('resize', this._rs); window.removeEventListener('scroll', this._sc); window.removeEventListener('keydown', this._key);
+    clearInterval(this._heroT); clearInterval(this._clock); cancelAnimationFrame(this._raf);
+    [this._t1, this._t2, this._t3].forEach(clearTimeout);
     document.body.style.overflow = '';
   }
 
-  advance(a) {
-    if (this.preview() !== 'live' || this.state.phase !== 'dark' || this.state.denied) return;
-    const prev = this.state.p, p = Math.min(100, prev + a);
-    const now = Date.now(), spark = now - (this._ls || 0) > 70;
-    if (spark) this._ls = now;
-    this.setState(st => ({ p, burst: spark ? st.burst + 1 : st.burst, flash: spark ? true : st.flash }));
-    if (spark) { clearTimeout(this._ft); this._ft = setTimeout(() => this.setState({ flash: false }), 110); }
-    [70, 86].forEach(th => { if (prev < th && p >= th) this.sputter(); });
-    if (p >= 100) this.ignite();
-  }
-  sputter() {
-    this.setState({ flick: true });
-    setTimeout(() => this.setState({ flick: false }), 200);
+  gateActive() { return this.preview() === 'live' && !this.state.denied && (this.state.stage === 'closed' || this.state.stage === 'open'); }
+  step() {
+    if (!this.gateActive()) return;
+    const now = Date.now();
+    if (now < (this._lock || 0)) return;
+    this._lock = now + 750;
+    if (this.state.stage === 'closed') this.setState({ stage: 'open' });
+    else this.ignite();
   }
   ignite() {
     if (this._ign) return;
     this._ign = true;
-    this.setState({ p: 100, phase: 'lit', flick: false });
-    this._t1 = setTimeout(() => this.setState({ phase: 'exit' }), 1000);
-    this._t2 = setTimeout(() => { window.scrollTo(0, 0); this.setState({ phase: 'done' }); }, 2500);
-  }
-  measureRm() {
-    const el = this.rmRef.current; if (!el) return;
-    const sw = el.scrollWidth || 1;
-    this.setState({ rmL: el.scrollLeft / sw * 100, rmW: Math.min(100, el.clientWidth / sw * 100) });
+    this.setState(st => ({ spin: st.spin + 300, burst: st.burst + 1 }));
+    this._t3 = setTimeout(() => this.setState({ stage: 'lit' }), 160);
+    this._t1 = setTimeout(() => this.setState({ stage: 'exit' }), 2000);
+    this._t2 = setTimeout(() => { window.scrollTo(0, 0); this.setState({ stage: 'done' }); }, 3400);
   }
 
   mechAnim(kind) {
     const E = React.createElement;
-    const cell = (style, key, child) => E('div', { key, style: Object.assign({ width: 26, height: 26, borderRadius: 7, background: '#1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center' }, style) }, child);
-    const grid = (cols, kids) => E('div', { style: { display: 'grid', gridTemplateColumns: `repeat(${cols},26px)`, gap: 7, position: 'relative', zIndex: 1 } }, kids);
+    const cell = (style, key, child) => E('div', { key, style: Object.assign({ width: 26, height: 26, background: '#141414', display: 'flex', alignItems: 'center', justifyContent: 'center' }, style) }, child);
+    const grid = (cols, kids) => E('div', { style: { display: 'grid', gridTemplateColumns: `repeat(${cols},26px)`, gap: 6, position: 'relative', zIndex: 1 } }, kids);
     if (kind === 'swarm') {
       const kids = [];
-      for (let r = 0; r < 4; r++) for (let c = 0; c < 7; c++) {
-        const d = (c + Math.abs(r - 1.5) * 1.2) * 0.14;
-        kids.push(cell({ animation: `swarm 3.6s ease-in-out ${d.toFixed(2)}s infinite` }, r + '-' + c));
-      }
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 7; c++) kids.push(cell({ animation: `swarm 3.6s ease-in-out ${((c + Math.abs(r - 1.5) * 1.2) * 0.14).toFixed(2)}s infinite` }, r + '-' + c));
       return grid(7, kids);
     }
     if (kind === 'flood') {
       const kids = [];
       for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) kids.push(cell({ animation: `floodcell 3.4s ease-in-out ${(c * 0.34 + r * 0.05).toFixed(2)}s infinite` }, r + '-' + c));
       return E(React.Fragment, null,
-        E('div', { key: 'beam', style: { position: 'absolute', left: '50%', top: -20, width: 260, height: 300, marginLeft: -130, transformOrigin: '50% 0', background: 'conic-gradient(from 165deg at 50% 0, transparent 0deg, rgba(255,210,138,.38) 15deg, transparent 30deg)', animation: 'beam 1.7s ease-in-out infinite alternate', pointerEvents: 'none', zIndex: 2 } }),
-        E('div', { key: 'src', style: { position: 'absolute', left: '50%', top: 8, width: 14, height: 14, marginLeft: -7, borderRadius: '50%', background: '#FFFFFF', boxShadow: '0 0 18px 6px rgba(255,200,110,.7)', zIndex: 3 } }),
+        E('div', { key: 'beam', style: { position: 'absolute', left: '50%', top: -20, width: 260, height: 300, marginLeft: -130, transformOrigin: '50% 0', background: 'conic-gradient(from 165deg at 50% 0, transparent 0deg, rgba(255,255,255,.28) 15deg, transparent 30deg)', animation: 'beam 1.7s ease-in-out infinite alternate', pointerEvents: 'none', zIndex: 2 } }),
+        E('div', { key: 'src', style: { position: 'absolute', left: '50%', top: 6, width: 14, height: 14, marginLeft: -7, background: ACC, transform: 'rotate(45deg)', boxShadow: '0 0 18px 6px rgba(255,74,10,.7)', zIndex: 3 } }),
         E('div', { key: 'g', style: { marginTop: 40 } }, grid(5, kids)));
     }
     const order = [7, 2, 11, 4, 9, 0, 13, 99, 5, 8, 3, 12, 1, 10, 6];
-    const kids = order.map((o, i) => o === 99
-      ? cell({ background: '#0A0A0A' }, i, E('span', { style: { color: '#FFFFFF', fontSize: 22, textShadow: '0 0 14px #FFB21E,0 0 28px #FFE3A3', animation: 'starburst 4s ease-in-out infinite' } }, '✦'))
-      : cell({ animation: `blackcell 4s ease-in-out ${(o * 0.12).toFixed(2)}s infinite` }, i));
-    return grid(5, kids);
+    return grid(5, order.map((o, i) => o === 99
+      ? cell({ background: '#070707' }, i, E('span', { style: { width: 12, height: 12, background: '#FFFFFF', boxShadow: '0 0 14px ' + ACC + ',0 0 28px ' + ACC, animation: 'starburst 4s ease-in-out infinite' } }))
+      : cell({ animation: `blackcell 4s ease-in-out ${(o * 0.12).toFixed(2)}s infinite` }, i)));
   }
 
   gateVals() {
-    const s = this.state, W = s.W, pv = this.preview();
-    let p = s.p, phase = s.phase, flick = s.flick;
-    if (pv === '0%') { p = 0; phase = 'dark'; flick = false; }
-    if (pv === '40%') { p = 40; phase = 'dark'; flick = false; }
-    if (pv === 'срыв пламени') { p = 78; phase = 'dark'; flick = true; }
-    if (pv === '100%') { p = 100; phase = 'lit'; flick = false; }
-    if (pv === 'уход кадра') { p = 100; phase = 'exit'; }
-    const k = Math.max(0.3, Math.min(1, (W - 40) / 800));
-    const lit = phase === 'lit' || phase === 'exit', exitFrozen = pv === 'уход кадра';
-    const sparksEl = s.burst > 0 && phase === 'dark' && pv === 'live'
+    const s = this.state, pv = this.preview(), H = s.H || 800;
+    let stage = s.stage;
+    if (pv === 'закрыта') stage = 'closed';
+    if (pv === 'открыта') stage = 'open';
+    if (pv === 'огонь') stage = 'lit';
+    const open = stage !== 'closed', lit = stage === 'lit' || stage === 'exit';
+    const zs = Math.max(0.62, Math.min(1.2, H * 0.36 / 316));
+    const sparksEl = s.burst > 0 && pv === 'live'
       ? React.createElement('div', { key: 'b' + s.burst, style: { position: 'absolute' } },
-        Array.from({ length: 9 }, (_, i) => React.createElement('span', { key: i, style: { position: 'absolute', width: 3, height: 3, borderRadius: '50%', background: i % 3 ? '#FFE3A3' : '#FFB21E', boxShadow: '0 0 6px #FFB21E', '--dx': (-70 + Math.random() * 50) + 'px', '--dy': (-30 + Math.random() * 60) + 'px', animation: `sparkfly ${0.4 + Math.random() * 0.35}s ease-out forwards` } })))
+        Array.from({ length: 14 }, (_, i) => React.createElement('span', { key: i, style: { position: 'absolute', width: 3, height: 3, borderRadius: '50%', background: i % 3 ? '#FFE2A8' : ACC, boxShadow: '0 0 6px ' + ACC, '--dx': (-90 + Math.random() * 110) + 'px', '--dy': (-20 - Math.random() * 70) + 'px', animation: `sparkfly ${0.35 + Math.random() * 0.35}s ease-out forwards` } })))
       : null;
     return {
-      skyEl: this.skyEl,
-      gateOn: pv !== 'выкл' && (pv !== 'live' || phase !== 'done'),
+      gateOn: pv !== 'выкл' && (pv !== 'live' || stage !== 'done'),
       deniedOn: s.denied,
-      gateOpacity: phase === 'exit' ? (exitFrozen ? 0.7 : 0) : 1,
-      gatePointer: phase === 'exit' ? 'none' : 'auto',
-      stW: 800 * k + 'px', stH: 290 * k + 'px', stK: k,
-      camScale: phase === 'exit' ? (exitFrozen ? 2.4 : 9) : 1,
-      camOrigin: `${699 * k}px ${111 * k}px`,
-      dashOff: 100 - p, pPct: p + '%',
-      flareScale: lit ? 2.6 : flick ? 1.4 : (0.35 + p / 100 * 0.65).toFixed(2),
-      flareOp: lit || flick ? 1 : (0.5 + p / 100 * 0.5).toFixed(2),
-      wordOp: lit ? 1 : (0.1 + p / 100 * 0.45).toFixed(2),
-      wordGlow: lit ? 'drop-shadow(0 0 22px rgba(255,178,30,.55))' : 'none',
-      earthOp: lit ? 1 : (0.2 + p / 100 * 0.6).toFixed(2), earthY: (lit ? 0 : (1 - p / 100) * 80) + 'px',
+      gateOpacity: stage === 'exit' ? 0 : 1,
+      gatePointer: stage === 'exit' ? 'none' : 'auto',
+      camScale: stage === 'exit' ? 5 : 1,
+      zs, zW: 170 * zs + 'px', zH: 316 * zs + 'px', zPadTop: 200 * zs + 'px',
+      lidRot: open ? '102deg' : '0deg',
+      wheelRot: s.spin + 'deg',
+      flameSc: lit ? 1 : 0.05, flameOp: lit ? 1 : 0,
+      holeC: lit ? '#FF8A2A' : '#0b0b0b', wickTop: lit ? '#FF9A3A' : '#2a2018', wickGlow: lit ? '14px' : '0px',
+      warmOp: lit ? 1 : 0, warmSc: lit ? 1 : 0.4,
+      txtOp: lit ? 1 : 0, txtY: lit ? '0px' : '14px',
+      uiOpacity: lit ? 0 : 1,
       sparksEl,
-      uiOpacity: phase === 'dark' ? 1 : 0,
-      onWheel: e => { if (e.deltaY > 0) this.advance(Math.min(6, Math.max(0.6, e.deltaY / 18))); },
+      gateSteps: [['01 Открыть', true], ['02 Зажечь', open]].map(([label, on]) => ({ label, ink: on ? '#FFFFFF' : '#5A5A5A', dot: on ? ACC : '#333333', glow: on ? '0 0 10px ' + ACC : 'none' })),
+      hintTitle: open ? 'Высеките искру' : 'Откройте крышку',
+      hintText: open ? 'Ещё раз прокрутите, свайпните или нажмите — и зажигалка загорится.' : 'Прокрутите вниз, свайпните вверх или нажмите на зажигалку.',
+      onStep: e => { e.stopPropagation(); this.step(); },
+      onWheel: e => { if (e.deltaY > 6) this.step(); },
       onTouchStart: e => { this._ty = e.touches[0].clientY; },
-      onTouchMove: e => { const y = e.touches[0].clientY; if (this._ty - y > 18) { this._ty = y; this.advance(5); } },
-      onGrab: e => { if (e.pointerType !== 'mouse' || e.target.closest('button')) return; this._drag = true; this._px = e.clientX; this._py = e.clientY; this._acc = 0; },
-      onGatePointerMove: e => {
-        if (!this._drag) return;
-        this._acc += Math.abs(e.clientX - this._px) + Math.abs(e.clientY - this._py);
-        this._px = e.clientX; this._py = e.clientY;
-        while (this._acc >= 16) { this._acc -= 16; this.advance(3.5); }
-      },
-      onAgeYes: () => { if (pv === 'live') this.ignite(); },
+      onTouchEnd: e => { const dy = this._ty - e.changedTouches[0].clientY; if (dy > 30) this.step(); },
+      onAgeYes: () => { if (pv !== 'live' || this._ign) return; if (this.state.stage === 'closed') { this.setState({ stage: 'open' }); setTimeout(() => this.ignite(), 650); } else this.ignite(); },
       onAgeNo: () => this.setState({ denied: true }),
       onBackToGate: () => this.setState({ denied: false })
     };
   }
 
   renderVals() {
-    const s = this.state, W = s.W, ops = s.mode === 'ops';
+    const s = this.state, W = s.W || window.innerWidth || 1280, ops = s.mode === 'ops';
     const desktop = W >= 1100, phone = W < 760;
-    const segs = v => [1, 2, 3, 4, 5].map(i => ({ bg: i <= v ? (v >= 4 ? '#F28C00' : v >= 3 ? '#FFB21E' : '#FFD27A') : '#262626' }));
+    const vidOn = !!this.props.videoPreviews;
+    const segs = v => [1, 2, 3, 4, 5].map(i => ({ op: i <= v ? 1 : 0.28, f: i <= v ? 'none' : 'grayscale(1) brightness(.55)' }));
 
     const navItems = ops
-      ? [{ label: 'Каталог', href: '#catalog' }, { label: 'Механики', href: '#mechanics' }, { label: 'Роадмап', href: '#roadmap' }, { label: 'Промо-ролики', href: '#spotlight' }, { label: 'Контакты', href: '#contact' }]
-      : [{ label: 'Игры', href: '#hero' }, { label: 'Механики', href: '#mechanics' }, { label: 'Скоро', href: '#roadmap' }, { label: 'Ролики', href: '#spotlight' }, { label: 'Контакты', href: '#contact' }];
-    const modes = [['players', 'Игрокам'], ['ops', 'Операторам']].map(([k, label]) => ({ label, bg: s.mode === k ? '#FFFFFF' : 'transparent', ink: s.mode === k ? '#000000' : '#BDBDBD', pick: () => this.setState({ mode: k }) }));
+      ? [{ label: 'Механики', href: '#mechanics' }, { label: 'Каталог', href: '#catalog' }, { label: 'Скоро', href: '#roadmap' }, { label: 'Контакты', href: '#contact' }, { label: 'Карьера', href: 'career.html' }]
+      : [{ label: 'Механики', href: '#mechanics' }, { label: 'Игры', href: '#catalog' }, { label: 'Скоро', href: '#roadmap' }, { label: 'Контакты', href: '#contact' }, { label: 'Карьера', href: 'career.html' }];
+    const modes = [['players', 'Игрокам'], ['ops', 'Операторам']].map(([k, label]) => ({ label, bg: s.mode === k ? '#FFFFFF' : 'transparent', ink: s.mode === k ? '#000000' : '#9A9A9A', pick: () => this.setState({ mode: k }) }));
 
     const heroGames = GAMES.slice(0, 3);
-    const pad = Math.max(18, Math.min(40, W * 0.04)) * 2;
-    const inner = Math.min(W, 1280) - pad;
-    const twoCol = inner >= 2 * 380 + 40;
+    const padX = Math.max(18, Math.min(40, W * 0.04)) * 2;
+    const inner = Math.min(W, 1320) - padX;
+    const twoCol = inner >= 2 * 400 + 40;
     const colW = twoCol ? (inner - 40) / 2 : inner;
-    const cw = Math.min(phone ? 230 : 290, colW * 0.62), ch = cw * 1.42;
+    const cw = Math.min(phone ? 230 : 300, colW * 0.62), ch = cw * 1.42;
     const sideOff = Math.max(0, Math.min(cw * 0.64, colW / 2 - cw * 0.4 - 6));
     const heroCards = heroGames.map((g, i) => {
       const o = ((i - s.heroIdx + 4) % 3) - 1;
-      return { name: g.name, mech: g.mech, c: g.c, slot: 'hero4-' + g.id, src: PORT(g.id),
-        tx: (o * sideOff) + 'px', sc: o ? 0.8 : 1, ry: (o * -16) + 'deg', br: o ? 0.42 : 1, z: o ? 1 : 3,
-        line: o ? '#222222' : g.c + '88', shadow: o ? 'none' : `0 30px 80px -30px ${g.c}`,
+      return { name: g.name, mech: g.mech, slot: 'hero4-' + g.id, src: PORT(g.id),
+        tx: (o * sideOff) + 'px', sc: o ? 0.8 : 1, ry: (o * -16) + 'deg', br: o ? 0.35 : 1, z: o ? 1 : 3, barW: o ? '0%' : '60%',
         pick: () => { if (!this._heroDragged && o) this.setState({ heroIdx: i }); } };
     });
     const heroGo = d => this.setState(st => ({ heroIdx: (st.heroIdx + d + 3) % 3 }));
+    const heroBgs = heroGames.map((g, i) => ({ bgP: `url(${PORT(g.id)})`, bgL: `url(${LAND(g.id)})`, op: i === s.heroIdx ? (phone ? 0.55 : 0.6) : 0, sc: i === s.heroIdx ? 1.12 : 1.02 }));
+    const mq = ['SwarmWays™', 'Floodlight™', 'Blackout™', '10 игр'];
 
     const q = s.query.trim().toLowerCase();
-    const catalog = GAMES.filter(g => (s.filter === 'all' || g.tags.includes(s.filter)) && (!q || g.name.toLowerCase().includes(q)))
-      .map(g => ({ ...g, land: LAND(g.id), slot: 'cat4-' + g.id, segs: segs(g.vol), badge: g.tags.includes('soon') ? 'Скоро' : g.tags.includes('new') ? 'Новинка' : '', open: () => this.setState({ openId: g.id, demoSent: false }) }));
+    const vIn = e => { const v = e.currentTarget.querySelector('video'); if (!v) return; v.muted = true; v.playsInline = true; const p = v.play(); p && p.then(() => { v.style.opacity = 1; }).catch(() => {}); };
+    const vOut = e => { const v = e.currentTarget.querySelector('video'); if (!v) return; v.pause(); v.style.opacity = 0; };
+    const catalog = GAMES.filter(g => (s.filter === 'all' || g.tags.includes(s.filter)) && (s.mech === 'all' || g.mech === s.mech) && (!q || g.name.toLowerCase().includes(q)))
+      .map(g => {
+        const soon = g.tags.includes('soon');
+        return { ...g, land: LAND(g.id), slot: 'cat4-' + g.id, segs: segs(g.vol), hasVideo: vidOn, video: VIDEO(g.id), vIn, vOut,
+          badge: soon ? 'Скоро' : g.tags.includes('new') ? 'Новинка' : '', badgeBg: soon ? '#FFFFFF' : ACC, open: () => this.setState({ openId: g.id, demoSent: false }) };
+      });
     const filters = [['all', 'Все'], ['new', 'Новые'], ['high', 'Высокая волатильность'], ['soon', 'Скоро']].map(([k, label]) => {
       const on = s.filter === k;
-      return { label, bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#000000' : '#BDBDBD', line: on ? '#FFFFFF' : '#2E2E2E', pick: () => this.setState({ filter: k }) };
+      return { label, bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#000000' : '#9A9A9A', line: on ? '#FFFFFF' : '#2E2E2E', pick: () => this.setState({ filter: k }) };
+    });
+    const mechFilters = [['all', 'Все механики'], ...MECHS.map(m => [m, m])].map(([k, label]) => {
+      const on = s.mech === k;
+      return { label, bg: on ? ACC : 'transparent', ink: on ? '#000000' : '#9A9A9A', line: on ? ACC : '#2E2E2E', dot: on ? '#000000' : (k === 'all' ? '#444444' : ACC), glow: on ? '0 0 24px -4px rgba(255,74,10,.7)' : 'none', pick: () => this.setState({ mech: k }) };
+    });
+    const goMech = m => this.setState({ mech: m, filter: 'all', query: '' }, () => {
+      const el = document.getElementById('catalog');
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
     });
     const og = GAMES.find(g => g.id === s.openId) || GAMES[0];
 
-    const roadmap = ROAD.map((r, i) => {
-      const st = STATUS[r.st], first = i === 0;
-      return { ...r, src: r.slot ? LAND(r.slot.slice(4)) : '', status: st.label, c: st.c, chipBg: st.c + '1a', w: first ? (phone ? '84vw' : '440px') : (phone ? '72vw' : '300px'),
-        coverH: first ? '240px' : '170px', nameSize: first ? '30px' : '22px', nameInk: r.untitled ? '#6E6E6E' : '#FFFFFF',
-        line: first ? st.c + '66' : '#222222', hasCover: !r.untitled, untitled: !!r.untitled };
-    });
+    const tg = GAMES.find(g => g.id === TEASER.id);
+    const diff = Math.max(0, TEASER.target - s.now);
+    const dd = Math.floor(diff / 864e5), hh = Math.floor(diff / 36e5) % 24, mm = Math.floor(diff / 6e4) % 60, ss = Math.floor(diff / 1e3) % 60;
+    const stages = ['Концепт', 'Производство', 'Сертификация', 'Релиз'].map((label, i) => ({
+      label, w: i < TEASER.stage ? '100%' : i === TEASER.stage ? '58%' : '0%',
+      anim: i === TEASER.stage ? 'stagepulse 1.6s ease-in-out infinite' : 'none',
+      ink: i <= TEASER.stage ? '#FFFFFF' : '#5A5A5A' }));
+    const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-    const pvid = VIDEOS.find(v => v.id === s.playerId) || VIDEOS[0];
+    const nCount = m => { const n = GAMES.filter(g => g.mech === m).length; return n + ' ' + plural(n, 'игра', 'игры', 'игр'); };
 
     return {
       ...this.gateVals(),
-      headerBg: s.scrolled ? 'rgba(0,0,0,.94)' : 'rgba(0,0,0,0)',
+      headerBg: s.scrolled ? 'rgba(0,0,0,.92)' : 'rgba(0,0,0,0)',
       headerBlur: s.scrolled ? '14px' : '0px',
       headerLine: s.scrolled ? '#1A1A1A' : 'transparent',
       showNav: desktop, showToggle: !phone, showBurger: !desktop, toggleInMenu: phone,
@@ -630,38 +686,56 @@ class Component extends DCLogic {
       navItems, modes,
       heroEyebrow: ops ? 'Игровая студия · B2B' : 'Игровая студия',
       heroCta: ops ? 'Запросить демо' : 'Смотреть игры', heroCtaHref: ops ? '#contact' : '#catalog',
+      heroMob: phone, heroDesk: !phone, heroBgs,
+      heroDots: heroGames.map((g, i) => ({ bg: i === s.heroIdx ? ACC : '#2E2E2E' })),
+      heroMarq: [...mq, ...mq].map((t, i) => ({ t, ink: i % 2 ? '#FFFFFF' : '#6B6B6B' })),
+      heroCurName: heroGames[s.heroIdx].name, heroCurMech: heroGames[s.heroIdx].mech,
       heroCards, heroNum: '0' + (s.heroIdx + 1),
       cardW: cw + 'px', cardH: ch + 'px', cardML: -cw / 2 + 'px', cardMT: -ch / 2 + 'px', heroH: (ch + 40) + 'px',
       heroPrev: () => heroGo(-1), heroNext: () => heroGo(1),
       onHeroDown: e => { this._hx = e.clientX; this._heroDragged = false; },
       onHeroUp: e => { const dx = e.clientX - (this._hx ?? e.clientX); if (Math.abs(dx) > 40) { this._heroDragged = true; heroGo(dx < 0 ? 1 : -1); setTimeout(() => { this._heroDragged = false; }, 50); } },
-      query: s.query, onSearch: e => this.setState({ query: e.target.value }),
-      filters, catalog, catalogEmpty: catalog.length === 0,
-      resetCatalog: () => this.setState({ query: '', filter: 'all' }),
-      modalOn: !!s.openId, mg: { ...og, land: LAND(og.id), slotBig: 'cat4big-' + og.id, segs: segs(og.vol) },
-      closeModal: () => this.setState({ openId: null }), stop: e => e.stopPropagation(),
-      requestDemo: () => this.setState({ demoSent: true }), demoLabel: s.demoSent ? 'Запрос отправлен ✦' : 'Запросить демо',
       mechanics: [
-        { name: 'SwarmWays', c: '#F28C00', desc: 'Символы движутся роем: каждая выигрышная связка притягивает соседние ячейки и расширяет линию выплат прямо во время спина.', anim: this.mechAnim('swarm') },
-        { name: 'Floodlight', c: '#FFB21E', desc: 'Луч прожектора проходит по барабанам. Освещённые символы становятся дикими до конца раунда.', anim: this.mechAnim('flood') },
-        { name: 'Blackout', c: '#FFE3A3', desc: 'Поле гаснет ячейка за ячейкой. Последний символ в темноте вспыхивает и умножает выигрыш всего экрана.', anim: this.mechAnim('black') }
+        { num: '01', name: 'SwarmWays', desc: 'Символы движутся роем: каждая выигрышная связка притягивает соседние ячейки и расширяет линию выплат прямо во время спина.', anim: this.mechAnim('swarm'), count: nCount('SwarmWays™'), go: () => goMech('SwarmWays™') },
+        { num: '02', name: 'Floodlight', desc: 'Луч прожектора проходит по барабанам. Освещённые символы становятся дикими до конца раунда.', anim: this.mechAnim('flood'), count: nCount('Floodlight™'), go: () => goMech('Floodlight™') },
+        { num: '03', name: 'Blackout', desc: 'Поле гаснет ячейка за ячейкой. Последний символ в темноте вспыхивает и умножает выигрыш всего экрана.', anim: this.mechAnim('black'), count: nCount('Blackout™'), go: () => goMech('Blackout™') }
       ],
-      statusLegend: Object.values(STATUS),
-      roadmap, rmRef: this.rmRef,
-      rmL: s.rmL + '%', rmW: s.rmW + '%',
-      onRmScroll: () => this.measureRm(),
-      rmPrev: () => this.rmRef.current && this.rmRef.current.scrollBy({ left: -320, behavior: 'smooth' }),
-      rmNext: () => this.rmRef.current && this.rmRef.current.scrollBy({ left: 320, behavior: 'smooth' }),
-      onRmDown: e => { if (e.pointerType !== 'mouse' || !this.rmRef.current) return; this._rmDown = true; this._rmX = e.clientX; this._rmS = this.rmRef.current.scrollLeft; },
-      onRmMove: e => { if (this._rmDown && this.rmRef.current) this.rmRef.current.scrollLeft = this._rmS - (e.clientX - this._rmX); },
-      videos: VIDEOS.map(v => ({ ...v, src: LAND(v.id.slice(2)), slot: 'spot4-' + v.id, durLabel: fmt(v.dur), play: () => this.setState({ playerId: v.id, playing: true, t: 0 }) })),
-      playerOn: !!s.playerId, pv: { ...pvid, src: LAND(pvid.id.slice(2)), slotBig: 'spot4big-' + pvid.id },
-      paused: !s.playing, playIcon: s.playing ? '❚❚' : '▶',
-      togglePlay: () => this.setState(st => ({ playing: !st.playing, t: st.t >= pvid.dur ? 0 : st.t })),
-      closePlayer: () => this.setState({ playerId: null, playing: false }),
-      onSeek: e => { const r = e.currentTarget.getBoundingClientRect(); this.setState({ t: Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * pvid.dur }); },
-      playPct: (s.t / pvid.dur * 100) + '%', timeLabel: fmt(s.t) + ' / ' + fmt(pvid.dur),
-      contactLabel: s.contactSent ? 'Искра отправлена ✦' : 'Связаться', onContact: () => this.setState({ contactSent: true })
+      catTitle: s.mech === 'all' ? 'Все игры' : 'Игры ' + s.mech.replace('™', ''),
+      query: s.query, onSearch: e => this.setState({ query: e.target.value }),
+      filters, mechFilters, catalog, catalogEmpty: catalog.length === 0,
+      resetCatalog: () => this.setState({ query: '', filter: 'all', mech: 'all' }),
+      modalOn: !!s.openId, mg: { ...og, land: LAND(og.id), slotBig: 'cat4big-' + og.id, segs: segs(og.vol), hasVideo: vidOn, video: VIDEO(og.id) }, mvRef: this.mvRef,
+      closeModal: () => this.setState({ openId: null }), stop: e => e.stopPropagation(),
+      requestDemo: () => this.setState({ demoSent: true }), demoLabel: s.demoSent ? 'Запрос отправлен ◆' : 'Запросить демо',
+      teaser: { ...tg, src: LAND(tg.id), date: tg.release, segs: segs(tg.vol) },
+      rvRef: this.rvRef,
+      rvHint: s.rvTouched ? 'Фонарь у вас в руках' : (phone ? 'Проведите пальцем — посветите фонарём' : 'Наведите курсор — посветите фонарём'),
+      onRvMove: e => {
+        const el = this.rvRef.current; if (!el) return;
+        const r = el.getBoundingClientRect();
+        this._rvHover = true;
+        el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
+        el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
+        if (!s.rvTouched) this.setState({ rvTouched: true });
+      },
+      onRvLeave: () => { this._rvHover = false; },
+      countdown: [[dd, plural(dd, 'день', 'дня', 'дней')], [hh, 'часов'], [mm, 'минут'], [ss, 'секунд']].map(([v, l]) => ({ v: pad2(v), l })),
+      stages,
+      rmEmail: s.rmEmail, onRmEmail: e => this.setState({ rmEmail: e.target.value, rmErr: false }),
+      rmLine: s.rmErr ? ACC : '#2E2E2E', rmBtnBg: s.rmSent ? '#FFFFFF' : ACC,
+      rmBtn: s.rmSent ? 'Вы в списке ◆' : 'Сообщить о релизе',
+      onRmSub: () => emailOk(s.rmEmail) ? this.setState({ rmSent: true }) : this.setState({ rmErr: true }),
+      ctRef: this.ctRef, embersEl: this._embers,
+      onCtMove: e => { const el = this.ctRef.current; if (!el) return; const r = el.getBoundingClientRect(); el.style.setProperty('--cx', (e.clientX - r.left) + 'px'); el.style.setProperty('--cy', (e.clientY - r.top) + 'px'); },
+      cEmail: s.cEmail, onCEmail: e => this.setState({ cEmail: e.target.value, cErr: false }), cErr: s.cErr, cLine: s.cErr ? ACC : '#333333',
+      contactLabel: s.cSent ? 'Искра отправлена ◆' : 'Связаться',
+      onContact: () => emailOk(s.cEmail) ? this.setState({ cSent: true }) : this.setState({ cErr: true }),
+      messengers: [
+        { label: 'Telegram', href: 'https://t.me/', d: ICONS.tg },
+        { label: 'WhatsApp', href: 'https://wa.me/', d: ICONS.wa },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/', d: ICONS.li },
+        { label: 'E-mail', href: 'mailto:partners@illuminator.games', d: ICONS.em }
+      ]
     };
   }
 }

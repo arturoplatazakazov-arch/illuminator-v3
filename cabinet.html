@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>illuminator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
@@ -10,367 +9,348 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700;1,800;1,900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <style>
-  html{background:#000000;} html,body{margin:0;padding:0;} body{background:transparent;color:#F2F2F2;font-family:'Manrope',sans-serif;}
+  html,body{margin:0;padding:0;background:#000;color:#F2F2F2;font-family:'Golos Text',sans-serif;}
   html{scroll-behavior:smooth;scroll-padding-top:90px;}
-  a{color:#FFB21E;text-decoration:none;} a:hover{color:#FFD27A;}
-  ::selection{background:#FFB21E;color:#000;}
+  a{color:#FF4A0A;text-decoration:none;} a:hover{color:#FF7A45;}
+  ::selection{background:#FF4A0A;color:#000;}
   input,textarea,select,button{font-family:inherit;}
   @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
   @keyframes flow{0%{transform:translateY(-100%)}100%{transform:translateY(400%)}}
-
-  @keyframes twinkle{0%,100%{opacity:.18;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
-  @keyframes flare{0%,70%,100%{opacity:0;transform:scale(.4) rotate(0deg)}82%{opacity:1;transform:scale(1.2) rotate(20deg)}}
-  @keyframes shoot{0%{opacity:0;translate:0 0}2%{opacity:1}9%{opacity:0;translate:46vw 12vw}100%{opacity:0;translate:46vw 12vw}}
-  @keyframes drift{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-2%,-3%,0)}}
-  @media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-iteration-count:1!important}}
 </style>
 </helmet>
 
-<div style="min-height:100vh;">
-  <div aria-hidden="true" style="position:fixed;inset:-4%;z-index:-1;pointer-events:none;overflow:hidden;">{{ skyEl }}</div>
+<div style="min-height:100vh;background:#000;">
 
-  <header data-screen-label="Шапка кабинета" style="position:sticky;top:0;z-index:50;background:rgba(0,0,0,.94);backdrop-filter:blur(14px);border-bottom:1px solid #1A1A1A;">
-    <div style="max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:10px clamp(18px,4vw,40px);">
-      <a href="./" style="display:flex;align-items:center;flex:none;"><img src="assets/brand/logo-full.png" alt="illuminator" style="height:62px;margin:-10px 0;display:block;"></a>
-      <span style="font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8A8A8A;border-left:1px solid #262626;padding-left:18px;">Кабинет оператора</span>
+  <header data-screen-label="Шапка кабинета" style="position:sticky;top:0;z-index:50;background:rgba(0,0,0,.92);backdrop-filter:blur(14px);border-bottom:1px solid #1A1A1A;">
+    <div style="max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:16px clamp(18px,4vw,40px);">
+      <a href="index.html" style="display:flex;align-items:center;flex:none;"><span style="display:flex;align-items:center;gap:6px;"><img src="assets/flame-trim.png" alt="" style="height:50px;width:auto;display:block;"><img src="assets/logo-text-trim.png" alt="illuminator" style="height:25px;width:auto;display:block;"></span></a>
+      <span style="font-family:'JetBrains Mono';font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#9A9A9A;border-left:1px solid #262626;padding-left:20px;">Кабинет оператора</span>
       <div style="margin-left:auto;display:flex;gap:10px;align-items:center;">
-        <a href="./" style="font-size:13px;font-weight:600;color:#BDBDBD;padding:10px 14px;border-radius:999px;" style-hover="color:#FFFFFF;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">← На сайт</a>
-        <a href="#contacts" style="font-family:'Jost';font-size:14px;font-weight:600;padding:10px 20px;border-radius:999px;background:linear-gradient(90deg,#FFB21E,#F28C00);color:#000000;" style-focus="outline:2px solid #FFFFFF;outline-offset:2px;">Контакты</a>
+        <a href="index.html" style="font-size:13px;font-weight:600;color:#9A9A9A;padding:10px 14px;" style-hover="color:#FFFFFF;">← На сайт</a>
+        <a href="#contacts" style="font-family:'Exo 2';font-style:italic;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:11px 24px;background:#FF4A0A;color:#000;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);" style-hover="background:#FFFFFF;color:#000;">Контакты</a>
       </div>
     </div>
     <sc-if value="{{ showChips }}" hint-placeholder-val="{{ false }}">
       <nav style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 clamp(18px,4vw,40px) 12px;">
         <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
-          <a href="{{ n.href }}" style="flex:none;font-size:13px;font-weight:600;padding:9px 14px;border-radius:999px;border:1px solid {{ n.line }};background:{{ n.bg }};color:{{ n.ink }};">{{ n.label }}</a>
+          <a href="{{ n.href }}" style="flex:none;font-size:13px;font-weight:600;padding:9px 14px;border:1px solid {{ n.line }};background:{{ n.bg }};color:{{ n.ink }};">{{ n.label }}</a>
         </sc-for>
       </nav>
     </sc-if>
   </header>
 
-  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(18px,4vw,40px);display:grid;grid-template-columns:{{ layoutCols }};gap:48px;">
+  <div style="max-width:1360px;margin:0 auto;padding:0 clamp(18px,4vw,40px);display:grid;grid-template-columns:{{ layoutCols }};gap:56px;">
     <sc-if value="{{ showSidebar }}" hint-placeholder-val="{{ true }}">
-      <aside style="position:sticky;top:96px;align-self:start;padding:40px 0;display:flex;flex-direction:column;gap:4px;">
+      <aside style="position:sticky;top:80px;align-self:start;padding:48px 0;display:flex;flex-direction:column;gap:2px;">
         <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
-          <a href="{{ n.href }}" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;background:{{ n.sideBg }};color:{{ n.sideInk }};font-size:14px;font-weight:600;" style-hover="color:#FFFFFF;background:#121212;" style-focus="outline:2px solid #FFB21E;outline-offset:1px;">
-            <span style="font-family:'Jost';font-size:12px;color:{{ n.numInk }};width:18px;">{{ n.num }}</span>{{ n.label }}
+          <a href="{{ n.href }}" style="display:flex;align-items:center;gap:14px;padding:12px 14px;border-left:2px solid {{ n.sideLine }};background:{{ n.sideBg }};color:{{ n.sideInk }};font-size:14px;font-weight:600;" style-hover="color:#FFFFFF;background:#0A0A0A;">
+            <span style="font-family:'JetBrains Mono';font-size:11px;color:{{ n.numInk }};width:18px;">{{ n.num }}</span>{{ n.label }}
           </a>
         </sc-for>
       </aside>
     </sc-if>
 
-    <main style="min-width:0;padding:40px 0 20px;">
-      <div style="padding-bottom:36px;">
-        <h1 style="font-family:'Jost';font-weight:300;font-size:clamp(34px,4vw,52px);line-height:1.05;margin:0;color:#FFFFFF;letter-spacing:-.01em;">Всё для запуска наших игр</h1>
-        <p style="font-size:16px;line-height:1.6;color:#A6A6A6;margin:14px 0 0;max-width:60ch;">Подключение, промо-инструменты, ассеты и техническая спецификация — на одной странице.</p>
+    <main style="min-width:0;padding:48px 0 20px;">
+      <div style="padding-bottom:40px;">
+        <h1 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(38px,5vw,72px);line-height:.92;letter-spacing:-.01em;margin:0;color:#FFFFFF;">Всё для запуска <span style="color:#FF4A0A;">наших игр</span></h1>
+        <p style="font-size:16px;line-height:1.6;color:#A3A3A3;margin:18px 0 0;max-width:60ch;">Подключение, промо-инструменты, ассеты и техническая спецификация — на одной странице.</p>
       </div>
 
-      <!-- 08.1 ПОДКЛЮЧЕНИЕ -->
-      <section id="connect" data-sec="connect" data-screen-label="08.1 Подключение" style="padding:48px 0;border-top:1px solid #161616;">
-        <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>01 · Подключение</div>
-        <h2 style="font-family:'Jost';font-weight:300;font-size:34px;margin:10px 0 0;color:#FFFFFF;">Четыре шага до первого спина</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:40px;margin-top:30px;align-items:center;">
-          <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;">
+      <section id="connect" data-sec="connect" data-screen-label="08.1 Подключение" style="padding:56px 0;border-top:1px solid #1A1A1A;">
+        <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>01 · Подключение</div>
+        <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(30px,3.4vw,44px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">Четыре шага до первого спина</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:40px;margin-top:32px;align-items:center;">
+          <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;">
             <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
-              <li style="display:grid;grid-template-columns:48px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid #161616;">
-                <span style="width:44px;height:44px;border-radius:50%;border:1px solid {{ st.c }};color:{{ st.c }};display:flex;align-items:center;justify-content:center;font-family:'Jost';font-size:16px;font-weight:600;">{{ st.n }}</span>
+              <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #1A1A1A;">
+                <span style="width:44px;height:44px;border:1px solid {{ st.line }};background:{{ st.bg }};color:{{ st.ink }};display:flex;align-items:center;justify-content:center;font-family:'Exo 2';font-style:italic;font-size:20px;font-weight:900;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);">{{ st.n }}</span>
                 <div>
-                  <div style="font-family:'Jost';font-size:20px;font-weight:600;color:#FFFFFF;">{{ st.title }}</div>
-                  <div style="font-size:14px;line-height:1.6;color:#A6A6A6;margin-top:6px;max-width:52ch;">{{ st.text }}</div>
+                  <div style="font-family:'Exo 2';font-style:italic;font-size:22px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">{{ st.title }}</div>
+                  <div style="font-size:14px;line-height:1.6;color:#A3A3A3;margin-top:6px;max-width:52ch;">{{ st.text }}</div>
                 </div>
               </li>
             </sc-for>
           </ol>
-          <div style="border-radius:20px;background:#0A0A0A;border:1px solid rgba(255,178,30,.16);padding:28px 20px;display:flex;flex-direction:column;align-items:center;">
-            <div style="padding:16px 22px;border-radius:14px;background:#140E04;border:1px solid #F28C0066;box-shadow:0 0 40px -10px rgba(242,140,0,.5);text-align:center;">
-              <img src="assets/brand/emblem.png" alt="" style="width:110px;display:block;margin:0 auto;">
-              <div style="font-family:'Jost';font-size:16px;font-weight:600;color:#FFFFFF;margin-top:4px;">Одна интеграция</div>
-              <div style="font-size:12px;color:#8A8A8A;margin-top:2px;">Illuminator API</div>
+          <div style="background:#0A0A0A;border:1px solid #1F1F1F;padding:30px 20px;display:flex;flex-direction:column;align-items:center;">
+            <div style="padding:18px 26px;background:#000;border:1px solid #FF4A0A;box-shadow:0 0 40px -10px rgba(255,74,10,.6);text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;">
+              <span style="width:16px;height:16px;background:#FF4A0A;transform:rotate(45deg);box-shadow:0 0 14px #FF4A0A;margin:4px 0;"></span>
+              <div style="font-family:'Exo 2';font-style:italic;font-size:18px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">Одна интеграция</div>
+              <div style="font-family:'JetBrains Mono';font-size:11px;color:#9A9A9A;">Illuminator API</div>
             </div>
-            <div style="position:relative;width:2px;height:40px;background:#2E2E2E;overflow:hidden;"><span style="position:absolute;left:0;top:0;width:2px;height:12px;background:#FFB21E;animation:flow 1.6s linear infinite;"></span></div>
-            <div style="width:84%;height:2px;background:#2E2E2E;"></div>
+            <div style="position:relative;width:2px;height:40px;background:#262626;overflow:hidden;"><span style="position:absolute;left:0;top:0;width:2px;height:12px;background:#FF4A0A;animation:flow 1.6s linear infinite;"></span></div>
+            <div style="width:84%;height:2px;background:#262626;"></div>
             <div style="display:grid;grid-template-columns:repeat(5,1fr);width:100%;gap:6px;">
               <sc-for list="{{ platforms }}" as="pl" hint-placeholder-count="5">
                 <div style="display:flex;flex-direction:column;align-items:center;">
-                  <div style="position:relative;width:2px;height:28px;background:#2E2E2E;overflow:hidden;"><span style="position:absolute;left:0;top:0;width:2px;height:10px;background:{{ pl.c }};animation:flow 1.6s linear {{ pl.delay }} infinite;"></span></div>
-                  <div style="width:100%;padding:10px 4px;border-radius:10px;background:#121212;border:1px solid #262626;text-align:center;font-size:11px;font-weight:600;color:#BDBDBD;line-height:1.3;">{{ pl.label }}</div>
+                  <div style="position:relative;width:2px;height:28px;background:#262626;overflow:hidden;"><span style="position:absolute;left:0;top:0;width:2px;height:10px;background:#FF4A0A;animation:flow 1.6s linear {{ pl.delay }} infinite;"></span></div>
+                  <div style="width:100%;padding:10px 4px;background:#111111;border:1px solid #262626;text-align:center;font-size:11px;font-weight:600;color:#C2C2C2;line-height:1.3;">{{ pl.label }}</div>
                 </div>
               </sc-for>
             </div>
-            <div style="font-size:12px;color:#6E6E6E;margin-top:18px;text-align:center;">Каталог, кошелёк и отчёты — через один шлюз для всех площадок</div>
+            <div style="font-size:12px;color:#6B6B6B;margin-top:18px;text-align:center;">Каталог, кошелёк и отчёты — через один шлюз для всех площадок</div>
           </div>
         </div>
       </section>
 
-      <!-- 08.2 ПРОМО-ИНСТРУМЕНТЫ -->
-      <section id="promo" data-sec="promo" data-screen-label="08.2 Промо-инструменты" style="padding:48px 0;border-top:1px solid #161616;">
-        <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>02 · Промо-инструменты</div>
-        <h2 style="font-family:'Jost';font-weight:300;font-size:34px;margin:10px 0 0;color:#FFFFFF;">Что вы получаете вместе с играми</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px;margin-top:28px;">
+      <section id="promo" data-sec="promo" data-screen-label="08.2 Промо-инструменты" style="padding:56px 0;border-top:1px solid #1A1A1A;">
+        <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>02 · Промо-инструменты</div>
+        <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(30px,3.4vw,44px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">Что вы получаете вместе с играми</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:2px;margin-top:32px;background:#1A1A1A;border:1px solid #1A1A1A;">
           <sc-for list="{{ promos }}" as="pr" hint-placeholder-count="4">
-            <div style="border-radius:18px;background:#0D0D0D;border:1px solid rgba(255,178,30,.16);padding:22px;display:flex;flex-direction:column;gap:12px;transition:border-color .25s,transform .25s;" style-hover="border-color:{{ pr.c }};transform:translateY(-3px);">
-              <span style="width:40px;height:40px;border-radius:12px;background:{{ pr.bg }};color:{{ pr.c }};display:flex;align-items:center;justify-content:center;font-family:'Jost';font-size:18px;font-weight:600;">{{ pr.glyph }}</span>
-              <div style="font-family:'Jost';font-size:20px;font-weight:600;color:#FFFFFF;">{{ pr.title }}</div>
-              <div style="font-size:14px;line-height:1.6;color:#A6A6A6;">{{ pr.text }}</div>
+            <div style="background:#000;padding:26px 24px;display:flex;flex-direction:column;gap:14px;transition:background .25s;" style-hover="background:#0D0D0D;">
+              <span style="width:42px;height:42px;background:#FF4A0A1a;border:1px solid #FF4A0A55;color:#FF4A0A;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;">{{ pr.glyph }}</span>
+              <div style="font-family:'Exo 2';font-style:italic;font-size:22px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">{{ pr.title }}</div>
+              <div style="font-size:14px;line-height:1.6;color:#A3A3A3;">{{ pr.text }}</div>
             </div>
           </sc-for>
         </div>
       </section>
 
-      <!-- 08.3 КОНСТРУКТОР КОЛЕСА -->
-      <section id="wheel" data-sec="wheel" data-screen-label="08.3 Конструктор колеса" style="padding:48px 0;border-top:1px solid #161616;">
-        <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>03 · Конструктор колеса</div>
-        <h2 style="font-family:'Jost';font-weight:300;font-size:34px;margin:10px 0 0;color:#FFFFFF;">Соберите колесо бонусов</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:36px;margin-top:28px;align-items:start;">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <section id="wheel" data-sec="wheel" data-screen-label="08.3 Конструктор колеса" style="padding:56px 0;border-top:1px solid #1A1A1A;">
+        <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>03 · Конструктор колеса</div>
+        <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(30px,3.4vw,44px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">Соберите колесо бонусов</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:40px;margin-top:32px;align-items:start;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:22px;">
             <div style="position:relative;width:min(420px,100%);aspect-ratio:1;">
-              <div style="position:absolute;left:50%;top:-6px;margin-left:-14px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid #FFFFFF;z-index:3;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6));"></div>
-              <div style="position:absolute;inset:0;border-radius:50%;box-shadow:0 0 80px -20px rgba(242,140,0,.45);"></div>
+              <div style="position:absolute;left:50%;top:-8px;margin-left:-14px;width:28px;height:30px;background:#FF4A0A;clip-path:polygon(0 0,100% 0,50% 100%);z-index:3;filter:drop-shadow(0 0 8px rgba(255,74,10,.8));"></div>
+              <div style="position:absolute;inset:0;border-radius:50%;box-shadow:0 0 90px -20px rgba(255,74,10,.5);"></div>
               <div style="position:absolute;inset:0;transform:rotate({{ wheelRot }});transition:{{ wheelTrans }};">
                 <svg viewBox="-110 -110 220 220" style="width:100%;height:100%;display:block;">
-                  <circle cx="0" cy="0" r="106" fill="#121212" stroke="#2E2E2E" stroke-width="2"></circle>
+                  <circle cx="0" cy="0" r="106" fill="#0A0A0A" stroke="#333333" stroke-width="2"></circle>
                   <sc-for list="{{ sectors }}" as="sc" hint-placeholder-count="6">
-                    <g>
-                      <path d="{{ sc.d }}" fill="{{ sc.fill }}" stroke="#000000" stroke-width="1.2" opacity="{{ sc.op }}"></path>
-                    </g>
+                    <g><path d="{{ sc.d }}" fill="{{ sc.fill }}" stroke="#000000" stroke-width="1.6" opacity="{{ sc.op }}"></path></g>
                   </sc-for>
-                  <circle cx="0" cy="0" r="16" fill="#000000" stroke="#FFB21E" stroke-width="1.5"></circle>
-                  <text x="0" y="1" text-anchor="middle" dominant-baseline="middle" fill="#FFFFFF" style="font-size:12px;">✦</text>
+                  <circle cx="0" cy="0" r="16" fill="#000000" stroke="#FF4A0A" stroke-width="1.5"></circle>
+                  <rect x="-5" y="-5" width="10" height="10" fill="#FF4A0A" transform="rotate(45)"></rect>
                 </svg>
                 <sc-for list="{{ sectors }}" as="sc" hint-placeholder-count="6">
                   <div style="position:absolute;left:50%;top:50%;width:50%;height:0;transform-origin:0 0;transform:rotate({{ sc.midDeg }});pointer-events:none;">
-                    <span style="position:absolute;left:54.5%;top:0;transform:translate(-50%,-50%);white-space:nowrap;font-family:'Manrope';font-size:clamp(9px,2.6vw,12px);font-weight:700;color:{{ sc.ink }};opacity:{{ sc.op }};">{{ sc.short }}</span>
+                    <span style="position:absolute;left:54.5%;top:0;transform:translate(-50%,-50%);white-space:nowrap;font-family:'Golos Text';font-size:clamp(9px,2.6vw,12px);font-weight:600;color:{{ sc.ink }};opacity:{{ sc.op }};">{{ sc.short }}</span>
                   </div>
                 </sc-for>
               </div>
             </div>
-            <button onClick="{{ spin }}" disabled="{{ spinDisabled }}" style="font-family:'Jost';font-size:16px;font-weight:600;padding:16px 34px;border-radius:999px;border:none;cursor:{{ spinCursor }};background:{{ spinBg }};color:{{ spinInk }};box-shadow:{{ spinShadow }};transition:transform .1s;" style-active="transform:scale(.97);" style-focus="outline:2px solid #FFFFFF;outline-offset:3px;">{{ spinLabel }}</button>
+            <button onClick="{{ spin }}" disabled="{{ spinDisabled }}" style="font-family:'Exo 2';font-style:italic;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:17px 38px;border:none;cursor:{{ spinCursor }};background:{{ spinBg }};color:{{ spinInk }};clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);transition:transform .1s;" style-active="transform:scale(.97);">{{ spinLabel }}</button>
             <sc-if value="{{ hasResult }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:14px;background:#140E04;border:1px solid {{ resultC }};">
-                <span style="color:{{ resultC }};font-size:18px;">✦</span>
+              <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;background:#0A0A0A;border:1px solid #FF4A0A;">
+                <span style="width:12px;height:12px;background:#FF4A0A;transform:rotate(45deg);"></span>
                 <div>
                   <div style="font-size:12px;color:#8A8A8A;">Выпало</div>
-                  <div style="font-family:'Jost';font-size:20px;font-weight:600;color:#FFFFFF;">{{ resultName }} <span style="font-size:14px;color:#8A8A8A;font-weight:500;">· шанс {{ resultChance }}</span></div>
+                  <div style="font-family:'Exo 2';font-style:italic;font-size:20px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">{{ resultName }} <span style="font-family:'JetBrains Mono';font-style:normal;text-transform:none;font-size:13px;color:#8A8A8A;font-weight:500;">· шанс {{ resultChance }}</span></div>
                 </div>
               </div>
             </sc-if>
           </div>
           <div>
-            <div style="border-radius:18px;border:1px solid rgba(255,178,30,.16);overflow:hidden;background:#0A0A0A;">
-              <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:8px;gap:10px;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6E6E6E;border-bottom:1px solid #222222;">
+            <div style="border:1px solid #1F1F1F;overflow:hidden;background:#050505;">
+              <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:10px;padding:12px 16px;font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6B6B6B;border-bottom:1px solid #1F1F1F;">
                 <span></span><span>Сектор</span><span>Вес</span><span style="text-align:right;">Шанс</span><span></span>
               </div>
               <sc-for list="{{ rows }}" as="rw" hint-placeholder-count="6">
-                <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:8px;gap:10px;align-items:center;padding:8px 16px;border-bottom:1px solid #141414;opacity:{{ rw.rowOp }};">
-                  <span style="width:14px;height:14px;border-radius:4px;background:{{ rw.fill }};"></span>
-                  <input value="{{ rw.name }}" onInput="{{ rw.onName }}" disabled="{{ rw.locked }}" maxlength="18" aria-label="Название сектора" style="min-width:0;background:#121212;border:1px solid #262626;border-radius:10px;padding:10px 12px;color:#F2F2F2;font-size:14px;outline:none;" style-focus="border-color:#FFB21E;box-shadow:0 0 0 2px rgba(255,178,30,.25);">
-                  <input type="number" min="0" step="1" value="{{ rw.weight }}" onInput="{{ rw.onWeight }}" disabled="{{ rw.locked }}" aria-label="Вес" style="min-width:0;background:#121212;border:1px solid {{ rw.wLine }};border-radius:10px;padding:10px 12px;color:#F2F2F2;font-size:14px;outline:none;" style-focus="border-color:#FFB21E;box-shadow:0 0 0 2px rgba(255,178,30,.25);">
-                  <span style="text-align:right;font-family:'Jost';font-size:15px;color:{{ rw.chanceInk }};">{{ rw.chance }}</span>
-                  <button onClick="{{ rw.remove }}" disabled="{{ rw.noRemove }}" aria-label="Удалить сектор" style="width:34px;height:34px;border-radius:10px;border:1px solid #262626;background:transparent;color:{{ rw.rmInk }};cursor:{{ rw.rmCursor }};font-size:14px;" style-hover="border-color:#FF6A3D;" style-focus="outline:2px solid #FFB21E;outline-offset:1px;">✕</button>
+                <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:10px;align-items:center;padding:8px 16px;border-bottom:1px solid #141414;opacity:{{ rw.rowOp }};">
+                  <span style="width:12px;height:12px;background:{{ rw.fill }};border:1px solid #333333;transform:rotate(45deg);"></span>
+                  <input value="{{ rw.name }}" onInput="{{ rw.onName }}" disabled="{{ rw.locked }}" maxlength="18" aria-label="Название сектора" style="min-width:0;background:#0A0A0A;border:1px solid #262626;padding:10px 12px;color:#F2F2F2;font-size:14px;outline:none;" style-focus="border-color:#FF4A0A;">
+                  <input type="number" min="0" step="1" value="{{ rw.weight }}" onInput="{{ rw.onWeight }}" disabled="{{ rw.locked }}" aria-label="Вес" style="min-width:0;background:#0A0A0A;border:1px solid {{ rw.wLine }};padding:10px 12px;color:#F2F2F2;font-size:14px;outline:none;" style-focus="border-color:#FF4A0A;">
+                  <span style="text-align:right;font-family:'JetBrains Mono';font-size:14px;font-weight:700;color:{{ rw.chanceInk }};">{{ rw.chance }}</span>
+                  <button onClick="{{ rw.remove }}" disabled="{{ rw.noRemove }}" aria-label="Удалить сектор" style="width:34px;height:34px;border:1px solid #262626;background:transparent;color:{{ rw.rmInk }};cursor:{{ rw.rmCursor }};font-size:14px;" style-hover="border-color:#FF4A0A;">✕</button>
                 </div>
               </sc-for>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;flex-wrap:wrap;">
-                <button onClick="{{ addRow }}" disabled="{{ addDisabled }}" style="font-size:13px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px dashed #3A3A3A;background:transparent;color:{{ addInk }};cursor:{{ addCursor }};" style-hover="border-color:#FFB21E;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">+ Добавить сектор</button>
-                <span style="font-size:13px;color:#8A8A8A;">Сумма весов: <span style="color:#FFFFFF;font-family:'Jost';font-size:15px;">{{ totalW }}</span></span>
+                <button onClick="{{ addRow }}" disabled="{{ addDisabled }}" style="font-size:13px;font-weight:600;padding:10px 16px;border:1px dashed #3A3A3A;background:transparent;color:{{ addInk }};cursor:{{ addCursor }};" style-hover="border-color:#FF4A0A;">+ Добавить сектор</button>
+                <span style="font-size:13px;color:#8A8A8A;">Сумма весов: <span style="color:#FFFFFF;font-family:'JetBrains Mono';font-weight:700;font-size:14px;">{{ totalW }}</span></span>
               </div>
             </div>
             <sc-if value="{{ wheelError }}" hint-placeholder-val="{{ false }}">
-              <div role="alert" style="margin-top:12px;padding:12px 16px;border-radius:12px;border:1px solid #FF6A3D66;background:#FF6A3D12;color:#FFC4B0;font-size:13px;">Нужен хотя бы один сектор с весом больше нуля — иначе колесо нечему выдавать.</div>
+              <div role="alert" style="margin-top:12px;padding:12px 16px;border:1px solid #FF4A0A;background:#FF4A0A14;color:#FFC9B3;font-size:13px;">Нужен хотя бы один сектор с весом больше нуля — иначе колесо нечему выдавать.</div>
             </sc-if>
-            <p style="font-size:13px;line-height:1.6;color:#A6A6A6;margin:16px 0 0;padding:14px 16px;border-radius:12px;background:#0D0D0D;border:1px solid rgba(255,178,30,.16);">Шанс = вес сектора ÷ сумма весов. Вес 0 — сектор не выпадает. Сектора нарисованы одинаковыми и не отражают вероятность.</p>
+            <p style="font-size:13px;line-height:1.6;color:#A3A3A3;margin:16px 0 0;padding:14px 16px;background:#0A0A0A;border:1px solid #1F1F1F;">Шанс = вес сектора ÷ сумма весов. Вес 0 — сектор не выпадает. Сектора нарисованы одинаковыми и не отражают вероятность.</p>
           </div>
         </div>
       </section>
 
-      <!-- 08.4 БИБЛИОТЕКА АССЕТОВ -->
-      <section id="assets" data-sec="assets" data-screen-label="08.4 Библиотека ассетов" style="padding:48px 0;border-top:1px solid #161616;">
-        <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>04 · Библиотека ассетов</div>
-        <h2 style="font-family:'Jost';font-weight:300;font-size:34px;margin:10px 0 0;color:#FFFFFF;">Всё для скачивания в одном месте</h2>
+      <section id="assets" data-sec="assets" data-screen-label="08.4 Библиотека ассетов" style="padding:56px 0;border-top:1px solid #1A1A1A;">
+        <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>04 · Библиотека ассетов</div>
+        <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(30px,3.4vw,44px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">Всё для скачивания в одном месте</h2>
 
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#FFB21E;margin:32px 0 14px;">Игры</h3>
-        <div style="border-radius:18px;border:1px solid rgba(255,178,30,.16);overflow:hidden;background:#0A0A0A;">
+        <h3 style="font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FF4A0A;margin:36px 0 14px;">Игры</h3>
+        <div style="border:1px solid #1F1F1F;overflow:hidden;background:#050505;">
           <sc-if value="{{ assetsLoading }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ skeletons }}" as="sk" hint-placeholder-count="4">
               <div style="display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #141414;">
-                <span style="width:52px;height:52px;border-radius:12px;background:linear-gradient(90deg,#121212 0,#1E1E1E 50%,#121212 100%);background-size:800px 100%;animation:shimmer 1.2s linear infinite;"></span>
-                <span style="flex:1;height:14px;max-width:260px;border-radius:6px;background:linear-gradient(90deg,#121212 0,#1E1E1E 50%,#121212 100%);background-size:800px 100%;animation:shimmer 1.2s linear infinite;"></span>
+                <span style="width:52px;height:52px;background:linear-gradient(90deg,#111 0,#1d1d1d 50%,#111 100%);background-size:800px 100%;animation:shimmer 1.2s linear infinite;"></span>
+                <span style="flex:1;height:14px;max-width:260px;background:linear-gradient(90deg,#111 0,#1d1d1d 50%,#111 100%);background-size:800px 100%;animation:shimmer 1.2s linear infinite;"></span>
               </div>
             </sc-for>
           </sc-if>
           <sc-if value="{{ assetsReady }}" hint-placeholder-val="{{ true }}">
             <sc-for list="{{ gameRows }}" as="gr" hint-placeholder-count="5">
               <div style="display:flex;align-items:center;gap:16px;padding:14px 18px;border-bottom:1px solid #141414;flex-wrap:wrap;">
-                <div style="width:52px;height:52px;border-radius:12px;overflow:hidden;flex:none;border:1px solid #262626;"><image-slot id="{{ gr.slot }}" src="{{ gr.src }}" shape="rect" placeholder=" "></image-slot></div>
+                <div style="width:52px;height:52px;overflow:hidden;flex:none;border:1px solid #262626;"><image-slot id="{{ gr.slot }}" src="{{ gr.src }}" shape="rect" placeholder=" "></image-slot></div>
                 <div style="flex:1;min-width:180px;">
-                  <div style="font-family:'Jost';font-size:18px;font-weight:600;color:#FFFFFF;">{{ gr.name }}</div>
-                  <div style="font-size:12px;color:#8A8A8A;margin-top:3px;">{{ gr.specs }}</div>
+                  <div style="font-family:'Exo 2';font-style:italic;font-size:19px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">{{ gr.name }}</div>
+                  <div style="font-size:12px;color:#8A8A8A;margin-top:4px;">{{ gr.specs }}</div>
                 </div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                   <sc-for list="{{ gr.btns }}" as="b" hint-placeholder-count="3">
-                    <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" title="{{ b.title }}" style="font-size:13px;font-weight:600;padding:10px 14px;border-radius:10px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,border-color .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">{{ b.text }}</button>
+                    <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" title="{{ b.title }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,border-color .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
                   </sc-for>
                 </div>
               </div>
             </sc-for>
           </sc-if>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;padding:16px 18px;background:#0D0D0D;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;padding:16px 18px;background:#0A0A0A;">
             <sc-for list="{{ bulkBtns }}" as="b" hint-placeholder-count="3">
-              <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" style="font-family:'Jost';font-size:14px;font-weight:600;padding:12px 20px;border-radius:999px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);" style-focus="outline:2px solid #FFFFFF;outline-offset:2px;">{{ b.text }}</button>
+              <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" style="font-family:'Exo 2';font-style:italic;font-size:14px;font-weight:800;text-transform:uppercase;padding:12px 22px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
             </sc-for>
           </div>
         </div>
-        <div style="font-size:12px;color:#6E6E6E;margin-top:10px;">Серая кнопка — материал ещё не готов: иконки для игр со статусом «скоро» в работе.</div>
+        <div style="font-size:12px;color:#6B6B6B;margin-top:10px;">Серая кнопка — материал ещё не готов: иконки для игр со статусом «скоро» в работе.</div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;margin-top:32px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;margin-top:36px;">
           <div>
-            <h3 style="font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#FF6A3D;margin:0 0 14px;">Бренд</h3>
-            <div style="border-radius:18px;border:1px solid rgba(255,178,30,.16);background:#0A0A0A;padding:20px;display:flex;flex-direction:column;gap:18px;">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                <div style="height:110px;border-radius:12px;background:#000000;border:1px solid rgba(255,178,30,.35);display:flex;align-items:center;justify-content:center;padding:10px;"><img src="assets/brand/logo-full.png" alt="illuminator" style="max-width:100%;max-height:90px;"></div>
-                <div style="height:110px;border-radius:12px;background:#FFF8EC;border:1px solid rgba(255,178,30,.5);display:flex;align-items:center;justify-content:center;padding:10px;"><img src="assets/brand/logo-dark.png" alt="illuminator, тёмная версия" style="max-width:100%;max-height:90px;"></div>
-              </div>
-              <ul style="margin:0;padding:0 0 0 18px;font-size:13px;line-height:1.7;color:#A6A6A6;">
-                <li>Основная версия — полноцвет на «космическом» чёрном; на светлом фоне — монохромная тёмная.</li>
-                <li>Компактный знак — астронавт с кометой — для иконок, аватаров и фавиконок.</li>
+            <h3 style="font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FF4A0A;margin:0 0 14px;">Бренд</h3>
+            <div style="border:1px solid #1F1F1F;background:#050505;padding:20px;display:flex;flex-direction:column;gap:18px;">
+              <div style="height:120px;background:#000;border:1px solid #1A1A1A;display:flex;align-items:center;justify-content:center;"><img src="assets/logo.png" alt="illuminator" style="width:78%;max-width:300px;"></div>
+              <ul style="margin:0;padding:0 0 0 18px;font-size:13px;line-height:1.7;color:#A3A3A3;">
+                <li>Только на тёмном фоне; на светлом — монохромная версия.</li>
+                <li>Свободное поле вокруг знака — не меньше высоты буквы «i».</li>
                 <li>Не растягивать, не перекрашивать, не добавлять эффекты.</li>
               </ul>
-              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
                 <sc-for list="{{ palette }}" as="pc" hint-placeholder-count="6">
-                  <button onClick="{{ pc.copy }}" title="Скопировать HEX" style="border-radius:10px;border:1px solid #262626;background:#121212;padding:0;overflow:hidden;cursor:pointer;text-align:left;" style-hover="border-color:#3A3A3A;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">
+                  <button onClick="{{ pc.copy }}" title="Скопировать HEX" style="border:1px solid #262626;background:#0A0A0A;padding:0;overflow:hidden;cursor:pointer;text-align:left;" style-hover="border-color:#FF4A0A;">
                     <div style="height:44px;background:{{ pc.hex }};border-bottom:1px solid #262626;"></div>
-                    <div style="padding:7px 9px;font-size:11px;color:#BDBDBD;"><div style="font-weight:700;color:#F2F2F2;">{{ pc.name }}</div>{{ pc.label }}</div>
+                    <div style="padding:7px 9px;font-family:'JetBrains Mono';font-size:10px;color:#9A9A9A;"><div style="font-family:'Golos Text';font-size:12px;font-weight:600;color:#F2F2F2;">{{ pc.name }}</div>{{ pc.label }}</div>
                   </button>
                 </sc-for>
               </div>
               <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <sc-for list="{{ brandBtns }}" as="b" hint-placeholder-count="2">
-                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border-radius:10px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">{{ b.text }}</button>
+                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
                 </sc-for>
               </div>
             </div>
           </div>
           <div>
-            <h3 style="font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#FFE3A3;margin:0 0 14px;">Промо</h3>
-            <div style="border-radius:18px;border:1px solid rgba(255,178,30,.16);background:#0A0A0A;padding:20px;display:flex;flex-direction:column;gap:16px;">
-              <div style="height:200px;border-radius:12px;background:#000000;border:1px solid #1A1A1A;display:flex;align-items:center;justify-content:center;">
+            <h3 style="font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FF4A0A;margin:0 0 14px;">Промо</h3>
+            <div style="border:1px solid #1F1F1F;background:#050505;padding:20px;display:flex;flex-direction:column;gap:16px;">
+              <div style="height:200px;background:#000;border:1px solid #1A1A1A;display:flex;align-items:center;justify-content:center;">
                 <svg viewBox="-110 -110 220 220" style="height:170px;">
-                  <sc-for list="{{ sectors }}" as="sc" hint-placeholder-count="6"><path d="{{ sc.d }}" fill="{{ sc.fill }}" stroke="#000000" stroke-width="1.5"></path></sc-for>
-                  <circle cx="0" cy="0" r="16" fill="#000000" stroke="#FFB21E" stroke-width="1.5"></circle>
+                  <sc-for list="{{ sectors }}" as="sc" hint-placeholder-count="6"><path d="{{ sc.d }}" fill="{{ sc.fill }}" stroke="#000000" stroke-width="1.6"></path></sc-for>
+                  <circle cx="0" cy="0" r="16" fill="#000000" stroke="#FF4A0A" stroke-width="1.5"></circle>
                 </svg>
               </div>
-              <div style="font-family:'Jost';font-size:18px;font-weight:600;color:#FFFFFF;">Колесо бонусов — вектор</div>
-              <div style="font-size:13px;color:#A6A6A6;line-height:1.6;">SVG собирается из текущих секторов конструктора.</div>
+              <div style="font-family:'Exo 2';font-style:italic;font-size:19px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">Колесо бонусов — вектор</div>
+              <div style="font-size:13px;color:#A3A3A3;line-height:1.6;">SVG собирается из текущих секторов конструктора.</div>
               <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
                 <sc-for list="{{ promoBtns }}" as="b" hint-placeholder-count="1">
-                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border-radius:10px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:pointer;transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">{{ b.text }}</button>
+                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:pointer;transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
                 </sc-for>
-                <a href="#wheel" style="font-size:13px;font-weight:600;padding:10px 4px;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">Открыть конструктор →</a>
+                <a href="#wheel" style="font-size:13px;font-weight:600;padding:10px 4px;">Открыть конструктор →</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 08.5 СПЕЦИФИКАЦИЯ -->
-      <section id="spec" data-sec="spec" data-screen-label="08.5 Спецификация" style="padding:48px 0;border-top:1px solid #161616;">
-        <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>05 · Спецификация поставки</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10px;">
-          <h2 style="font-family:'Jost';font-weight:300;font-size:34px;margin:0;color:#FFFFFF;">Технические параметры</h2>
-          <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid #FFB21E55;background:#FFB21E10;color:#FFD27A;font-size:13px;font-weight:600;"><span style="width:7px;height:7px;border-radius:50%;background:#FFB21E;"></span>Значения предварительные — ждут подтверждения</span>
+      <section id="spec" data-sec="spec" data-screen-label="08.5 Спецификация" style="padding:56px 0;border-top:1px solid #1A1A1A;">
+        <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>05 · Спецификация поставки</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px;">
+          <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(30px,3.4vw,44px);line-height:.95;margin:0;color:#FFFFFF;">Технические параметры</h2>
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid #FF4A0A66;background:#FF4A0A12;color:#FFC9B3;font-size:13px;font-weight:600;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>Значения предварительные — ждут подтверждения</span>
         </div>
-        <div style="margin-top:24px;border-radius:18px;border:1px solid rgba(255,178,30,.16);overflow:hidden;">
+        <div style="margin-top:26px;border:1px solid #1F1F1F;overflow:hidden;">
           <sc-for list="{{ spec }}" as="sp" hint-placeholder-count="9">
             <div style="display:grid;grid-template-columns:minmax(120px,240px) 1fr;gap:16px;padding:15px 20px;border-bottom:1px solid #141414;background:{{ sp.bg }};">
-              <span style="font-size:14px;font-weight:600;color:#BDBDBD;">{{ sp.k }}</span>
+              <span style="font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;padding-top:2px;">{{ sp.k }}</span>
               <span style="font-size:14px;color:#F2F2F2;line-height:1.5;">{{ sp.v }}</span>
             </div>
           </sc-for>
         </div>
       </section>
 
-      <!-- 09 КОНТАКТЫ -->
-      <section id="contacts" data-sec="contacts" data-screen-label="09 Контакты" style="padding:48px 0 64px;border-top:1px solid #161616;">
-        <div style="display:flex;align-items:center;gap:14px;font-family:'Jost';font-size:12px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#FFB21E;"><span style="width:32px;height:1px;background:#FFB21E;"></span>06 · Контакты</div>
-        <h2 style="font-family:'Jost';font-weight:300;font-size:34px;margin:10px 0 0;color:#FFFFFF;">Куда писать</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin-top:28px;">
+      <section id="contacts" data-sec="contacts" data-screen-label="09 Контакты" style="padding:56px 0 72px;border-top:1px solid #1A1A1A;">
+        <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono';font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#9A9A9A;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>06 · Контакты</div>
+        <h2 style="font-family:'Exo 2';font-style:italic;font-weight:900;text-transform:uppercase;font-size:clamp(30px,3.4vw,44px);line-height:.95;margin:14px 0 0;color:#FFFFFF;">Куда писать</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin-top:32px;">
           <sc-for list="{{ contacts }}" as="ct" hint-placeholder-count="3">
-            <div style="border-radius:18px;background:#0D0D0D;border:1px solid rgba(255,178,30,.16);padding:22px;display:flex;flex-direction:column;gap:12px;">
-              <div style="font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:{{ ct.c }};">{{ ct.who }}</div>
-              <a href="{{ ct.mailto }}" style="font-family:'Jost';font-size:20px;font-weight:600;color:#FFFFFF;word-break:break-all;" style-hover="color:#FFB21E;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">{{ ct.email }}</a>
-              <div style="font-size:14px;line-height:1.6;color:#A6A6A6;">{{ ct.text }}</div>
+            <div style="background:#0A0A0A;border:1px solid #1F1F1F;border-top:3px solid {{ ct.c }};padding:24px;display:flex;flex-direction:column;gap:12px;">
+              <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:{{ ct.c }};">{{ ct.who }}</div>
+              <a href="{{ ct.mailto }}" style="font-family:'Exo 2';font-style:italic;font-size:19px;font-weight:800;color:#FFFFFF;word-break:break-all;" style-hover="color:#FF4A0A;">{{ ct.email }}</a>
+              <div style="font-size:14px;line-height:1.6;color:#A3A3A3;">{{ ct.text }}</div>
               <sc-if value="{{ ct.hasNote }}" hint-placeholder-val="{{ false }}">
-                <div style="font-size:13px;line-height:1.55;color:#FFFFFF;padding:12px 14px;border-radius:12px;background:#FF6A3D14;border:1px solid #FF6A3D44;">{{ ct.note }}</div>
+                <div style="font-size:13px;line-height:1.55;color:#F2F2F2;padding:12px 14px;background:#FF4A0A12;border:1px solid #FF4A0A55;">{{ ct.note }}</div>
               </sc-if>
             </div>
           </sc-for>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
           <sc-for list="{{ messengers }}" as="ms" hint-placeholder-count="3">
-            <a href="{{ ms.href }}" style="font-size:13px;font-weight:600;padding:10px 18px;border-radius:999px;border:1px solid #2E2E2E;color:#F2F2F2;" style-hover="border-color:#F28C00;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">{{ ms.label }}</a>
+            <a href="{{ ms.href }}" style="font-size:13px;font-weight:600;padding:10px 18px;border:1px solid #333333;color:#F2F2F2;" style-hover="border-color:#FF4A0A;color:#FFFFFF;">{{ ms.label }}</a>
           </sc-for>
         </div>
 
-        <div style="margin-top:36px;border-radius:20px;background:#0A0A0A;border:1px solid rgba(255,178,30,.16);padding:clamp(20px,3vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:28px;">
+        <div style="margin-top:40px;background:#050505;border:1px solid #1F1F1F;padding:clamp(20px,3vw,34px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:28px;">
           <div>
-            <div style="font-family:'Jost';font-size:24px;font-weight:500;color:#FFFFFF;">Быстрое письмо</div>
-            <p style="font-size:14px;line-height:1.6;color:#A6A6A6;margin:10px 0 0;">Форма подготовит письмо и откроет ваше почтовое приложение. На сервер ничего не отправляется.</p>
+            <div style="font-family:'Exo 2';font-style:italic;font-size:28px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">Быстрое письмо</div>
+            <p style="font-size:14px;line-height:1.6;color:#A3A3A3;margin:10px 0 0;">Форма подготовит письмо и откроет ваше почтовое приложение. На сервер ничего не отправляется.</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="display:flex;padding:3px;border-radius:999px;background:#121212;border:1px solid #262626;align-self:flex-start;flex-wrap:wrap;">
+            <div style="display:flex;padding:3px;background:#0A0A0A;border:1px solid #262626;align-self:flex-start;flex-wrap:wrap;">
               <sc-for list="{{ recipients }}" as="rc" hint-placeholder-count="3">
-                <button onClick="{{ rc.pick }}" style="font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;border:none;cursor:pointer;background:{{ rc.bg }};color:{{ rc.ink }};" style-focus="outline:2px solid #FFB21E;outline-offset:1px;">{{ rc.label }}</button>
+                <button onClick="{{ rc.pick }}" style="font-size:13px;font-weight:600;padding:8px 14px;border:none;cursor:pointer;background:{{ rc.bg }};color:{{ rc.ink }};">{{ rc.label }}</button>
               </sc-for>
             </div>
-            <input value="{{ fName }}" onInput="{{ onFName }}" placeholder="Имя" aria-label="Имя" style="background:#121212;border:1px solid {{ nameLine }};border-radius:12px;padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;" style-focus="border-color:#FFB21E;box-shadow:0 0 0 2px rgba(255,178,30,.25);">
-            <input value="{{ fEmail }}" onInput="{{ onFEmail }}" placeholder="Почта" type="email" aria-label="Почта" style="background:#121212;border:1px solid {{ emailLine }};border-radius:12px;padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;" style-focus="border-color:#FFB21E;box-shadow:0 0 0 2px rgba(255,178,30,.25);">
-            <textarea value="{{ fMsg }}" onInput="{{ onFMsg }}" placeholder="Сообщение" rows="4" aria-label="Сообщение" style="background:#121212;border:1px solid {{ msgLine }};border-radius:12px;padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;resize:vertical;" style-focus="border-color:#FFB21E;box-shadow:0 0 0 2px rgba(255,178,30,.25);"></textarea>
+            <input value="{{ fName }}" onInput="{{ onFName }}" placeholder="Имя" aria-label="Имя" style="background:#0A0A0A;border:1px solid {{ nameLine }};padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;" style-focus="border-color:#FF4A0A;">
+            <input value="{{ fEmail }}" onInput="{{ onFEmail }}" placeholder="Почта" type="email" aria-label="Почта" style="background:#0A0A0A;border:1px solid {{ emailLine }};padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;" style-focus="border-color:#FF4A0A;">
+            <textarea value="{{ fMsg }}" onInput="{{ onFMsg }}" placeholder="Сообщение" rows="4" aria-label="Сообщение" style="background:#0A0A0A;border:1px solid {{ msgLine }};padding:14px 16px;color:#F2F2F2;font-size:15px;outline:none;resize:vertical;" style-focus="border-color:#FF4A0A;"></textarea>
             <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
-              <div role="alert" style="font-size:13px;color:#FFC4B0;">{{ formErrorText }}</div>
+              <div role="alert" style="font-size:13px;color:#FFC9B3;">{{ formErrorText }}</div>
             </sc-if>
-            <button onClick="{{ sendMail }}" style="align-self:flex-start;font-family:'Jost';font-size:15px;font-weight:600;padding:15px 28px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(90deg,#FFB21E,#F28C00);color:#000000;" style-active="transform:scale(.97);" style-focus="outline:2px solid #FFFFFF;outline-offset:3px;">Открыть в почте</button>
+            <button onClick="{{ sendMail }}" style="align-self:flex-start;font-family:'Exo 2';font-style:italic;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:16px 32px;border:none;cursor:pointer;background:#FF4A0A;color:#000;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Открыть в почте</button>
           </div>
         </div>
       </section>
     </main>
   </div>
 
-  <!-- 10 ПОДВАЛ -->
-  <footer data-screen-label="10 Подвал" style="border-top:1px solid #161616;background:#070707;">
-    <div style="max-width:1360px;margin:0 auto;padding:48px clamp(18px,4vw,40px) 28px;">
+  <footer data-screen-label="10 Подвал" style="border-top:1px solid #1A1A1A;background:#050505;">
+    <div style="max-width:1360px;margin:0 auto;padding:52px clamp(18px,4vw,40px) 28px;">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:28px;">
-        <div style="grid-column:span 1;"><img src="assets/brand/logo-full.png" alt="illuminator" style="height:64px;display:block;"></div>
+        <div><img src="assets/logo.png" alt="illuminator" style="height:32px;"></div>
         <sc-for list="{{ footCols }}" as="fc" hint-placeholder-count="4">
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#6E6E6E;">{{ fc.title }}</div>
+            <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#6B6B6B;">{{ fc.title }}</div>
             <sc-for list="{{ fc.links }}" as="fl" hint-placeholder-count="3">
-              <a href="{{ fl.href }}" style="font-size:14px;color:#BDBDBD;" style-hover="color:#FFFFFF;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">{{ fl.label }}</a>
+              <a href="{{ fl.href }}" style="font-size:14px;color:#A3A3A3;" style-hover="color:#FFFFFF;">{{ fl.label }}</a>
             </sc-for>
           </div>
         </sc-for>
       </div>
-      <div style="margin-top:36px;border-radius:18px;border:1px solid #2E2E2E;background:#0D0D0D;padding:22px 24px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
-        <span style="flex:none;width:56px;height:56px;border-radius:50%;border:2px solid #FFFFFF;display:flex;align-items:center;justify-content:center;font-family:'Jost';font-size:18px;font-weight:700;color:#FFFFFF;">18+</span>
+      <div style="margin-top:40px;border:1px solid #262626;background:#0A0A0A;padding:24px;display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;">
+        <span style="flex:none;width:58px;height:58px;border:2px solid #FFFFFF;display:flex;align-items:center;justify-content:center;font-family:'Exo 2';font-style:italic;font-size:20px;font-weight:900;color:#FFFFFF;">18+</span>
         <div style="flex:1;min-width:240px;">
-          <div style="font-family:'Jost';font-size:20px;font-weight:600;color:#FFFFFF;">Играйте ответственно</div>
-          <p style="font-size:15px;line-height:1.65;color:#D9D9D9;margin:8px 0 0;max-width:75ch;">Азартные игры — это развлечение, а не способ заработка. Ставьте только те деньги, которые готовы потерять, и делайте перерывы. Если игра перестаёт приносить удовольствие или влияет на жизнь и близких — обратитесь за помощью и установите лимиты в казино, где играете.</p>
+          <div style="font-family:'Exo 2';font-style:italic;font-size:22px;font-weight:900;text-transform:uppercase;color:#FFFFFF;">Играйте ответственно</div>
+          <p style="font-size:15px;line-height:1.65;color:#C9C9C9;margin:8px 0 0;max-width:75ch;">Азартные игры — это развлечение, а не способ заработка. Ставьте только те деньги, которые готовы потерять, и делайте перерывы. Если игра перестаёт приносить удовольствие или влияет на жизнь и близких — обратитесь за помощью и установите лимиты в казино, где играете.</p>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;">
-        <a href="./" style="font-size:13px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px solid #2E2E2E;color:#F2F2F2;" style-hover="border-color:#F28C00;" style-focus="outline:2px solid #FFB21E;outline-offset:2px;">✦ Показать заставку</a>
-        <span style="margin-left:auto;font-size:12px;color:#8A8A8A;">© 2026 Illuminator</span>
+        <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:10px 16px;border:1px solid #333333;color:#F2F2F2;" style-hover="border-color:#FF4A0A;color:#FFFFFF;"><span style="width:7px;height:7px;background:#FF4A0A;transform:rotate(45deg);"></span>Показать заставку</a>
+        <span style="margin-left:auto;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;color:#6B6B6B;">© 2026 Illuminator</span>
       </div>
     </div>
   </footer>
 
   <sc-if value="{{ toastOn }}" hint-placeholder-val="{{ false }}">
-    <div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;padding:12px 20px;border-radius:999px;background:#FFFFFF;color:#000000;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);">{{ toast }}</div>
+    <div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;padding:12px 22px;background:#FFFFFF;color:#000;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);">{{ toast }}</div>
   </sc-if>
 </div>
-
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+const ACC = '#FF4A0A';
 const GAMES = [
   { id: 'volt', name: 'Volt Coins', mech: 'SwarmWays™', rtp: '96.4%', vol: 'высокая', grid: '5×3', max: 'x5 000' },
   { id: 'joker', name: 'Neon Joker Spins', mech: 'Floodlight™', rtp: '96.1%', vol: 'средняя', grid: '5×3', max: 'x4 000' },
@@ -383,31 +363,18 @@ const GAMES = [
   { id: 'pots', name: 'Pots of Gold', mech: 'Floodlight™', rtp: '96.5%', vol: 'низкая', grid: '5×3', max: 'x2 500', soon: true },
   { id: 'samba', name: 'Samba Goal', mech: 'SwarmWays™', rtp: '96.4%', vol: 'средняя', grid: '5×4', max: 'x4 000', soon: true }
 ];
-const COLORS = ['#FFB21E', '#F28C00', '#FFFFFF', '#B35F00', '#FFE3A3', '#2A2A2A'];
-const INKS = ['#000', '#000', '#000', '#FFF', '#000', '#FFF'];
+const COLORS = ['#FF4A0A', '#F2F2F2', '#262626', '#FF8A5C', '#6B6B6B', '#111111'];
+const DARK_INK = { 1: true, 3: true };
 const PALETTE = [
-  { name: 'Space Black', hex: '#000000', use: '60%' }, { name: 'Stellar White', hex: '#FFFFFF', use: '20%' }, { name: 'Solar Gold', hex: '#FFB21E', use: '10%' },
-  { name: 'Amber Glow', hex: '#F28C00', use: '7%' }, { name: 'Deep Space Gray', hex: '#1A1A1A', use: '3%' }
+  { name: 'Ночь', hex: '#000000' }, { name: 'Свет', hex: '#FFFFFF' }, { name: 'Искра', hex: '#FF4A0A' }, { name: 'Неон', hex: '#FF2D8A' }, { name: 'Аметист', hex: '#8B4DFF' },
+  { name: 'Графит', hex: '#1A1A1A' }, { name: 'Пепел', hex: '#9A9A9A' }, { name: 'Жар', hex: '#FF8A5C' }
 ];
 const MAIL = { ops: 'partners@illuminator.games', players: 'help@illuminator.games', press: 'press@illuminator.games' };
 const NAV = [['connect', 'Подключение'], ['promo', 'Промо-инструменты'], ['wheel', 'Конструктор колеса'], ['assets', 'Библиотека ассетов'], ['spec', 'Спецификация'], ['contacts', 'Контакты']];
 
-function buildSky() {
-  const E = React.createElement;
-  let seed = 7; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const stars = Array.from({ length: 110 }, (_, i) => {
-    const big = r() > 0.86, sz = big ? 2.4 : 1 + r() * 0.9, gold = r() > 0.72;
-    return E('span', { key: 's' + i, style: { position: 'absolute', left: (r() * 100).toFixed(2) + '%', top: (r() * 100).toFixed(2) + '%', width: sz, height: sz, borderRadius: '50%', background: gold ? '#FFE3A3' : '#FFFFFF', boxShadow: big ? '0 0 6px 1px ' + (gold ? 'rgba(255,178,30,.8)' : 'rgba(255,255,255,.7)') : 'none', opacity: 0.25, animation: `twinkle ${(2.4 + r() * 4).toFixed(2)}s ease-in-out ${(r() * 6).toFixed(2)}s infinite` } });
-  });
-  const flares = [[12, 22], [78, 14], [88, 64], [24, 76], [55, 40]].map(([x, y], i) => E('span', { key: 'f' + i, style: { position: 'absolute', left: x + '%', top: y + '%', width: 18, height: 18, marginLeft: -9, marginTop: -9, background: 'radial-gradient(circle,#FFFFFF 0,rgba(255,178,30,.6) 12%,transparent 40%),linear-gradient(90deg,transparent 0,rgba(255,227,163,.9) 50%,transparent 100%) center/100% 1px no-repeat,linear-gradient(180deg,transparent 0,rgba(255,227,163,.9) 50%,transparent 100%) center/1px 100% no-repeat', animation: `flare ${(5 + i * 1.3).toFixed(1)}s ease-in-out ${(i * 1.7).toFixed(1)}s infinite` } }));
-  const shooters = [0, 1].map(i => E('span', { key: 'c' + i, style: { position: 'absolute', left: i ? '55%' : '8%', top: i ? '8%' : '18%', width: 160, height: 1.5, borderRadius: 2, background: 'linear-gradient(90deg,transparent,rgba(255,178,30,.7) 70%,#FFFFFF)', boxShadow: '0 0 8px rgba(255,178,30,.6)', opacity: 0, transform: 'rotate(14deg)', animation: `shoot 11s cubic-bezier(.3,.1,.6,1) ${i ? 6.5 : 1.5}s infinite` } }));
-  return E('div', { style: { position: 'absolute', inset: 0, animation: 'drift 140s linear infinite alternate' } }, stars, flares, shooters);
-}
-
 class Component extends DCLogic {
-  skyEl = buildSky();
   state = {
-    W: window.innerWidth, active: 'connect',
+    W: window.innerWidth || 1280, active: 'connect',
     sectors: [{ name: 'Фриспины ×10', w: 30 }, { name: 'Бонус 50%', w: 20 }, { name: 'Пусто', w: 25 }, { name: 'Фриспины ×25', w: 10 }, { name: 'Кэшбэк 10%', w: 14 }, { name: 'Джекпот', w: 1 }],
     rot: 0, spinning: false, result: null,
     loading: true, dl: {}, toast: '',
@@ -416,6 +383,7 @@ class Component extends DCLogic {
   componentDidMount() {
     this._rs = () => this.setState({ W: window.innerWidth });
     window.addEventListener('resize', this._rs);
+    requestAnimationFrame(this._rs);
     this._lt = setTimeout(() => this.setState({ loading: false }), 900);
     this._io = new IntersectionObserver(es => {
       es.forEach(e => { if (e.isIntersecting) this.setState({ active: e.target.dataset.sec }); });
@@ -442,17 +410,17 @@ class Component extends DCLogic {
   btn(key, label, fn, opts = {}) {
     const st = opts.disabled ? 'disabled' : (this.state.dl[key] || 'idle');
     const map = {
-      idle: { bg: opts.primary ? '#FFFFFF' : '#121212', ink: opts.primary ? '#000000' : '#F2F2F2', line: opts.primary ? '#FFFFFF' : '#2E2E2E', text: label, hover: opts.primary ? 'background:#FFD27A;border-color:#FFD27A;' : 'background:#1A1A1A;border-color:#F28C00;' },
-      loading: { bg: '#1A1A1A', ink: '#BDBDBD', line: '#3A3A3A', text: 'Загрузка…', hover: '' },
-      done: { bg: '#FFD27A14', ink: '#FFD27A', line: '#FFD27A66', text: '✓ Скачано', hover: '' },
+      idle: { bg: opts.primary ? ACC : '#0A0A0A', ink: opts.primary ? '#000000' : '#F2F2F2', line: opts.primary ? ACC : '#333333', text: label, hover: opts.primary ? 'background:#FFFFFF;border-color:#FFFFFF;' : 'background:#141414;border-color:#FF4A0A;' },
+      loading: { bg: '#141414', ink: '#A3A3A3', line: '#3A3A3A', text: 'Загрузка…', hover: '' },
+      done: { bg: '#FF4A0A14', ink: '#FFFFFF', line: '#FF4A0A', text: '✓ Скачано', hover: '' },
       disabled: { bg: 'transparent', ink: '#4A4A4A', line: '#1F1F1F', text: label, hover: '' }
     }[st];
     return { ...map, disabled: st === 'disabled', title: st === 'disabled' ? 'Материал ещё не готов' : label, cursor: st === 'idle' ? 'pointer' : st === 'disabled' ? 'not-allowed' : 'default', onClick: () => st === 'idle' && this.runDl(key, fn) };
   }
   wheelSvg() {
     const n = this.state.sectors.length, step = 360 / n;
-    const paths = this.state.sectors.map((s, i) => `<path d="${this.arc(i, step)}" fill="${COLORS[i % COLORS.length]}" stroke="#000000" stroke-width="1.5"/>`).join('');
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-110 -110 220 220"><circle r="106" fill="#121212"/>${paths}<circle r="16" fill="#000000" stroke="#FFB21E" stroke-width="1.5"/></svg>`;
+    const paths = this.state.sectors.map((s, i) => `<path d="${this.arc(i, step)}" fill="${COLORS[i % COLORS.length]}" stroke="#000" stroke-width="1.6"/>`).join('');
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-110 -110 220 220"><circle r="106" fill="#0A0A0A"/>${paths}<circle r="16" fill="#000" stroke="${ACC}" stroke-width="1.5"/></svg>`;
   }
   arc(i, step) {
     const r = 100, a0 = (i * step - 90) * Math.PI / 180, a1 = ((i + 1) * step - 90) * Math.PI / 180;
@@ -477,36 +445,35 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const s = this.state, W = s.W, desktop = W >= 1100;
+    const s = this.state, W = s.W || 1280, desktop = W >= 1100;
     const nav = NAV.map(([id, label], i) => {
       const on = s.active === id;
-      return { href: '#' + id, label, num: '0' + (i + 1), sideBg: on ? '#121212' : 'transparent', sideInk: on ? '#FFFFFF' : '#8A8A8A', numInk: on ? '#FFB21E' : '#4A4A4A',
-        bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#000000' : '#BDBDBD', line: on ? '#FFFFFF' : '#2E2E2E' };
+      return { href: '#' + id, label, num: '0' + (i + 1), sideBg: on ? '#0A0A0A' : 'transparent', sideInk: on ? '#FFFFFF' : '#8A8A8A', sideLine: on ? ACC : 'transparent', numInk: on ? ACC : '#4A4A4A',
+        bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#000000' : '#A3A3A3', line: on ? '#FFFFFF' : '#2E2E2E' };
     });
 
     const n = s.sectors.length, step = 360 / n;
     const total = s.sectors.reduce((a, b) => a + (b.w || 0), 0);
     const sectors = s.sectors.map((x, i) => {
-      const mid = (i + 0.5) * step - 90;
-      const nm = x.name || '—';
-      return { d: this.arc(i, step), fill: COLORS[i % COLORS.length], op: x.w > 0 ? 1 : 0.35,
-        midDeg: mid.toFixed(2) + 'deg', ink: INKS[i % INKS.length],
+      const mid = (i + 0.5) * step - 90, nm = x.name || '—', ci = i % COLORS.length;
+      return { d: this.arc(i, step), fill: COLORS[ci], op: x.w > 0 ? 1 : 0.35,
+        midDeg: mid.toFixed(2) + 'deg', ink: DARK_INK[ci] ? '#000000' : '#FFFFFF',
         short: nm.length > 13 ? nm.slice(0, 12) + '…' : nm };
     });
     const rows = s.sectors.map((x, i) => ({
       name: x.name, weight: String(x.w), fill: COLORS[i % COLORS.length], locked: s.spinning,
       chance: total > 0 ? ((x.w || 0) / total * 100).toFixed(1).replace('.0', '') + '%' : '—',
-      chanceInk: x.w > 0 ? '#FFFFFF' : '#4A4A4A', rowOp: s.spinning ? 0.55 : 1, wLine: x.w > 0 ? '#262626' : '#FF6A3D55',
+      chanceInk: x.w > 0 ? '#FFFFFF' : '#4A4A4A', rowOp: s.spinning ? 0.55 : 1, wLine: x.w > 0 ? '#262626' : '#FF4A0A88',
       onName: e => this.updSector(i, { name: e.target.value }),
       onWeight: e => this.updSector(i, { w: Math.max(0, Math.floor(Number(e.target.value) || 0)) }),
-      noRemove: s.spinning || n <= 2, rmInk: n <= 2 ? '#3A3A3A' : '#BDBDBD', rmCursor: n <= 2 || s.spinning ? 'not-allowed' : 'pointer',
+      noRemove: s.spinning || n <= 2, rmInk: n <= 2 ? '#3A3A3A' : '#A3A3A3', rmCursor: n <= 2 || s.spinning ? 'not-allowed' : 'pointer',
       remove: () => { if (n > 2 && !s.spinning) this.setState(st => ({ sectors: st.sectors.filter((_, j) => j !== i), result: null })); }
     }));
     const canSpin = total > 0 && !s.spinning;
     const res = s.result != null ? s.sectors[s.result] : null;
 
     const gameRows = GAMES.map(g => ({
-      name: g.name, slot: 'cab-icon-' + g.id, src: `assets/games/${g.id}-p.jpg`,
+      name: g.name, slot: 'cab-icon-' + g.id, src: `assets/games/${g.id}-l.jpg`,
       specs: `${g.mech} · RTP ${g.rtp} · ${g.vol} волатильность · ${g.grid}${g.soon ? ' · скоро' : ''}`,
       btns: [
         this.btn(g.id + '-icon', 'Иконка', null, { disabled: g.soon }),
@@ -517,9 +484,9 @@ class Component extends DCLogic {
     const csv = () => 'id,name,mechanic,rtp,volatility,grid,max_win\n' + GAMES.map(g => [g.id, g.name, g.mech, g.rtp, g.vol, g.grid, g.max].join(',')).join('\n');
 
     const contacts = [
-      { who: 'Операторам', c: '#F28C00', email: MAIL.ops, text: 'Интеграция, коммерческие условия, демо-доступ и промо-инструменты.' },
-      { who: 'Игрокам', c: '#FF6A3D', email: MAIL.players, text: 'Вопросы о правилах игр и найденные ошибки.', note: 'Студия не принимает ставки и не выплачивает выигрыши. По выплатам, депозитам и аккаунту обращайтесь в поддержку казино, где вы играете.' },
-      { who: 'Прессе', c: '#FFE3A3', email: MAIL.press, text: 'Интервью, комментарии, анонсы релизов и пресс-материалы.' }
+      { who: 'Операторам', c: ACC, email: MAIL.ops, text: 'Интеграция, коммерческие условия, демо-доступ и промо-инструменты.' },
+      { who: 'Игрокам', c: '#FFFFFF', email: MAIL.players, text: 'Вопросы о правилах игр и найденные ошибки.', note: 'Студия не принимает ставки и не выплачивает выигрыши. По выплатам, депозитам и аккаунту обращайтесь в поддержку казино, где вы играете.' },
+      { who: 'Прессе', c: '#9A9A9A', email: MAIL.press, text: 'Интервью, комментарии, анонсы релизов и пресс-материалы.' }
     ].map(c => ({ ...c, mailto: 'mailto:' + c.email, hasNote: !!c.note, note: c.note || '' }));
 
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.fEmail);
@@ -527,33 +494,32 @@ class Component extends DCLogic {
     if (s.tried && !s.fName.trim()) errs.push('имя');
     if (s.tried && !emailOk) errs.push('корректную почту');
     if (s.tried && !s.fMsg.trim()) errs.push('сообщение');
+    const bad = '#FF4A0A', ok = '#262626';
 
     return {
-      skyEl: this.skyEl,
       showSidebar: desktop, showChips: !desktop, layoutCols: desktop ? '220px minmax(0,1fr)' : 'minmax(0,1fr)', nav,
       steps: [
-        { n: '1', c: '#FFB21E', title: 'Знакомство', text: 'Созваниваемся, показываем каталог и демо, подбираем игры под ваши рынки. Подписываем договор и NDA.' },
-        { n: '2', c: '#F28C00', title: 'Интеграция', text: 'Подключаете один API — напрямую или через агрегатор. Выдаём тестовый стенд, документацию и инженера на связи.' },
-        { n: '3', c: '#FF6A3D', title: 'Проверка', text: 'Вместе проходим сценарии: кошелёк, раунды, откаты, отчёты. Сверяем сертификаты для каждой юрисдикции.' },
-        { n: '4', c: '#FFE3A3', title: 'Запуск', text: 'Включаем игры в лобби, передаём промо-пакет и ассеты. Первые две недели следим за метриками вместе с вами.' }
-      ],
-      platforms: ['Сайт казино', 'Мобильное приложение', 'Live-лобби', 'Партнёрская сеть', 'Агрегатор'].map((label, i) => ({ label, c: COLORS[i % 4], delay: (i * 0.2).toFixed(1) + 's' })),
+        { n: '1', title: 'Знакомство', text: 'Созваниваемся, показываем каталог и демо, подбираем игры под ваши рынки. Подписываем договор и NDA.' },
+        { n: '2', title: 'Интеграция', text: 'Подключаете один API — напрямую или через агрегатор. Выдаём тестовый стенд, документацию и инженера на связи.' },
+        { n: '3', title: 'Проверка', text: 'Вместе проходим сценарии: кошелёк, раунды, откаты, отчёты. Сверяем сертификаты для каждой юрисдикции.' },
+        { n: '4', title: 'Запуск', text: 'Включаем игры в лобби, передаём промо-пакет и ассеты. Первые две недели следим за метриками вместе с вами.' }
+      ].map((st, i) => ({ ...st, bg: i === 3 ? ACC : 'transparent', ink: i === 3 ? '#000000' : ACC, line: ACC })),
+      platforms: ['Сайт казино', 'Мобильное приложение', 'Live-лобби', 'Партнёрская сеть', 'Агрегатор'].map((label, i) => ({ label, delay: (i * 0.2).toFixed(1) + 's' })),
       promos: [
-        { glyph: '↻', c: '#FFB21E', bg: '#FFB21E1a', title: 'Фриспины', text: 'Выдача бесплатных вращений по API — на регистрацию, депозит или в рамках кампании.' },
-        { glyph: '▲', c: '#F28C00', bg: '#F28C001a', title: 'Турниры', text: 'Сетевые и локальные турниры с таблицей лидеров прямо внутри игры.' },
-        { glyph: '◎', c: '#FF6A3D', bg: '#FF6A3D1a', title: 'Колесо бонусов', text: 'Настраиваемое колесо призов — соберите его в конструкторе ниже.' },
-        { glyph: '▦', c: '#FFE3A3', bg: '#FFE3A31a', title: 'Отчётность', text: 'Ежедневные отчёты по раундам, GGR и промо — в кабинете и по API.' }
+        { glyph: '↻', title: 'Фриспины', text: 'Выдача бесплатных вращений по API — на регистрацию, депозит или в рамках кампании.' },
+        { glyph: '▲', title: 'Турниры', text: 'Сетевые и локальные турниры с таблицей лидеров прямо внутри игры.' },
+        { glyph: '◎', title: 'Колесо бонусов', text: 'Настраиваемое колесо призов — соберите его в конструкторе ниже.' },
+        { glyph: '▦', title: 'Отчётность', text: 'Ежедневные отчёты по раундам, GGR и промо — в кабинете и по API.' }
       ],
       sectors, rows, totalW: total, wheelError: total <= 0,
       wheelRot: s.rot + 'deg', wheelTrans: s.spinning ? 'transform 4.6s cubic-bezier(.12,.7,.12,1)' : 'none',
       spin: () => this.spin(), spinDisabled: !canSpin,
       spinLabel: s.spinning ? 'Крутится…' : 'Тестовое вращение',
-      spinBg: canSpin ? 'linear-gradient(90deg,#FFB21E,#F28C00)' : '#1A1A1A', spinInk: canSpin ? '#000000' : '#5A5A5A',
-      spinCursor: canSpin ? 'pointer' : 'not-allowed', spinShadow: canSpin ? '0 10px 40px -10px rgba(255,178,30,.7)' : 'none',
+      spinBg: canSpin ? ACC : '#1A1A1A', spinInk: canSpin ? '#000000' : '#5A5A5A',
+      spinCursor: canSpin ? 'pointer' : 'not-allowed',
       hasResult: !!res, resultName: res ? res.name || '—' : '', resultChance: res && total ? ((res.w / total) * 100).toFixed(1).replace('.0', '') + '%' : '',
-      resultC: res ? COLORS[s.result % COLORS.length] : '#FFB21E',
       addRow: () => { if (n < 12 && !s.spinning) this.setState(st => ({ sectors: [...st.sectors, { name: 'Новый сектор', w: 10 }], result: null })); },
-      addDisabled: n >= 12 || s.spinning, addInk: n >= 12 ? '#4A4A4A' : '#FFB21E', addCursor: n >= 12 ? 'not-allowed' : 'pointer',
+      addDisabled: n >= 12 || s.spinning, addInk: n >= 12 ? '#4A4A4A' : ACC, addCursor: n >= 12 ? 'not-allowed' : 'pointer',
       assetsLoading: s.loading, assetsReady: !s.loading, skeletons: [1, 2, 3, 4],
       gameRows,
       bulkBtns: [
@@ -561,10 +527,9 @@ class Component extends DCLogic {
         this.btn('csv', 'Данные CSV', () => this.save('illuminator-games.csv', csv(), 'text/csv')),
         this.btn('json', 'Данные JSON', () => this.save('illuminator-games.json', JSON.stringify(GAMES, null, 2), 'application/json'))
       ],
-      palette: PALETTE.map(p => ({ ...p, label: p.hex + ' · ' + p.use, copy: () => { navigator.clipboard && navigator.clipboard.writeText(p.hex); this.showToast(`${p.hex} скопирован`); } })),
+      palette: PALETTE.map(p => ({ ...p, label: p.hex, copy: () => { navigator.clipboard && navigator.clipboard.writeText(p.hex); this.showToast(`${p.hex} скопирован`); } })),
       brandBtns: [
-        this.btn('logo', 'Логотип PNG', () => this.saveUrl('illuminator-logo.png', 'assets/brand/logo-full.png')),
-        this.btn('emblem', 'Знак PNG', () => this.saveUrl('illuminator-emblem.png', 'assets/brand/emblem.png')),
+        this.btn('logo', 'Логотип PNG', () => this.saveUrl('illuminator-logo.png', 'assets/logo.png')),
         this.btn('pal', 'Палитра', () => this.save('illuminator-palette.json', JSON.stringify(PALETTE, null, 2), 'application/json'))
       ],
       promoBtns: [this.btn('wheelSvg', 'Колесо SVG', () => this.save('illuminator-wheel.svg', this.wheelSvg(), 'image/svg+xml'))],
@@ -572,25 +537,25 @@ class Component extends DCLogic {
         ['API', 'REST + WebSocket, JSON; seamless-кошелёк'], ['Каталог', '10 игр: 6 готовы к запуску, 4 выходят в 2027'], ['Варианты RTP', '94% · 95,5% · 96,5%'],
         ['Рынки', 'ЕС (MGA), Латинская Америка, СНГ — по сертификатам'], ['Языки', '24 языка интерфейса'], ['Клиент', 'HTML5, портрет и ландшафт, от 360 px'],
         ['Вес игры', 'до 8 МБ первичной загрузки'], ['Отчётность', 'Ежедневно: кабинет, API, CSV'], ['Доступность', '99,9% SLA, мониторинг 24/7']
-      ].map(([k, v], i) => ({ k, v, bg: i % 2 ? '#090909' : '#0C0C0C' })),
+      ].map(([k, v], i) => ({ k, v, bg: i % 2 ? '#050505' : '#0A0A0A' })),
       contacts,
       messengers: [{ label: 'Telegram', href: '#contacts' }, { label: 'WhatsApp', href: '#contacts' }, { label: 'LinkedIn', href: '#contacts' }],
-      recipients: [['ops', 'Операторам'], ['players', 'Игрокам'], ['press', 'Прессе']].map(([k, label]) => ({ label, bg: s.to === k ? '#FFFFFF' : 'transparent', ink: s.to === k ? '#000000' : '#BDBDBD', pick: () => this.setState({ to: k }) })),
+      recipients: [['ops', 'Операторам'], ['players', 'Игрокам'], ['press', 'Прессе']].map(([k, label]) => ({ label, bg: s.to === k ? '#FFFFFF' : 'transparent', ink: s.to === k ? '#000000' : '#9A9A9A', pick: () => this.setState({ to: k }) })),
       fName: s.fName, fEmail: s.fEmail, fMsg: s.fMsg,
       onFName: e => this.setState({ fName: e.target.value }), onFEmail: e => this.setState({ fEmail: e.target.value }), onFMsg: e => this.setState({ fMsg: e.target.value }),
-      nameLine: s.tried && !s.fName.trim() ? '#FF6A3D' : '#262626', emailLine: s.tried && !emailOk ? '#FF6A3D' : '#262626', msgLine: s.tried && !s.fMsg.trim() ? '#FF6A3D' : '#262626',
+      nameLine: s.tried && !s.fName.trim() ? bad : ok, emailLine: s.tried && !emailOk ? bad : ok, msgLine: s.tried && !s.fMsg.trim() ? bad : ok,
       formError: errs.length > 0, formErrorText: 'Заполните: ' + errs.join(', ') + '.',
       sendMail: () => {
-        const ok = s.fName.trim() && emailOk && s.fMsg.trim();
-        if (!ok) return this.setState({ tried: true });
+        const okk = s.fName.trim() && emailOk && s.fMsg.trim();
+        if (!okk) return this.setState({ tried: true });
         const body = `${s.fMsg}\n\n— ${s.fName}, ${s.fEmail}`;
         window.location.href = `mailto:${MAIL[s.to]}?subject=${encodeURIComponent('Сообщение с сайта Illuminator')}&body=${encodeURIComponent(body)}`;
         this.showToast('Открываем почтовое приложение…');
       },
       footCols: [
-        { title: 'Игры', links: [{ label: 'Каталог', href: './#catalog' }, { label: 'Механики', href: './#mechanics' }, { label: 'Роадмап', href: './#roadmap' }] },
+        { title: 'Игры', links: [{ label: 'Каталог', href: 'index.html#catalog' }, { label: 'Механики', href: 'index.html#mechanics' }, { label: 'Роадмап', href: 'index.html#roadmap' }] },
         { title: 'Операторам', links: [{ label: 'Подключение', href: '#connect' }, { label: 'Ассеты', href: '#assets' }, { label: 'Спецификация', href: '#spec' }] },
-        { title: 'Студия', links: [{ label: 'О нас', href: './#hero' }, { label: 'Пресса', href: '#contacts' }, { label: 'Контакты', href: '#contacts' }] },
+        { title: 'Студия', links: [{ label: 'О нас', href: 'index.html#hero' }, { label: 'Пресса', href: '#contacts' }, { label: 'Карьера', href: 'career.html' }, { label: 'Контакты', href: '#contacts' }] },
         { title: 'Правовое', links: [{ label: 'Политика конфиденциальности', href: '#' }, { label: 'Условия использования', href: '#' }, { label: 'Ответственная игра', href: '#' }] }
       ],
       toastOn: !!s.toast, toast: s.toast
