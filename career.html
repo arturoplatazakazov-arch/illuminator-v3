@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 <meta charset="utf-8">
+<title>Карьера — Illuminator</title>
 <link rel="icon" type="image/svg+xml" href="assets/brand4/icon_app.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -62,8 +63,8 @@
           <div style="font-family:'Geologica';font-style:normal;font-weight:300;text-transform:none;letter-spacing:-.015em;font-size:clamp(28px,3.4vw,44px);color:#FFFFFF;">Отклик получен, {{ firstName }}</div>
           <p style="font-size:15px;color:#B09CA6;max-width:46ch;line-height:1.6;margin:0;">Мы напишем на {{ email }} в течение 5 рабочих дней. Пока можно посмотреть наши игры.</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px;">
-            <a href="index.html#catalog" style="font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;padding:15px 28px;background:#F21C7C;color:#FFFFFF;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);">Смотреть игры</a>
-            <button onClick="{{ reset }}" style="font-size:14px;font-weight:600;padding:14px 22px;border:1px solid #3A2B46;background:transparent;color:#F6ECE6;cursor:pointer;" style-hover="border-color:#F21C7C;">Отправить ещё один</button>
+            <a href="index.html#catalog" style="font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;padding:15px 28px;background:#F21C7C;color:#FFFFFF;border-radius:999px;">Смотреть игры</a>
+            <button onClick="{{ reset }}" style="font-size:14px;font-weight:600;padding:14px 22px;border:1px solid #3A2B46;background:transparent;color:#F6ECE6;cursor:pointer;border-radius:999px;" style-hover="border-color:#F21C7C;">Отправить ещё один</button>
           </div>
         </div>
       </sc-if>
@@ -82,7 +83,7 @@
                 <sc-for list="{{ contactFields }}" as="f" hint-placeholder-count="4">
                   <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#CDBBC2;">
                     <span>{{ f.label }}<span style="color:#F21C7C;">{{ f.req }}</span></span>
-                    <input type="{{ f.type }}" value="{{ f.value }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" autocomplete="{{ f.ac }}" style="background:#130C19;border:1px solid {{ f.line }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;" style-focus="border-color:#F21C7C;">
+                    <input type="{{ f.type }}" value="{{ f.value }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" autocomplete="{{ f.ac }}" style="background:#130C19;border:1px solid {{ f.line }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
                     <sc-if value="{{ f.err }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:500;color:#F7603E;">{{ f.errText }}</span></sc-if>
                   </label>
                 </sc-for>
@@ -95,7 +96,7 @@
                 <div style="font-size:13px;font-weight:600;color:#CDBBC2;">Направление<span style="color:#F21C7C;"> *</span></div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                   <sc-for list="{{ roles }}" as="o" hint-placeholder-count="10">
-                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};transition:all .2s;">{{ o.label }}</button>
+                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};transition:all .2s;border-radius:999px;">{{ o.label }}</button>
                   </sc-for>
                 </div>
                 <sc-if value="{{ roleErr }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#F7603E;">Выберите направление</span></sc-if>
@@ -103,26 +104,26 @@
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:22px;">
                 <div style="display:flex;flex-direction:column;gap:10px;">
                   <div style="font-size:13px;font-weight:600;color:#CDBBC2;">Уровень</div>
-                  <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #2B1F35;background:#130C19;padding:3px;gap:3px;">
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #2B1F35;background:#130C19;padding:3px;gap:3px;border-radius:999px;">
                     <sc-for list="{{ levels }}" as="o" hint-placeholder-count="4">
-                      <button onClick="{{ o.pick }}" style="font-size:13px;font-weight:600;padding:10px 4px;border:none;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};">{{ o.label }}</button>
+                      <button onClick="{{ o.pick }}" style="font-size:13px;font-weight:600;padding:10px 4px;border:none;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border-radius:999px;">{{ o.label }}</button>
                     </sc-for>
                   </div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:10px;">
                   <div style="font-size:13px;font-weight:600;color:#CDBBC2;">Опыт в индустрии<span style="color:#F21C7C;"> *</span></div>
-                  <div style="display:grid;grid-template-columns:repeat(5,1fr);border:1px solid {{ expLine }};background:#130C19;padding:3px;gap:3px;">
+                  <div style="display:grid;grid-template-columns:repeat(5,1fr);border:1px solid {{ expLine }};background:#130C19;padding:3px;gap:3px;border-radius:999px;">
                     <sc-for list="{{ exps }}" as="o" hint-placeholder-count="5">
-                      <button onClick="{{ o.pick }}" style="font-size:13px;font-weight:600;padding:10px 2px;border:none;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};white-space:nowrap;">{{ o.label }}</button>
+                      <button onClick="{{ o.pick }}" style="font-size:13px;font-weight:600;padding:10px 2px;border:none;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};white-space:nowrap;border-radius:999px;">{{ o.label }}</button>
                     </sc-for>
                   </div>
                 </div>
               </div>
               <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="font-size:13px;font-weight:600;color:#CDBBC2;">Формат работы <span style="color:#7E6A76;font-weight:500;">— можно несколько</span></div>
+                <div style="font-size:13px;font-weight:600;color:#CDBBC2;">Формат работы <span style="color:#9A8692;font-weight:500;">— можно несколько</span></div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                   <sc-for list="{{ formats }}" as="o" hint-placeholder-count="3">
-                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};"><span style="width:14px;height:14px;border:1px solid {{ o.boxLine }};background:{{ o.box }};display:flex;align-items:center;justify-content:center;font-size:10px;color:#FFFFFF;">{{ o.tick }}</span>{{ o.label }}</button>
+                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};border-radius:999px;"><span style="width:14px;height:14px;border:1px solid {{ o.boxLine }};background:{{ o.box }};display:flex;align-items:center;justify-content:center;font-size:10px;color:#FFFFFF;">{{ o.tick }}</span>{{ o.label }}</button>
                   </sc-for>
                 </div>
               </div>
@@ -130,7 +131,7 @@
                 <sc-for list="{{ extraFields }}" as="f" hint-placeholder-count="2">
                   <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#CDBBC2;">
                     <span>{{ f.label }}</span>
-                    <input type="{{ f.type }}" value="{{ f.value }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="background:#130C19;border:1px solid #2B1F35;padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;" style-focus="border-color:#F21C7C;">
+                    <input type="{{ f.type }}" value="{{ f.value }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="background:#130C19;border:1px solid #2B1F35;padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
                   </label>
                 </sc-for>
               </div>
@@ -146,12 +147,12 @@
                   <div style="font-size:13px;color:#988490;margin-top:4px;">{{ fileSub }}</div>
                 </div>
                 <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ false }}">
-                  <button onClick="{{ clearFile }}" style="font-size:13px;font-weight:600;padding:9px 14px;border:1px solid #3A2B46;background:transparent;color:#CDBBC2;cursor:pointer;" style-hover="border-color:#F21C7C;">Убрать</button>
+                  <button onClick="{{ clearFile }}" style="font-size:13px;font-weight:600;padding:9px 14px;border:1px solid #3A2B46;background:transparent;color:#CDBBC2;cursor:pointer;border-radius:999px;" style-hover="border-color:#F21C7C;">Убрать</button>
                 </sc-if>
               </label>
               <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#CDBBC2;">
                 <span style="display:flex;justify-content:space-between;gap:10px;"><span>Расскажите о себе</span><span style="font-family:'Geologica';font-weight:500;color:{{ aboutInk }};">{{ aboutCount }} / 1000</span></span>
-                <textarea value="{{ about }}" onInput="{{ onAbout }}" maxlength="1000" rows="5" placeholder="Чем хотите заниматься, каким проектом гордитесь, почему Illuminator" style="background:#130C19;border:1px solid #2B1F35;padding:14px 16px;color:#F6ECE6;font-size:15px;line-height:1.55;outline:none;resize:vertical;" style-focus="border-color:#F21C7C;"></textarea>
+                <textarea value="{{ about }}" onInput="{{ onAbout }}" maxlength="1000" rows="5" placeholder="Чем хотите заниматься, каким проектом гордитесь, почему Illuminator" style="background:#130C19;border:1px solid #2B1F35;padding:14px 16px;color:#F6ECE6;font-size:15px;line-height:1.55;outline:none;resize:vertical;border-radius:12px;" style-focus="border-color:#F21C7C;"></textarea>
               </label>
             </fieldset>
 
@@ -163,7 +164,7 @@
               <sc-if value="{{ formErr }}" hint-placeholder-val="{{ false }}">
                 <div role="alert" style="padding:12px 16px;border:1px solid #F21C7C;background:rgba(242,28,124,.08);color:#FFD8C6;font-size:13px;">{{ formErrText }}</div>
               </sc-if>
-              <button onClick="{{ submit }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:18px 40px;border:none;cursor:pointer;background:#F21C7C;color:#FFFFFF;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Отправить отклик</button>
+              <button onClick="{{ submit }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:18px 40px;border:none;cursor:pointer;background:#F21C7C;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Отправить отклик</button>
             </div>
           </div>
         </div>
@@ -176,7 +177,7 @@
       <img src="assets/brand4/logo_color_tight.svg" alt="illuminator" style="height:32px;width:auto;">
       <a href="index.html" style="font-size:13px;color:#A8949F;" style-hover="color:#FFFFFF;">Главная</a>
       <a href="cabinet.html" style="font-size:13px;color:#A8949F;" style-hover="color:#FFFFFF;">Кабинет оператора</a>
-      <span style="margin-left:auto;font-family:'Geologica';font-size:11px;letter-spacing:.08em;color:#7E6A76;">© 2026 Illuminator</span>
+      <span style="margin-left:auto;font-family:'Geologica';font-size:11px;letter-spacing:.08em;color:#9A8692;">© 2026 Illuminator</span>
     </div>
   </footer>
 </div>
@@ -252,7 +253,7 @@ class Component extends DCLogic {
       onDragLeave: () => this.setState({ drag: false }),
       onDrop: e => { e.preventDefault(); this.setState({ drag: false }); this.setFile(e.dataTransfer.files && e.dataTransfer.files[0]); },
       clearFile: e => { e.preventDefault(); e.stopPropagation(); this.setState({ file: null, fileErr: '' }); },
-      about: s.about, onAbout: set('about'), aboutCount: s.about.length, aboutInk: s.about.length > 900 ? ACC : '#7E6A76',
+      about: s.about, onAbout: set('about'), aboutCount: s.about.length, aboutInk: s.about.length > 900 ? ACC : '#9A8692',
       toggleConsent: () => this.setState(st => ({ consent: !st.consent })),
       consentBg: s.consent ? ACC : 'transparent', consentLine: s.consent ? ACC : (t && !s.consent ? ACC : '#555555'), consentTick: s.consent ? '✓' : '',
       formErr: t && errs.length > 0, formErrText: 'Осталось заполнить: ' + errs.join(', ') + '.',

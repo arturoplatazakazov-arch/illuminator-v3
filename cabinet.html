@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 <meta charset="utf-8">
+<title>Кабинет оператора — Illuminator</title>
 <link rel="icon" type="image/svg+xml" href="assets/brand4/icon_app.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
@@ -31,7 +32,7 @@
       <span style="font-family:'Geologica';font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#A8949F;border-left:1px solid #2B1F35;padding-left:20px;">Кабинет оператора</span>
       <div style="margin-left:auto;display:flex;gap:10px;align-items:center;">
         <a href="index.html" style="font-size:13px;font-weight:600;color:#A8949F;padding:10px 14px;" style-hover="color:#FFFFFF;">← На сайт</a>
-        <a href="#contacts" style="font-family:'Geologica';font-style:normal;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:11px 24px;background:#F21C7C;color:#FFFFFF;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);" style-hover="background:#FFFFFF;color:#000;">Контакты</a>
+        <a href="#contacts" style="font-family:'Geologica';font-style:normal;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:11px 24px;background:#F21C7C;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;color:#000;">Контакты</a>
       </div>
     </div>
     <sc-if value="{{ showChips }}" hint-placeholder-val="{{ false }}">
@@ -67,7 +68,7 @@
           <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;">
             <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
               <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #241830;">
-                <span style="width:44px;height:44px;border:1px solid {{ st.line }};background:{{ st.bg }};color:{{ st.ink }};display:flex;align-items:center;justify-content:center;font-family:'Geologica';font-style:normal;font-size:20px;font-weight:600;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);">{{ st.n }}</span>
+                <span style="width:44px;height:44px;border:1px solid {{ st.line }};background:{{ st.bg }};color:{{ st.ink }};display:flex;align-items:center;justify-content:center;font-family:'Geologica';font-style:normal;font-size:20px;font-weight:600;border-radius:12px;">{{ st.n }}</span>
                 <div>
                   <div style="font-family:'Geologica';font-style:normal;font-size:22px;font-weight:600;text-transform:uppercase;color:#FFFFFF;">{{ st.title }}</div>
                   <div style="font-size:14px;line-height:1.6;color:#B09CA6;margin-top:6px;max-width:52ch;">{{ st.text }}</div>
@@ -91,7 +92,7 @@
                 </div>
               </sc-for>
             </div>
-            <div style="font-size:12px;color:#7E6A76;margin-top:18px;text-align:center;">Каталог, кошелёк и отчёты — через один шлюз для всех площадок</div>
+            <div style="font-size:12px;color:#9A8692;margin-top:18px;text-align:center;">Каталог, кошелёк и отчёты — через один шлюз для всех площадок</div>
           </div>
         </div>
       </section>
@@ -134,7 +135,7 @@
                 </sc-for>
               </div>
             </div>
-            <button onClick="{{ spin }}" disabled="{{ spinDisabled }}" style="font-family:'Geologica';font-style:normal;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:17px 38px;border:none;cursor:{{ spinCursor }};background:{{ spinBg }};color:{{ spinInk }};clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);transition:transform .1s;" style-active="transform:scale(.97);">{{ spinLabel }}</button>
+            <button onClick="{{ spin }}" disabled="{{ spinDisabled }}" style="font-family:'Geologica';font-style:normal;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:17px 38px;border:none;cursor:{{ spinCursor }};background:{{ spinBg }};color:{{ spinInk }};border-radius:999px;transition:transform .1s;" style-active="transform:scale(.97);">{{ spinLabel }}</button>
             <sc-if value="{{ hasResult }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;background:#130C19;border:1px solid #F21C7C;">
                 <span style="width:12px;height:12px;background:#F21C7C;transform:rotate(45deg);"></span>
@@ -147,20 +148,20 @@
           </div>
           <div>
             <div style="border:1px solid #2B1F35;overflow:hidden;background:#0B0710;">
-              <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:10px;padding:12px 16px;font-family:'Geologica';font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7E6A76;border-bottom:1px solid #2B1F35;">
+              <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:10px;padding:12px 16px;font-family:'Geologica';font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9A8692;border-bottom:1px solid #2B1F35;">
                 <span></span><span>Сектор</span><span>Вес</span><span style="text-align:right;">Шанс</span><span></span>
               </div>
               <sc-for list="{{ rows }}" as="rw" hint-placeholder-count="6">
                 <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:10px;align-items:center;padding:8px 16px;border-bottom:1px solid #1C1224;opacity:{{ rw.rowOp }};">
                   <span style="width:12px;height:12px;background:{{ rw.fill }};border:1px solid #3A2B46;transform:rotate(45deg);"></span>
-                  <input value="{{ rw.name }}" onInput="{{ rw.onName }}" disabled="{{ rw.locked }}" maxlength="18" aria-label="Название сектора" style="min-width:0;background:#130C19;border:1px solid #2B1F35;padding:10px 12px;color:#F6ECE6;font-size:14px;outline:none;" style-focus="border-color:#F21C7C;">
-                  <input type="number" min="0" step="1" value="{{ rw.weight }}" onInput="{{ rw.onWeight }}" disabled="{{ rw.locked }}" aria-label="Вес" style="min-width:0;background:#130C19;border:1px solid {{ rw.wLine }};padding:10px 12px;color:#F6ECE6;font-size:14px;outline:none;" style-focus="border-color:#F21C7C;">
+                  <input value="{{ rw.name }}" onInput="{{ rw.onName }}" disabled="{{ rw.locked }}" maxlength="18" aria-label="Название сектора" style="min-width:0;background:#130C19;border:1px solid #2B1F35;padding:10px 12px;color:#F6ECE6;font-size:14px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
+                  <input type="number" min="0" step="1" value="{{ rw.weight }}" onInput="{{ rw.onWeight }}" disabled="{{ rw.locked }}" aria-label="Вес" style="min-width:0;background:#130C19;border:1px solid {{ rw.wLine }};padding:10px 12px;color:#F6ECE6;font-size:14px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
                   <span style="text-align:right;font-family:'Geologica';font-size:14px;font-weight:700;color:{{ rw.chanceInk }};">{{ rw.chance }}</span>
-                  <button onClick="{{ rw.remove }}" disabled="{{ rw.noRemove }}" aria-label="Удалить сектор" style="width:34px;height:34px;border:1px solid #2B1F35;background:transparent;color:{{ rw.rmInk }};cursor:{{ rw.rmCursor }};font-size:14px;" style-hover="border-color:#F21C7C;">✕</button>
+                  <button onClick="{{ rw.remove }}" disabled="{{ rw.noRemove }}" aria-label="Удалить сектор" style="width:34px;height:34px;border:1px solid #2B1F35;background:transparent;color:{{ rw.rmInk }};cursor:{{ rw.rmCursor }};font-size:14px;border-radius:999px;" style-hover="border-color:#F21C7C;">✕</button>
                 </div>
               </sc-for>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;flex-wrap:wrap;">
-                <button onClick="{{ addRow }}" disabled="{{ addDisabled }}" style="font-size:13px;font-weight:600;padding:10px 16px;border:1px dashed #3A3A3A;background:transparent;color:{{ addInk }};cursor:{{ addCursor }};" style-hover="border-color:#F21C7C;">+ Добавить сектор</button>
+                <button onClick="{{ addRow }}" disabled="{{ addDisabled }}" style="font-size:13px;font-weight:600;padding:10px 16px;border:1px dashed #3A3A3A;background:transparent;color:{{ addInk }};cursor:{{ addCursor }};border-radius:999px;" style-hover="border-color:#F21C7C;">+ Добавить сектор</button>
                 <span style="font-size:13px;color:#988490;">Сумма весов: <span style="color:#FFFFFF;font-family:'Geologica';font-weight:700;font-size:14px;">{{ totalW }}</span></span>
               </div>
             </div>
@@ -196,7 +197,7 @@
                 </div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                   <sc-for list="{{ gr.btns }}" as="b" hint-placeholder-count="3">
-                    <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" title="{{ b.title }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,border-color .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
+                    <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" title="{{ b.title }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,border-color .15s,transform .1s;border-radius:999px;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
                   </sc-for>
                 </div>
               </div>
@@ -204,11 +205,11 @@
           </sc-if>
           <div style="display:flex;gap:10px;flex-wrap:wrap;padding:16px 18px;background:#130C19;">
             <sc-for list="{{ bulkBtns }}" as="b" hint-placeholder-count="3">
-              <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" style="font-family:'Geologica';font-style:normal;font-size:14px;font-weight:600;text-transform:uppercase;padding:12px 22px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
+              <button onClick="{{ b.onClick }}" disabled="{{ b.disabled }}" style="font-family:'Geologica';font-style:normal;font-size:14px;font-weight:600;text-transform:uppercase;padding:12px 22px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;border-radius:999px;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
             </sc-for>
           </div>
         </div>
-        <div style="font-size:12px;color:#7E6A76;margin-top:10px;">Серая кнопка — материал ещё не готов: иконки для игр со статусом «скоро» в работе.</div>
+        <div style="font-size:12px;color:#9A8692;margin-top:10px;">Серая кнопка — материал ещё не готов: иконки для игр со статусом «скоро» в работе.</div>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;margin-top:36px;">
           <div>
@@ -222,7 +223,7 @@
               </ul>
               <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
                 <sc-for list="{{ palette }}" as="pc" hint-placeholder-count="6">
-                  <button onClick="{{ pc.copy }}" title="Скопировать HEX" style="border:1px solid #2B1F35;background:#130C19;padding:0;overflow:hidden;cursor:pointer;text-align:left;" style-hover="border-color:#F21C7C;">
+                  <button onClick="{{ pc.copy }}" title="Скопировать HEX" style="border:1px solid #2B1F35;background:#130C19;padding:0;overflow:hidden;cursor:pointer;text-align:left;border-radius:16px;" style-hover="border-color:#F21C7C;">
                     <div style="height:44px;background:{{ pc.hex }};border-bottom:1px solid #2B1F35;"></div>
                     <div style="padding:7px 9px;font-family:'Geologica';font-size:10px;color:#A8949F;"><div style="font-family:'Ysabeau Office';font-size:12px;font-weight:600;color:#F6ECE6;">{{ pc.name }}</div>{{ pc.label }}</div>
                   </button>
@@ -230,7 +231,7 @@
               </div>
               <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <sc-for list="{{ brandBtns }}" as="b" hint-placeholder-count="2">
-                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
+                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:{{ b.cursor }};transition:background .15s,transform .1s;border-radius:999px;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
                 </sc-for>
               </div>
             </div>
@@ -248,7 +249,7 @@
               <div style="font-size:13px;color:#B09CA6;line-height:1.6;">SVG собирается из текущих секторов конструктора.</div>
               <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
                 <sc-for list="{{ promoBtns }}" as="b" hint-placeholder-count="1">
-                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:pointer;transition:background .15s,transform .1s;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
+                  <button onClick="{{ b.onClick }}" style="font-size:13px;font-weight:600;padding:10px 14px;border:1px solid {{ b.line }};background:{{ b.bg }};color:{{ b.ink }};cursor:pointer;transition:background .15s,transform .1s;border-radius:999px;" style-hover="{{ b.hover }}" style-active="transform:scale(.96);">{{ b.text }}</button>
                 </sc-for>
                 <a href="#wheel" style="font-size:13px;font-weight:600;padding:10px 4px;">Открыть конструктор →</a>
               </div>
@@ -300,18 +301,18 @@
             <p style="font-size:14px;line-height:1.6;color:#B09CA6;margin:10px 0 0;">Форма подготовит письмо и откроет ваше почтовое приложение. На сервер ничего не отправляется.</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="display:flex;padding:3px;background:#130C19;border:1px solid #2B1F35;align-self:flex-start;flex-wrap:wrap;">
+            <div style="display:flex;padding:3px;background:#130C19;border:1px solid #2B1F35;align-self:flex-start;flex-wrap:wrap;border-radius:999px;">
               <sc-for list="{{ recipients }}" as="rc" hint-placeholder-count="3">
-                <button onClick="{{ rc.pick }}" style="font-size:13px;font-weight:600;padding:8px 14px;border:none;cursor:pointer;background:{{ rc.bg }};color:{{ rc.ink }};">{{ rc.label }}</button>
+                <button onClick="{{ rc.pick }}" style="font-size:13px;font-weight:600;padding:8px 14px;border:none;cursor:pointer;background:{{ rc.bg }};color:{{ rc.ink }};border-radius:999px;">{{ rc.label }}</button>
               </sc-for>
             </div>
-            <input value="{{ fName }}" onInput="{{ onFName }}" placeholder="Имя" aria-label="Имя" style="background:#130C19;border:1px solid {{ nameLine }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;" style-focus="border-color:#F21C7C;">
-            <input value="{{ fEmail }}" onInput="{{ onFEmail }}" placeholder="Почта" type="email" aria-label="Почта" style="background:#130C19;border:1px solid {{ emailLine }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;" style-focus="border-color:#F21C7C;">
-            <textarea value="{{ fMsg }}" onInput="{{ onFMsg }}" placeholder="Сообщение" rows="4" aria-label="Сообщение" style="background:#130C19;border:1px solid {{ msgLine }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;resize:vertical;" style-focus="border-color:#F21C7C;"></textarea>
+            <input value="{{ fName }}" onInput="{{ onFName }}" placeholder="Имя" aria-label="Имя" style="background:#130C19;border:1px solid {{ nameLine }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
+            <input value="{{ fEmail }}" onInput="{{ onFEmail }}" placeholder="Почта" type="email" aria-label="Почта" style="background:#130C19;border:1px solid {{ emailLine }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
+            <textarea value="{{ fMsg }}" onInput="{{ onFMsg }}" placeholder="Сообщение" rows="4" aria-label="Сообщение" style="background:#130C19;border:1px solid {{ msgLine }};padding:14px 16px;color:#F6ECE6;font-size:15px;outline:none;resize:vertical;border-radius:12px;" style-focus="border-color:#F21C7C;"></textarea>
             <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
               <div role="alert" style="font-size:13px;color:#FFD8C6;">{{ formErrorText }}</div>
             </sc-if>
-            <button onClick="{{ sendMail }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:16px 32px;border:none;cursor:pointer;background:#F21C7C;color:#FFFFFF;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Открыть в почте</button>
+            <button onClick="{{ sendMail }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:16px 32px;border:none;cursor:pointer;background:#F21C7C;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Открыть в почте</button>
           </div>
         </div>
       </section>
@@ -324,7 +325,7 @@
         <div><img src="assets/brand4/logo_color_tight.svg" alt="illuminator" style="height:32px;width:auto;"></div>
         <sc-for list="{{ footCols }}" as="fc" hint-placeholder-count="4">
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="font-family:'Geologica';font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7E6A76;">{{ fc.title }}</div>
+            <div style="font-family:'Geologica';font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9A8692;">{{ fc.title }}</div>
             <sc-for list="{{ fc.links }}" as="fl" hint-placeholder-count="3">
               <a href="{{ fl.href }}" style="font-size:14px;color:#B09CA6;" style-hover="color:#FFFFFF;">{{ fl.label }}</a>
             </sc-for>
@@ -340,7 +341,7 @@
       </div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;">
         <a href="index.html" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:10px 16px;border:1px solid #3A2B46;color:#F6ECE6;" style-hover="border-color:#F21C7C;color:#FFFFFF;"><span style="width:7px;height:7px;background:#F21C7C;transform:rotate(45deg);"></span>Показать заставку</a>
-        <span style="margin-left:auto;font-family:'Geologica';font-size:11px;letter-spacing:.08em;color:#7E6A76;">© 2026 Illuminator</span>
+        <span style="margin-left:auto;font-family:'Geologica';font-size:11px;letter-spacing:.08em;color:#9A8692;">© 2026 Illuminator</span>
       </div>
     </div>
   </footer>
@@ -516,7 +517,7 @@ class Component extends DCLogic {
       wheelRot: s.rot + 'deg', wheelTrans: s.spinning ? 'transform 4.6s cubic-bezier(.12,.7,.12,1)' : 'none',
       spin: () => this.spin(), spinDisabled: !canSpin,
       spinLabel: s.spinning ? 'Крутится…' : 'Тестовое вращение',
-      spinBg: canSpin ? ACC : '#241830', spinInk: canSpin ? '#0B0710' : '#6B5A66',
+      spinBg: canSpin ? ACC : '#241830', spinInk: canSpin ? '#0B0710' : '#8C7884',
       spinCursor: canSpin ? 'pointer' : 'not-allowed',
       hasResult: !!res, resultName: res ? res.name || '—' : '', resultChance: res && total ? ((res.w / total) * 100).toFixed(1).replace('.0', '') + '%' : '',
       addRow: () => { if (n < 12 && !s.spinning) this.setState(st => ({ sectors: [...st.sectors, { name: 'Новый сектор', w: 10 }], result: null })); },
