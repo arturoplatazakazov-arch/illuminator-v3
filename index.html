@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
 <div style="min-height:100vh;background:#0B0710;overflow-x:clip;">
 
   <header data-screen-label="02 Шапка" style="position:sticky;top:0;z-index:50;background:{{ headerBg }};backdrop-filter:blur({{ headerBlur }});-webkit-backdrop-filter:blur({{ headerBlur }});border-bottom:1px solid {{ headerLine }};transition:background .3s,border-color .3s;">
-    <div style="max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:28px;padding:12px clamp(18px,4vw,40px);">
-      <a href="#hero" style="display:flex;align-items:center;flex:none;"><img src="assets/brand4/logo_color_anim_tight.svg" alt="illuminator" style="height:44px;width:auto;display:block;"></a>
+    <div style="max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:28px;padding:12px clamp(18px,4vw,40px);position:relative;">
+      <a href="#hero" style="display:flex;align-items:center;flex:none;{{ logoCenter }}"><img src="assets/brand4/logo_color_anim_tight.svg" alt="illuminator" style="height:44px;width:auto;display:block;"></a>
       <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
         <nav style="display:flex;gap:28px;margin:0 auto;font-family:'Geologica';font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;">
           <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
@@ -757,6 +757,7 @@ class Component extends DCLogic {
       headerBlur: s.scrolled ? '14px' : '0px',
       headerLine: s.scrolled ? '#241830' : 'transparent',
       showNav: desktop, showToggle: !phone, showBurger: !desktop, toggleInMenu: phone,
+      logoCenter: phone ? 'position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);' : '',
       menuOpen: s.menuOpen && !desktop, burgerIcon: s.menuOpen ? '✕' : '☰',
       toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
       navItems, modes,
