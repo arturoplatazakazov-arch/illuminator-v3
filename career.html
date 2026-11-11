@@ -6,6 +6,13 @@
 <link rel="icon" type="image/svg+xml" href="assets/brand4/icon_app.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script>
+(function(){if(!window.matchMedia||!matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+function fix(r){(r.querySelectorAll?r.querySelectorAll('img[src*="_anim"]'):[]).forEach(function(i){i.src=i.getAttribute('src').replace('_anim','');});}
+new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1){if(n.matches&&n.matches('img[src*="_anim"]'))n.src=n.getAttribute('src').replace('_anim','');fix(n);}});});}).observe(document.documentElement,{childList:true,subtree:true});
+document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
+</script>
+
 </head>
 <body>
 <x-dc>
@@ -15,9 +22,16 @@
 <style>
   html,body{margin:0;padding:0;background:#0B0710;color:#F6ECE6;font-family:'Ysabeau Office',sans-serif;}
   a{color:#F21C7C;text-decoration:none;} a:hover{color:#FF5C9F;}
-  ::selection{background:#F21C7C;color:#FFFFFF;}
+  ::selection{background:#D8126E;color:#FFFFFF;}
   input,textarea,button{font-family:inherit;}
   @keyframes glowpulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;animation-delay:0s!important;}
+  }
+  ::placeholder{color:#A8949F;opacity:1;}
+  :focus-visible{outline:2px solid #FBC662;outline-offset:3px;}
 </style>
 </helmet>
 
@@ -63,7 +77,7 @@
           <div style="font-family:'Geologica';font-style:normal;font-weight:300;text-transform:none;letter-spacing:-.015em;font-size:clamp(28px,3.4vw,44px);color:#FFFFFF;">Отклик получен, {{ firstName }}</div>
           <p style="font-size:15px;color:#B09CA6;max-width:46ch;line-height:1.6;margin:0;">Мы напишем на {{ email }} в течение 5 рабочих дней. Пока можно посмотреть наши игры.</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px;">
-            <a href="index.html#catalog" style="font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;padding:15px 28px;background:#F21C7C;color:#FFFFFF;border-radius:999px;">Смотреть игры</a>
+            <a href="index.html#catalog" style="font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;padding:15px 28px;background:#D8126E;color:#FFFFFF;border-radius:999px;">Смотреть игры</a>
             <button onClick="{{ reset }}" style="font-size:14px;font-weight:600;padding:14px 22px;border:1px solid #3A2B46;background:transparent;color:#F6ECE6;cursor:pointer;border-radius:999px;" style-hover="border-color:#F21C7C;">Отправить ещё один</button>
           </div>
         </div>
@@ -123,7 +137,7 @@
                 <div style="font-size:13px;font-weight:600;color:#CDBBC2;">Формат работы <span style="color:#9A8692;font-weight:500;">— можно несколько</span></div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                   <sc-for list="{{ formats }}" as="o" hint-placeholder-count="3">
-                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};border-radius:999px;"><span style="width:14px;height:14px;border:1px solid {{ o.boxLine }};background:{{ o.box }};display:flex;align-items:center;justify-content:center;font-size:10px;color:#FFFFFF;">{{ o.tick }}</span>{{ o.label }}</button>
+                    <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;padding:11px 16px;cursor:pointer;background:{{ o.bg }};color:{{ o.ink }};border:1px solid {{ o.line }};border-radius:999px;"><span style="width:14px;height:14px;border:1px solid {{ o.boxLine }};background:{{ o.box }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#FFFFFF;">{{ o.tick }}</span>{{ o.label }}</button>
                   </sc-for>
                 </div>
               </div>
@@ -164,7 +178,7 @@
               <sc-if value="{{ formErr }}" hint-placeholder-val="{{ false }}">
                 <div role="alert" style="padding:12px 16px;border:1px solid #F21C7C;background:rgba(242,28,124,.08);color:#FFD8C6;font-size:13px;">{{ formErrText }}</div>
               </sc-if>
-              <button onClick="{{ submit }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:18px 40px;border:none;cursor:pointer;background:#F21C7C;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Отправить отклик</button>
+              <button onClick="{{ submit }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:18px 40px;border:none;cursor:pointer;background:#D8126E;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Отправить отклик</button>
             </div>
           </div>
         </div>
@@ -239,7 +253,7 @@ class Component extends DCLogic {
       levels: LEVELS.map(l => ({ label: l, ...seg(s.level === l), pick: () => this.setState({ level: s.level === l ? '' : l }) })),
       exps: EXPS.map(l => ({ label: l === 'Нет' || l === '5+' ? l : l, ...seg(s.exp === l), pick: () => this.setState({ exp: l }) })),
       expLine: t && !s.exp ? ACC : '#2B1F35',
-      formats: FORMATS.map(f => { const on = s.formats.includes(f); return chip(on, { label: f, box: on ? ACC : 'transparent', boxLine: on ? ACC : '#555555', tick: on ? '✓' : '', pick: () => this.setState(st => ({ formats: on ? st.formats.filter(x => x !== f) : [...st.formats, f] })) }); }),
+      formats: FORMATS.map(f => { const on = s.formats.includes(f); return chip(on, { label: f, box: on ? ACC : 'transparent', boxLine: on ? ACC : '#8C7884', tick: on ? '✓' : '', pick: () => this.setState(st => ({ formats: on ? st.formats.filter(x => x !== f) : [...st.formats, f] })) }); }),
       extraFields: [
         { label: 'Портфолио, GitHub или LinkedIn', type: 'url', ph: 'https://', value: s.link, onInput: set('link') },
         { label: 'Ожидания по доходу', type: 'text', ph: 'Сумма и валюта', value: s.salary, onInput: set('salary') }
@@ -247,7 +261,7 @@ class Component extends DCLogic {
       hasFile: !!s.file,
       fileTitle: s.file ? s.file.name : 'Перетащите резюме или выберите файл',
       fileSub: s.fileErr || (s.file ? s.file.size : 'PDF, DOC или DOCX, до 10 МБ'),
-      dropLine: s.drag ? ACC : s.file ? '#F21C7C88' : '#3A3A3A', dropBg: s.drag ? 'rgba(242,28,124,.08)' : '#130C19',
+      dropLine: s.drag ? ACC : s.file ? '#F21C7C88' : '#3A2B46', dropBg: s.drag ? 'rgba(242,28,124,.08)' : '#130C19',
       onFile: e => this.setFile(e.target.files && e.target.files[0]),
       onDragOver: e => { e.preventDefault(); if (!s.drag) this.setState({ drag: true }); },
       onDragLeave: () => this.setState({ drag: false }),
@@ -255,7 +269,7 @@ class Component extends DCLogic {
       clearFile: e => { e.preventDefault(); e.stopPropagation(); this.setState({ file: null, fileErr: '' }); },
       about: s.about, onAbout: set('about'), aboutCount: s.about.length, aboutInk: s.about.length > 900 ? ACC : '#9A8692',
       toggleConsent: () => this.setState(st => ({ consent: !st.consent })),
-      consentBg: s.consent ? ACC : 'transparent', consentLine: s.consent ? ACC : (t && !s.consent ? ACC : '#555555'), consentTick: s.consent ? '✓' : '',
+      consentBg: s.consent ? ACC : 'transparent', consentLine: s.consent ? ACC : (t && !s.consent ? ACC : '#8C7884'), consentTick: s.consent ? '✓' : '',
       formErr: t && errs.length > 0, formErrText: 'Осталось заполнить: ' + errs.join(', ') + '.',
       submit: () => { if (errs.length) return this.setState({ tried: true }); this.setState({ sent: true }); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     };

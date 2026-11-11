@@ -6,6 +6,13 @@
 <link rel="icon" type="image/svg+xml" href="assets/brand4/icon_app.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script>
+(function(){if(!window.matchMedia||!matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+function fix(r){(r.querySelectorAll?r.querySelectorAll('img[src*="_anim"]'):[]).forEach(function(i){i.src=i.getAttribute('src').replace('_anim','');});}
+new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1){if(n.matches&&n.matches('img[src*="_anim"]'))n.src=n.getAttribute('src').replace('_anim','');fix(n);}});});}).observe(document.documentElement,{childList:true,subtree:true});
+document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
+</script>
+
 </head>
 <body>
 <x-dc>
@@ -17,10 +24,17 @@
   html,body{margin:0;padding:0;background:#0B0710;color:#F6ECE6;font-family:'Ysabeau Office',sans-serif;}
   html{scroll-behavior:smooth;scroll-padding-top:90px;}
   a{color:#F21C7C;text-decoration:none;} a:hover{color:#FF5C9F;}
-  ::selection{background:#F21C7C;color:#FFFFFF;}
+  ::selection{background:#D8126E;color:#FFFFFF;}
   input,textarea,select,button{font-family:inherit;}
   @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
   @keyframes flow{0%{transform:translateY(-100%)}100%{transform:translateY(400%)}}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;animation-delay:0s!important;}
+  }
+  ::placeholder{color:#A8949F;opacity:1;}
+  :focus-visible{outline:2px solid #FBC662;outline-offset:3px;}
 </style>
 </helmet>
 
@@ -32,7 +46,7 @@
       <span style="font-family:'Geologica';font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#A8949F;border-left:1px solid #2B1F35;padding-left:20px;">Кабинет оператора</span>
       <div style="margin-left:auto;display:flex;gap:10px;align-items:center;">
         <a href="index.html" style="font-size:13px;font-weight:600;color:#A8949F;padding:10px 14px;" style-hover="color:#FFFFFF;">← На сайт</a>
-        <a href="#contacts" style="font-family:'Geologica';font-style:normal;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:11px 24px;background:#F21C7C;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;color:#000;">Контакты</a>
+        <a href="#contacts" style="font-family:'Geologica';font-style:normal;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:11px 24px;background:#D8126E;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;color:#000;">Контакты</a>
       </div>
     </div>
     <sc-if value="{{ showChips }}" hint-placeholder-val="{{ false }}">
@@ -88,7 +102,7 @@
               <sc-for list="{{ platforms }}" as="pl" hint-placeholder-count="5">
                 <div style="display:flex;flex-direction:column;align-items:center;">
                   <div style="position:relative;width:2px;height:28px;background:#2B1F35;overflow:hidden;"><span style="position:absolute;left:0;top:0;width:2px;height:10px;background:#F21C7C;animation:flow 1.6s linear {{ pl.delay }} infinite;"></span></div>
-                  <div style="width:100%;padding:10px 4px;background:#111111;border:1px solid #2B1F35;text-align:center;font-size:11px;font-weight:600;color:#CDBBC2;line-height:1.3;">{{ pl.label }}</div>
+                  <div style="width:100%;padding:10px 4px;background:#130C19;border:1px solid #2B1F35;text-align:center;font-size:11px;font-weight:600;color:#CDBBC2;line-height:1.3;">{{ pl.label }}</div>
                 </div>
               </sc-for>
             </div>
@@ -102,7 +116,7 @@
         <h2 style="font-family:'Geologica';font-style:normal;font-weight:300;text-transform:none;letter-spacing:-.015em;font-size:clamp(30px,3.4vw,44px);line-height:1.04;margin:14px 0 0;color:#FFFFFF;">Что вы получаете вместе с играми</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:2px;margin-top:32px;background:#241830;border:1px solid #241830;">
           <sc-for list="{{ promos }}" as="pr" hint-placeholder-count="4">
-            <div style="background:#0B0710;padding:26px 24px;display:flex;flex-direction:column;gap:14px;transition:background .25s;" style-hover="background:#0D0D0D;">
+            <div style="background:#0B0710;padding:26px 24px;display:flex;flex-direction:column;gap:14px;transition:background .25s;" style-hover="background:#130C19;">
               <span style="width:42px;height:42px;background:#F21C7C1a;border:1px solid #F21C7C55;color:#F21C7C;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;">{{ pr.glyph }}</span>
               <div style="font-family:'Geologica';font-style:normal;font-size:22px;font-weight:600;text-transform:uppercase;color:#FFFFFF;">{{ pr.title }}</div>
               <div style="font-size:14px;line-height:1.6;color:#B09CA6;">{{ pr.text }}</div>
@@ -148,7 +162,7 @@
           </div>
           <div>
             <div style="border:1px solid #2B1F35;overflow:hidden;background:#0B0710;">
-              <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:10px;padding:12px 16px;font-family:'Geologica';font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9A8692;border-bottom:1px solid #2B1F35;">
+              <div style="display:grid;grid-template-columns:16px minmax(0,1fr) 64px 52px 34px;gap:10px;padding:12px 16px;font-family:'Geologica';font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9A8692;border-bottom:1px solid #2B1F35;">
                 <span></span><span>Сектор</span><span>Вес</span><span style="text-align:right;">Шанс</span><span></span>
               </div>
               <sc-for list="{{ rows }}" as="rw" hint-placeholder-count="6">
@@ -157,11 +171,11 @@
                   <input value="{{ rw.name }}" onInput="{{ rw.onName }}" disabled="{{ rw.locked }}" maxlength="18" aria-label="Название сектора" style="min-width:0;background:#130C19;border:1px solid #2B1F35;padding:10px 12px;color:#F6ECE6;font-size:14px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
                   <input type="number" min="0" step="1" value="{{ rw.weight }}" onInput="{{ rw.onWeight }}" disabled="{{ rw.locked }}" aria-label="Вес" style="min-width:0;background:#130C19;border:1px solid {{ rw.wLine }};padding:10px 12px;color:#F6ECE6;font-size:14px;outline:none;border-radius:12px;" style-focus="border-color:#F21C7C;">
                   <span style="text-align:right;font-family:'Geologica';font-size:14px;font-weight:700;color:{{ rw.chanceInk }};">{{ rw.chance }}</span>
-                  <button onClick="{{ rw.remove }}" disabled="{{ rw.noRemove }}" aria-label="Удалить сектор" style="width:34px;height:34px;border:1px solid #2B1F35;background:transparent;color:{{ rw.rmInk }};cursor:{{ rw.rmCursor }};font-size:14px;border-radius:999px;" style-hover="border-color:#F21C7C;">✕</button>
+                  <button onClick="{{ rw.remove }}" disabled="{{ rw.noRemove }}" aria-label="Удалить сектор" style="width:40px;height:40px;border:1px solid #2B1F35;background:transparent;color:{{ rw.rmInk }};cursor:{{ rw.rmCursor }};font-size:14px;border-radius:999px;" style-hover="border-color:#F21C7C;">✕</button>
                 </div>
               </sc-for>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;flex-wrap:wrap;">
-                <button onClick="{{ addRow }}" disabled="{{ addDisabled }}" style="font-size:13px;font-weight:600;padding:10px 16px;border:1px dashed #3A3A3A;background:transparent;color:{{ addInk }};cursor:{{ addCursor }};border-radius:999px;" style-hover="border-color:#F21C7C;">+ Добавить сектор</button>
+                <button onClick="{{ addRow }}" disabled="{{ addDisabled }}" style="font-size:13px;font-weight:600;padding:10px 16px;border:1px dashed #3A2B46;background:transparent;color:{{ addInk }};cursor:{{ addCursor }};border-radius:999px;" style-hover="border-color:#F21C7C;">+ Добавить сектор</button>
                 <span style="font-size:13px;color:#988490;">Сумма весов: <span style="color:#FFFFFF;font-family:'Geologica';font-weight:700;font-size:14px;">{{ totalW }}</span></span>
               </div>
             </div>
@@ -225,7 +239,7 @@
                 <sc-for list="{{ palette }}" as="pc" hint-placeholder-count="6">
                   <button onClick="{{ pc.copy }}" title="Скопировать HEX" style="border:1px solid #2B1F35;background:#130C19;padding:0;overflow:hidden;cursor:pointer;text-align:left;border-radius:16px;" style-hover="border-color:#F21C7C;">
                     <div style="height:44px;background:{{ pc.hex }};border-bottom:1px solid #2B1F35;"></div>
-                    <div style="padding:7px 9px;font-family:'Geologica';font-size:10px;color:#A8949F;"><div style="font-family:'Ysabeau Office';font-size:12px;font-weight:600;color:#F6ECE6;">{{ pc.name }}</div>{{ pc.label }}</div>
+                    <div style="padding:7px 9px;font-family:'Geologica';font-size:11px;color:#A8949F;"><div style="font-family:'Ysabeau Office';font-size:12px;font-weight:600;color:#F6ECE6;">{{ pc.name }}</div>{{ pc.label }}</div>
                   </button>
                 </sc-for>
               </div>
@@ -312,7 +326,7 @@
             <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
               <div role="alert" style="font-size:13px;color:#FFD8C6;">{{ formErrorText }}</div>
             </sc-if>
-            <button onClick="{{ sendMail }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:16px 32px;border:none;cursor:pointer;background:#F21C7C;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Открыть в почте</button>
+            <button onClick="{{ sendMail }}" style="align-self:flex-start;font-family:'Geologica';font-style:normal;font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:16px 32px;border:none;cursor:pointer;background:#D8126E;color:#FFFFFF;border-radius:999px;" style-hover="background:#FFFFFF;" style-active="transform:scale(.97);">Открыть в почте</button>
           </div>
         </div>
       </section>
@@ -336,7 +350,7 @@
         <span style="flex:none;width:58px;height:58px;border:2px solid #FFFFFF;display:flex;align-items:center;justify-content:center;font-family:'Geologica';font-style:normal;font-size:20px;font-weight:600;color:#FFFFFF;">18+</span>
         <div style="flex:1;min-width:240px;">
           <div style="font-family:'Geologica';font-style:normal;font-size:22px;font-weight:600;text-transform:uppercase;color:#FFFFFF;">Играйте ответственно</div>
-          <p style="font-size:15px;line-height:1.65;color:#C9C9C9;margin:8px 0 0;max-width:75ch;">Азартные игры — это развлечение, а не способ заработка. Ставьте только те деньги, которые готовы потерять, и делайте перерывы. Если игра перестаёт приносить удовольствие или влияет на жизнь и близких — обратитесь за помощью и установите лимиты в казино, где играете.</p>
+          <p style="font-size:15px;line-height:1.65;color:#CDBBC2;margin:8px 0 0;max-width:75ch;">Азартные игры — это развлечение, а не способ заработка. Ставьте только те деньги, которые готовы потерять, и делайте перерывы. Если игра перестаёт приносить удовольствие или влияет на жизнь и близких — обратитесь за помощью и установите лимиты в казино, где играете.</p>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;">
@@ -365,7 +379,7 @@ const GAMES = [
   { id: 'pots', name: 'Pots of Gold', mech: 'Floodlight™', rtp: '96.5%', vol: 'низкая', grid: '5×3', max: 'x2 500', soon: true },
   { id: 'samba', name: 'Samba Goal', mech: 'SwarmWays™', rtp: '96.4%', vol: 'средняя', grid: '5×4', max: 'x4 000', soon: true }
 ];
-const COLORS = ['#F21C7C', '#FBEAA4', '#1E1030', '#F7603E', '#E81EE0', '#FBC662'];
+const COLORS = ['#D8126E', '#FBEAA4', '#1E1030', '#F7603E', '#E81EE0', '#FBC662'];
 const DARK_INK = { 1: true, 3: true };
 const PALETTE = [
   { name: 'Ночь', hex: '#0B0710' }, { name: 'Сумерки', hex: '#1E1030' }, { name: 'Фуксия', hex: '#E81EE0' }, { name: 'Малина', hex: '#F21C7C' },
@@ -413,9 +427,9 @@ class Component extends DCLogic {
     const st = opts.disabled ? 'disabled' : (this.state.dl[key] || 'idle');
     const map = {
       idle: { bg: opts.primary ? ACC : '#130C19', ink: opts.primary ? '#0B0710' : '#F6ECE6', line: opts.primary ? ACC : '#3A2B46', text: label, hover: opts.primary ? 'background:#FFFFFF;border-color:#FFFFFF;' : 'background:#1C1224;border-color:#F21C7C;' },
-      loading: { bg: '#1C1224', ink: '#B09CA6', line: '#3A3A3A', text: 'Загрузка…', hover: '' },
+      loading: { bg: '#1C1224', ink: '#B09CA6', line: '#3A2B46', text: 'Загрузка…', hover: '' },
       done: { bg: '#F21C7C14', ink: '#FFFFFF', line: '#F21C7C', text: '✓ Скачано', hover: '' },
-      disabled: { bg: 'transparent', ink: '#4A4A4A', line: '#2B1F35', text: label, hover: '' }
+      disabled: { bg: 'transparent', ink: '#8C7884', line: '#2B1F35', text: label, hover: '' }
     }[st];
     return { ...map, disabled: st === 'disabled', title: st === 'disabled' ? 'Материал ещё не готов' : label, cursor: st === 'idle' ? 'pointer' : st === 'disabled' ? 'not-allowed' : 'default', onClick: () => st === 'idle' && this.runDl(key, fn) };
   }
@@ -450,7 +464,7 @@ class Component extends DCLogic {
     const s = this.state, W = s.W || 1280, desktop = W >= 1100;
     const nav = NAV.map(([id, label], i) => {
       const on = s.active === id;
-      return { href: '#' + id, label, num: '0' + (i + 1), sideBg: on ? '#130C19' : 'transparent', sideInk: on ? '#FFFFFF' : '#988490', sideLine: on ? ACC : 'transparent', numInk: on ? ACC : '#4A4A4A',
+      return { href: '#' + id, label, num: '0' + (i + 1), sideBg: on ? '#130C19' : 'transparent', sideInk: on ? '#FFFFFF' : '#988490', sideLine: on ? ACC : 'transparent', numInk: on ? ACC : '#8C7884',
         bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#0B0710' : '#B09CA6', line: on ? '#FFFFFF' : '#33253F' };
     });
 
@@ -465,10 +479,10 @@ class Component extends DCLogic {
     const rows = s.sectors.map((x, i) => ({
       name: x.name, weight: String(x.w), fill: COLORS[i % COLORS.length], locked: s.spinning,
       chance: total > 0 ? ((x.w || 0) / total * 100).toFixed(1).replace('.0', '') + '%' : '—',
-      chanceInk: x.w > 0 ? '#FFFFFF' : '#4A4A4A', rowOp: s.spinning ? 0.55 : 1, wLine: x.w > 0 ? '#2B1F35' : '#F21C7C88',
+      chanceInk: x.w > 0 ? '#FFFFFF' : '#8C7884', rowOp: s.spinning ? 0.55 : 1, wLine: x.w > 0 ? '#2B1F35' : '#F21C7C88',
       onName: e => this.updSector(i, { name: e.target.value }),
       onWeight: e => this.updSector(i, { w: Math.max(0, Math.floor(Number(e.target.value) || 0)) }),
-      noRemove: s.spinning || n <= 2, rmInk: n <= 2 ? '#3A3A3A' : '#B09CA6', rmCursor: n <= 2 || s.spinning ? 'not-allowed' : 'pointer',
+      noRemove: s.spinning || n <= 2, rmInk: n <= 2 ? '#3A2B46' : '#B09CA6', rmCursor: n <= 2 || s.spinning ? 'not-allowed' : 'pointer',
       remove: () => { if (n > 2 && !s.spinning) this.setState(st => ({ sectors: st.sectors.filter((_, j) => j !== i), result: null })); }
     }));
     const canSpin = total > 0 && !s.spinning;
@@ -521,7 +535,7 @@ class Component extends DCLogic {
       spinCursor: canSpin ? 'pointer' : 'not-allowed',
       hasResult: !!res, resultName: res ? res.name || '—' : '', resultChance: res && total ? ((res.w / total) * 100).toFixed(1).replace('.0', '') + '%' : '',
       addRow: () => { if (n < 12 && !s.spinning) this.setState(st => ({ sectors: [...st.sectors, { name: 'Новый сектор', w: 10 }], result: null })); },
-      addDisabled: n >= 12 || s.spinning, addInk: n >= 12 ? '#4A4A4A' : ACC, addCursor: n >= 12 ? 'not-allowed' : 'pointer',
+      addDisabled: n >= 12 || s.spinning, addInk: n >= 12 ? '#8C7884' : ACC, addCursor: n >= 12 ? 'not-allowed' : 'pointer',
       assetsLoading: s.loading, assetsReady: !s.loading, skeletons: [1, 2, 3, 4],
       gameRows,
       bulkBtns: [
