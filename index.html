@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Illuminator — игровая студия</title>
 <link rel="icon" type="image/svg+xml" href="assets/brand4/icon_app.svg">
+<!-- Иконка рукопожатия на наведении LinkedIn — Lucide (ISC License, (c) Lucide Icons and Contributors), https://lucide.dev -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <script>
@@ -25,19 +26,101 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
   html{scroll-behavior:smooth;}
   a{color:#F21C7C;text-decoration:none;} a:hover{color:#FF5C9F;}
   ::selection{background:#D8126E;color:#FFFFFF;}
-  @keyframes sparkfly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
   @keyframes hintpulse{0%,100%{opacity:.5}50%{opacity:1}}
   @keyframes flick{0%,100%{transform:scale(1,1) skewX(0deg)}20%{transform:scale(.97,1.04) skewX(1.6deg)}45%{transform:scale(1.03,.97) skewX(-1.2deg)}70%{transform:scale(.98,1.03) skewX(.8deg)}}
   @keyframes glowpulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-  @keyframes swarm{0%,55%,100%{background:#1C1224;box-shadow:none;transform:scale(1)}12%{background:#F21C7C;box-shadow:0 0 16px #F21C7C;transform:scale(1.12)}28%{background:#F6ECE6;box-shadow:none;transform:scale(1)}}
   @keyframes beam{0%{transform:rotate(-34deg)}100%{transform:rotate(34deg)}}
-  @keyframes floodcell{0%,100%{background:#1C1224;box-shadow:none}20%,35%{background:#FFFFFF;box-shadow:0 0 14px rgba(242,28,124,.8)}55%{background:#1C1224;box-shadow:none}}
-  @keyframes blackcell{0%,8%{background:#F21C7C;box-shadow:0 0 10px #F21C7C}25%,88%{background:#0B0710;box-shadow:none}100%{background:#F21C7C;box-shadow:0 0 10px #F21C7C}}
   @keyframes starburst{0%,58%{opacity:0;transform:rotate(45deg) scale(.3)}70%{opacity:1;transform:rotate(45deg) scale(1.7)}82%{opacity:1;transform:rotate(45deg) scale(1)}95%,100%{opacity:0;transform:rotate(45deg) scale(.6)}}
   @keyframes heromarq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   @keyframes ember{0%{transform:translate(0,0);opacity:0}12%{opacity:1}100%{transform:translate(var(--dx),-760px);opacity:0}}
   @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes spinback{to{transform:rotate(-360deg)}}
   @keyframes stagepulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+  /* 01 — высекание искры */
+  @keyframes sparkx{to{transform:translateX(var(--dx))}}
+  @keyframes sparky{0%{transform:translateY(0)}34%{transform:translateY(var(--dy))}100%{transform:translateY(var(--dz))}}
+  @keyframes sparklife{0%{opacity:0;transform:rotate(var(--rot)) scaleX(.35)}10%{opacity:1;transform:rotate(var(--rot)) scaleX(1)}70%{opacity:.9}100%{opacity:0;transform:rotate(var(--rot)) scaleX(.18)}}
+  @keyframes flintflash{0%{opacity:0;transform:scale(.25)}18%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(2.2)}}
+  @keyframes sootrise{0%{opacity:0;transform:translate(0,0) scale(1)}18%{opacity:.85}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.35)}}
+  @keyframes strike1{0%,100%{transform:translate(0,0) rotate(0deg)}16%{transform:translate(-3px,1px) rotate(-1.3deg)}40%{transform:translate(2px,-1px) rotate(.9deg)}68%{transform:translate(-1px,1px) rotate(-.4deg)}}
+  @keyframes strike2{0%,100%{transform:translate(0,0) rotate(0deg)}16%{transform:translate(-3px,1px) rotate(-1.3deg)}40%{transform:translate(2px,-1px) rotate(.9deg)}68%{transform:translate(-1px,1px) rotate(-.4deg)}}
+
+  /* 02 — барабаны в карточках механик */
+  @keyframes swarmhit{0%,10%{background:#140D1B;border-color:#2B1F35;color:#7A6684;transform:scale(1);box-shadow:none}18%{background:rgba(242,28,124,.22);border-color:#F21C7C;color:#FFFFFF;transform:scale(1.12);box-shadow:0 0 20px rgba(242,28,124,.6)}70%{background:rgba(242,28,124,.16);border-color:#F21C7C;color:#FFFFFF;transform:scale(1);box-shadow:0 0 12px rgba(242,28,124,.4)}82%,100%{background:#140D1B;border-color:#2B1F35;color:#7A6684;transform:scale(1);box-shadow:none}}
+  @keyframes linkdraw{0%,12%{stroke-dashoffset:var(--len);opacity:0}20%{opacity:1}34%,74%{stroke-dashoffset:0;opacity:1}86%,100%{stroke-dashoffset:0;opacity:0}}
+  @keyframes chippop{0%,42%{opacity:0;transform:translateY(7px) scale(.7)}52%{opacity:1;transform:translateY(0) scale(1.14)}60%,78%{opacity:1;transform:translateY(0) scale(1)}88%,100%{opacity:0;transform:translateY(-7px) scale(.9)}}
+  @keyframes wildon{0%,8%{opacity:0;transform:scale(.45) rotateY(90deg)}16%{opacity:1;transform:scale(1.14) rotateY(0deg)}23%,50%{opacity:1;transform:scale(1) rotateY(0deg)}60%,100%{opacity:0;transform:scale(.6) rotateY(90deg)}}
+  @keyframes wildoff{0%,8%{opacity:1}16%,52%{opacity:0}62%,100%{opacity:1}}
+  @keyframes payline{0%,60%{stroke-dashoffset:var(--len);opacity:0}68%{opacity:1}74%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+  @keyframes bcell{0%,6%{background:#1B1222;border-color:#38273F;color:#C9B6CF}26%,88%{background:#0B0710;border-color:#160F1D;color:#1E1527}100%{background:#1B1222;border-color:#38273F;color:#C9B6CF}}
+  @keyframes blastsym{0%,52%{color:#C9B6CF;text-shadow:none;transform:scale(1)}62%{color:#FFFFFF;text-shadow:0 0 18px #F21C7C,0 0 34px #F21C7C;transform:scale(1.3)}74%,88%{color:#FFFFFF;text-shadow:0 0 14px #F21C7C;transform:scale(1)}100%{color:#C9B6CF;text-shadow:none;transform:scale(1)}}
+
+  /* 03 — фоновые анимации в карточках карьеры */
+  .cfx{position:absolute;inset:0;z-index:-1;opacity:.17;transition:opacity .5s ease;pointer-events:none;overflow:hidden;}
+  .cfx svg{position:absolute;inset:0;width:100%;height:100%;}
+  .ccard:hover .cfx{opacity:.42;}
+  @keyframes curvedraw{0%{stroke-dashoffset:760}46%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+  @keyframes barpulse{0%,100%{transform:scaleY(.42)}50%{transform:scaleY(1)}}
+  @keyframes dotride{0%{opacity:0;offset-distance:0%}8%{opacity:1}92%{opacity:1}100%{opacity:0;offset-distance:100%}}
+  @keyframes meshwave{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-6px) scaleY(1.07)}}
+  @keyframes handle{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,-14px)}66%{transform:translate(-8px,9px)}}
+  @keyframes bezdraw{0%{stroke-dashoffset:420}40%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+  @keyframes codetype{0%,6%{transform:scaleX(0)}16%,78%{transform:scaleX(1)}92%,100%{transform:scaleX(0)}}
+  @keyframes checkdraw{0%,58%{stroke-dashoffset:70;opacity:0}66%{opacity:1}74%,92%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+  .cfx-curve{stroke-dasharray:760;animation:curvedraw 9s ease-in-out infinite;}
+  .cfx-bars rect{transform-box:fill-box;transform-origin:50% 100%;animation:barpulse 3.6s ease-in-out infinite;}
+  .cfx-bars rect:nth-child(2){animation-delay:-.5s}.cfx-bars rect:nth-child(3){animation-delay:-1.1s}.cfx-bars rect:nth-child(4){animation-delay:-1.7s}
+  .cfx-bars rect:nth-child(5){animation-delay:-2.3s}.cfx-bars rect:nth-child(6){animation-delay:-2.9s}.cfx-bars rect:nth-child(7){animation-delay:-3.4s}
+  .cfx-mesh path{transform-box:fill-box;transform-origin:50% 50%;animation:meshwave 6s ease-in-out infinite;}
+  .cfx-mesh path:nth-child(2){animation-delay:-.8s}.cfx-mesh path:nth-child(3){animation-delay:-1.6s}.cfx-mesh path:nth-child(4){animation-delay:-2.4s}.cfx-mesh path:nth-child(5){animation-delay:-3.2s}
+  .cfx-bez{stroke-dasharray:420;animation:bezdraw 8s ease-in-out infinite;}
+  .cfx-h g{transform-box:fill-box;transform-origin:50% 50%;animation:handle 8s ease-in-out infinite;}
+  .cfx-h g:nth-child(2){animation-delay:-2.6s}
+  .cfx-code rect{transform-box:fill-box;transform-origin:0% 50%;animation:codetype 7s ease-in-out infinite;}
+  .cfx-code rect:nth-child(2){animation-delay:-.45s}.cfx-code rect:nth-child(3){animation-delay:-.9s}.cfx-code rect:nth-child(4){animation-delay:-1.35s}
+  .cfx-code rect:nth-child(5){animation-delay:-1.8s}.cfx-code rect:nth-child(6){animation-delay:-2.25s}.cfx-code rect:nth-child(7){animation-delay:-2.7s}
+  .cfx-ride{offset-path:path('M196 54 L246 92 L196 130 L246 168');animation:dotride 5s linear infinite;}
+  .cfx-check{stroke-dasharray:70;animation:checkdraw 7s ease-in-out infinite;}
+
+  /* 04 — объёмный свет и тепловые волны в финальном блоке */
+  .rays{position:absolute;left:-850px;top:-850px;width:1700px;height:1700px;animation:spin 170s linear infinite;will-change:transform;}
+  .rays.rb{animation:spinback 124s linear infinite;}
+  .rays i{position:absolute;inset:0;display:block;border-radius:50%;-webkit-mask:radial-gradient(circle,rgba(0,0,0,.2) 2%,#000 17%,transparent 56%);mask:radial-gradient(circle,rgba(0,0,0,.2) 2%,#000 17%,transparent 56%);}
+  .r1{background:repeating-conic-gradient(from 8deg,transparent 0 30deg,rgba(247,96,62,.3) 34deg 44deg,transparent 48deg 68deg);filter:blur(13px);animation:raybreath 13s ease-in-out infinite;}
+  .r2{background:repeating-conic-gradient(from 32deg,transparent 0 46deg,rgba(232,30,224,.24) 52deg 64deg,transparent 70deg 96deg);filter:blur(24px);animation:raybreath 17s ease-in-out infinite reverse;}
+  .r3{background:repeating-conic-gradient(from 0deg,transparent 0 52deg,rgba(251,198,98,.18) 53deg 57deg,transparent 58deg 104deg);filter:blur(5px);animation:raybreath 9s ease-in-out infinite;}
+  @keyframes raybreath{0%,100%{opacity:.5}50%{opacity:1}}
+  .hw{position:absolute;left:0;top:0;width:620px;height:620px;margin:-310px 0 0 -310px;border-radius:50%;border:1px solid rgba(242,28,124,.3);box-shadow:inset 0 0 60px rgba(247,96,62,.2),0 0 40px rgba(242,28,124,.12);filter:blur(1.5px);opacity:0;animation:heatwave 10.5s ease-out infinite;}
+  .hw2{animation-delay:-3.5s}.hw3{animation-delay:-7s}
+  @keyframes heatwave{0%{opacity:0;transform:scale(.1)}12%{opacity:.75}100%{opacity:0;transform:scale(2.4)}}
+
+  /* 05 — мессенджеры без плашек, микроанимация на наведении */
+  .msg{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:10px;width:96px;padding:10px 4px;color:#C2AFB7;transition:color .25s ease;}
+  .msg:hover{color:#FFFFFF;}
+  .msgi{position:relative;width:46px;height:46px;display:flex;align-items:center;justify-content:center;}
+  .msgi svg{overflow:visible;}
+  .msgl{font-family:'Ysabeau Office',sans-serif;font-size:13px;font-weight:600;}
+  .tg-plane{transform-box:fill-box;transform-origin:50% 50%;}
+  .msg-tg:hover .tg-plane{animation:tgfly 2.4s ease-in-out infinite;}
+  @keyframes tgfly{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(2.5px,-3px) rotate(7deg)}50%{transform:translate(0,-4.5px) rotate(-4deg)}75%{transform:translate(-2.5px,-2px) rotate(5deg)}}
+  .wa-ring{position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:1.5px solid currentColor;opacity:0;pointer-events:none;}
+  .msg-wa:hover .wa-ring{animation:waring 1.9s ease-out infinite;}
+  .msg-wa:hover .wa-ring2{animation-delay:.63s;}
+  .msg-wa:hover .wa-ring3{animation-delay:1.26s;}
+  @keyframes waring{0%{opacity:.6;transform:scale(.65)}100%{opacity:0;transform:scale(2.2)}}
+  .wa-ic{transform-box:fill-box;transform-origin:50% 50%;}
+  .msg-wa:hover .wa-ic{animation:wabuzz .45s ease-in-out infinite;}
+  @keyframes wabuzz{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(-1px,0) rotate(-5deg)}75%{transform:translate(1px,0) rotate(5deg)}}
+  .li-in{transition:opacity .3s ease,transform .3s ease;}
+  .li-hs{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.75);transition:opacity .3s ease,transform .3s ease;}
+  .msg-li:hover .li-in{opacity:0;transform:scale(.75);}
+  .msg-li:hover .li-hs{opacity:1;animation:hsshake 1.6s ease-in-out infinite;}
+  @keyframes hsshake{0%,100%{transform:scale(1) translateY(0) rotate(0deg)}30%{transform:scale(1) translateY(1.6px) rotate(-3deg)}60%{transform:scale(1) translateY(-1px) rotate(2deg)}}
+  .ml-seal{transform-box:fill-box;transform-origin:50% 50%;opacity:0;}
+  .msg-em:hover .ml-seal{animation:sealdrop 2.4s cubic-bezier(.3,1.4,.4,1) infinite;}
+  @keyframes sealdrop{0%{opacity:0;transform:translateY(-15px) scale(1.9)}18%{opacity:1;transform:translateY(0) scale(1)}24%{transform:translateY(0) scale(.88)}30%,82%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(0) scale(1)}}
+  @media (max-width:430px){.msg{width:74px;}.msgl{font-size:12px;}}
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
@@ -59,6 +142,8 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
   <div style="position:absolute;left:18vw;top:190vh;width:18px;height:18px;border:1px solid rgba(242,28,124,.25);transform:translate3d(0,calc(var(--sy) * -0.36px),0) rotate(calc(45deg - var(--sy) * 0.05deg));"></div>
 </div>
 
+<canvas ref="{{ trailRef }}" aria-hidden="true" style="position:fixed;inset:0;z-index:130;pointer-events:none;mix-blend-mode:screen;"></canvas>
+
 <sc-if value="{{ gateOn }}" hint-placeholder-val="{{ true }}">
   <div data-screen-label="01 Заставка Zippo" onWheel="{{ onWheel }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}" style="position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse 55% 50% at 50% 42%,#1C1224 0%,#0B0710 60%,#000 100%);opacity:{{ gateOpacity }};transition:opacity .9s ease .35s;pointer-events:{{ gatePointer }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px;touch-action:none;user-select:none;overflow:hidden;">
     <div style="position:absolute;left:50%;top:40%;width:1500px;height:1500px;margin:-750px 0 0 -750px;border-radius:50%;background:radial-gradient(circle,rgba(247,96,62,.34) 0%,rgba(232,30,224,.14) 22%,rgba(123,61,255,.07) 38%,transparent 58%);opacity:{{ warmOp }};transform:scale({{ warmSc }});transition:opacity .9s ease,transform 1.4s cubic-bezier(.2,1,.3,1);pointer-events:none;"></div>
@@ -66,7 +151,8 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
 
     <div style="position:relative;transform:scale({{ camScale }});transform-origin:50% 30%;transition:transform 1.4s cubic-bezier(.7,0,.25,1);padding-top:{{ zPadTop }};">
       <div style="position:relative;width:{{ zW }};height:{{ zH }};">
-        <div onClick="{{ onStep }}" role="button" aria-label="{{ hintText }}" style="position:absolute;left:0;top:0;width:170px;height:316px;transform:scale({{ zs }});transform-origin:0 0;cursor:pointer;">
+        <div onClick="{{ onStep }}" role="button" aria-label="{{ hintText }}" style="position:absolute;left:0;top:0;width:170px;height:316px;transform:scale({{ zs }});transform-origin:0 0;cursor:pointer;--flintx:140px;--flinty:110px;">
+         <div style="position:absolute;left:0;top:0;width:170px;height:316px;animation:{{ strikeAnim }};">
           <div style="position:absolute;left:-40px;right:-40px;bottom:-28px;height:34px;border-radius:50%;background:radial-gradient(ellipse,rgba(11,7,16,.9),transparent 70%);"></div>
           <div style="position:absolute;left:-30px;right:-30px;bottom:-34px;height:30px;border-radius:50%;background:radial-gradient(ellipse,rgba(247,96,62,.35),transparent 70%);opacity:{{ warmOp }};transition:opacity .8s;"></div>
 
@@ -78,11 +164,12 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
           <img src="assets/zippo-gold-body.webp" alt="" draggable="false" style="position:absolute;z-index:2;left:-14.8px;top:69.5px;width:186px;height:247.6px;display:block;filter:drop-shadow(0 30px 40px rgba(11,7,16,.9));">
           <div style="position:absolute;z-index:2;left:40px;top:84px;width:86px;height:76px;background:radial-gradient(ellipse 50% 60% at 50% 30%,rgba(251,198,98,.55),transparent 70%);mix-blend-mode:screen;opacity:{{ flameOp }};transition:opacity .5s;pointer-events:none;"></div>
           <div style="position:absolute;z-index:2;left:0;top:160px;width:170px;height:156px;border-radius:0 0 14px 14px;background:linear-gradient(180deg,rgba(251,198,98,.45),rgba(232,30,224,.12) 40%,transparent 70%);mix-blend-mode:overlay;opacity:{{ warmOp }};transition:opacity .8s;pointer-events:none;"></div>
-          <div style="position:absolute;z-index:3;left:140px;top:110px;">{{ sparksEl }}</div>
+          <div style="position:absolute;z-index:3;left:var(--flintx);top:var(--flinty);">{{ sparksEl }}</div>
           <div style="position:absolute;z-index:4;left:-10.6px;top:59.5px;width:182px;height:101.4px;transform-origin:6.6px 94px;transform:rotate({{ lidRot }});transition:transform .6s cubic-bezier(.25,1.45,.45,1);">
             <img src="assets/zippo-gold-lid.webp" alt="" draggable="false" style="width:100%;height:100%;display:block;">
             <div style="position:absolute;inset:1px 2px 2px 10px;border-radius:14px 14px 2px 2px;background:linear-gradient(0deg,rgba(251,198,98,.5),transparent 70%);mix-blend-mode:overlay;opacity:{{ warmOp }};transition:opacity .8s;pointer-events:none;"></div>
           </div>
+         </div>
         </div>
       </div>
     </div>
@@ -425,7 +512,12 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
         <a href="career.html" style="display:flex;align-items:center;gap:10px;padding:14px 22px;border:1px solid #F21C7C;color:#F21C7C;font-family:'Geologica';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;" style-hover="background:#D8126E;color:#FFFFFF;">Все направления <span>→</span></a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px;margin-top:36px;">
-        <a href="career.html" style="display:flex;flex-direction:column;gap:18px;padding:28px;min-height:240px;background:#130C19;border:1px solid #2B1F35;color:#FFFFFF;transition:transform .3s,border-color .3s;" style-hover="transform:translateY(-4px);border-color:#F21C7C;color:#FFFFFF;">
+        <a class="ccard" href="career.html" style="position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;gap:18px;padding:28px;min-height:240px;background:#130C19;border:1px solid #2B1F35;color:#FFFFFF;transition:transform .3s,border-color .3s;" style-hover="transform:translateY(-4px);border-color:#F21C7C;color:#FFFFFF;">
+          <div class="cfx" aria-hidden="true"><svg viewBox="0 0 300 230" preserveAspectRatio="xMidYMid slice" fill="none">
+            <g stroke="currentColor" stroke-width=".5" opacity=".45"><path d="M0 50h300M0 100h300M0 150h300M0 200h300"/><path d="M50 0v230M100 0v230M150 0v230M200 0v230M250 0v230"/></g>
+            <g class="cfx-bars" fill="currentColor" opacity=".35"><rect x="22" y="150" width="13" height="70"/><rect x="60" y="150" width="13" height="70"/><rect x="98" y="150" width="13" height="70"/><rect x="136" y="150" width="13" height="70"/><rect x="174" y="150" width="13" height="70"/><rect x="212" y="150" width="13" height="70"/><rect x="250" y="150" width="13" height="70"/></g>
+            <path class="cfx-curve" d="M0 196C34 196 48 70 86 74S148 196 186 158 252 44 300 86" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <g fill="currentColor" opacity=".8"><circle cx="86" cy="74" r="3.4"/><circle cx="186" cy="158" r="3.4"/><circle cx="300" cy="86" r="3.4"/></g></svg></div>
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
             <span style="font-family:'Geologica';font-size:12px;font-weight:700;letter-spacing:.14em;color:#8E7A86;">01</span>
             <span style="width:44px;height:44px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#D8126E;color:#FFFFFF;font-size:20px;font-weight:700;">↗</span>
@@ -433,7 +525,12 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
           <div style="margin-top:auto;font-family:'Geologica';font-style:normal;font-weight:300;text-transform:none;letter-spacing:-.015em;font-size:clamp(24px,2.2vw,30px);line-height:1;">Гейм-дизайн и математика</div>
           <div style="font-size:14px;line-height:1.5;color:#A8949F;">Механики, баланс, RTP и волатильность.</div>
         </a>
-        <a href="career.html" style="display:flex;flex-direction:column;gap:18px;padding:28px;min-height:240px;background:#F21C7C;border:1px solid #F21C7C;color:#0B0710;transition:transform .3s,border-color .3s;" style-hover="transform:translateY(-4px);border-color:#F21C7C;color:#0B0710;">
+        <a class="ccard" href="career.html" style="position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;gap:18px;padding:28px;min-height:240px;background:#F21C7C;border:1px solid #F21C7C;color:#0B0710;transition:transform .3s,border-color .3s;" style-hover="transform:translateY(-4px);border-color:#F21C7C;color:#0B0710;">
+          <div class="cfx" aria-hidden="true"><svg viewBox="0 0 300 230" preserveAspectRatio="xMidYMid slice" fill="none">
+            <g class="cfx-mesh" stroke="currentColor" stroke-width=".7" opacity=".5"><path d="M-10 46C60 18 150 76 310 36"/><path d="M-10 86C60 58 150 116 310 76"/><path d="M-10 126C60 98 150 156 310 116"/><path d="M-10 166C60 138 150 196 310 156"/><path d="M-10 206C60 178 150 236 310 196"/></g>
+            <path class="cfx-bez" d="M26 186C76 66 206 206 278 62" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <g class="cfx-h" stroke="currentColor" opacity=".75"><g><path d="M26 186L76 66" stroke-width=".8" stroke-dasharray="4 4"/><circle cx="76" cy="66" r="4.5" stroke-width="1.4"/></g><g><path d="M278 62L206 206" stroke-width=".8" stroke-dasharray="4 4"/><circle cx="206" cy="206" r="4.5" stroke-width="1.4"/></g></g>
+            <g fill="currentColor"><circle cx="26" cy="186" r="3"/><circle cx="278" cy="62" r="3"/></g></svg></div>
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
             <span style="font-family:'Geologica';font-size:12px;font-weight:700;letter-spacing:.14em;color:#0B0710;">02</span>
             <span style="width:44px;height:44px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#0B0710;color:#F21C7C;font-size:20px;font-weight:700;">↗</span>
@@ -441,7 +538,12 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
           <div style="margin-top:auto;font-family:'Geologica';font-style:normal;font-weight:300;text-transform:none;letter-spacing:-.015em;font-size:clamp(24px,2.2vw,30px);line-height:1;">Арт и анимация</div>
           <div style="font-size:14px;line-height:1.5;color:#0B0710;">2D/3D-арт, анимация и VFX для наших слотов.</div>
         </a>
-        <a href="career.html" style="display:flex;flex-direction:column;gap:18px;padding:28px;min-height:240px;background:#130C19;border:1px solid #2B1F35;color:#FFFFFF;transition:transform .3s,border-color .3s;" style-hover="transform:translateY(-4px);border-color:#F21C7C;color:#FFFFFF;">
+        <a class="ccard" href="career.html" style="position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;gap:18px;padding:28px;min-height:240px;background:#130C19;border:1px solid #2B1F35;color:#FFFFFF;transition:transform .3s,border-color .3s;" style-hover="transform:translateY(-4px);border-color:#F21C7C;color:#FFFFFF;">
+          <div class="cfx" aria-hidden="true"><svg viewBox="0 0 300 230" preserveAspectRatio="xMidYMid slice" fill="none">
+            <g class="cfx-code" fill="currentColor" opacity=".55"><rect x="22" y="36" width="78" height="4" rx="2"/><rect x="34" y="54" width="108" height="4" rx="2"/><rect x="34" y="72" width="64" height="4" rx="2"/><rect x="46" y="90" width="92" height="4" rx="2"/><rect x="34" y="108" width="52" height="4" rx="2"/><rect x="22" y="126" width="86" height="4" rx="2"/><rect x="34" y="144" width="70" height="4" rx="2"/></g>
+            <g stroke="currentColor" opacity=".6"><path d="M196 54L246 92L196 130L246 168" stroke-width="1" stroke-dasharray="3 4"/><circle cx="196" cy="54" r="5" stroke-width="1.3"/><circle cx="246" cy="92" r="5" stroke-width="1.3"/><circle cx="196" cy="130" r="5" stroke-width="1.3"/><circle cx="246" cy="168" r="5" stroke-width="1.3"/></g>
+            <circle class="cfx-ride" cx="0" cy="0" r="3.4" fill="currentColor"/>
+            <path class="cfx-check" d="M30 186l16 16 30-38" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
             <span style="font-family:'Geologica';font-size:12px;font-weight:700;letter-spacing:.14em;color:#8E7A86;">03</span>
             <span style="width:44px;height:44px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#D8126E;color:#FFFFFF;font-size:20px;font-weight:700;">↗</span>
@@ -454,7 +556,12 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
   </section>
 
   <section id="contact" ref="{{ ctRef }}" onPointerMove="{{ onCtMove }}" data-screen-label="07 Контакты" style="position:relative;overflow:hidden;border-top:1px solid #241830;padding:120px clamp(18px,4vw,40px) 110px;text-align:center;--cx:50%;--cy:40%;">
-    <div style="position:absolute;left:calc(50% - 0.45px);top:calc(120px + 62px * 786 / 503 * .5836);width:1700px;height:1700px;margin:-850px 0 0 -850px;background:repeating-conic-gradient(from 90deg,transparent 0deg 10deg,rgba(242,28,124,.2) 10deg 10.5deg);-webkit-mask:radial-gradient(circle,#000 0%,transparent 50%);mask:radial-gradient(circle,#000 0%,transparent 50%);animation:spin 90s linear infinite;pointer-events:none;"></div>
+    <div aria-hidden="true" style="position:absolute;left:calc(50% - 0.45px);top:calc(120px + 62px * 786 / 503 * .5836);width:0;height:0;pointer-events:none;mix-blend-mode:screen;">
+      <div class="rays"><i class="r1"></i></div>
+      <div class="rays rb"><i class="r2"></i></div>
+      <div class="rays"><i class="r3"></i></div>
+      <span class="hw hw1"></span><span class="hw hw2"></span><span class="hw hw3"></span>
+    </div>
     <div style="position:absolute;left:var(--cx);top:var(--cy);width:700px;height:700px;margin:-350px 0 0 -350px;border-radius:50%;background:radial-gradient(circle,rgba(247,96,62,.16),rgba(232,30,224,.07) 40%,transparent 65%);pointer-events:none;transition:left .25s ease-out,top .25s ease-out;"></div>
     {{ embersEl }}
     <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
@@ -469,13 +576,26 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
         <div role="alert" style="font-size:13px;color:#FFD8C6;margin-top:12px;">Проверьте адрес почты.</div>
       </sc-if>
       <div style="display:flex;align-items:center;gap:14px;margin-top:40px;font-family:'Geologica';font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9A8692;"><span style="width:40px;height:1px;background:#3A2B46;"></span>или напишите в мессенджер<span style="width:40px;height:1px;background:#3A2B46;"></span></div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;">
-        <sc-for list="{{ messengers }}" as="ms" hint-placeholder-count="4">
-          <a href="{{ ms.href }}" target="_blank" rel="noopener" aria-label="{{ ms.label }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;width:92px;padding:16px 8px 12px;border:1px solid #2B1F35;background:rgba(10,10,10,.8);color:#F6ECE6;transition:border-color .2s,color .2s,transform .2s;" style-hover="border-color:#F21C7C;color:#F21C7C;transform:translateY(-3px);">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ ms.d }}"></path></svg>
-            <span style="font-size:12px;font-weight:600;">{{ ms.label }}</span>
-          </a>
-        </sc-for>
+      <div style="display:flex;gap:clamp(10px,3vw,30px);justify-content:center;flex-wrap:wrap;margin-top:20px;">
+        <a class="msg msg-tg" href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram">
+          <span class="msgi"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path class="tg-plane" d="M21.5 4.5 2.8 11.6c-.9.4-.9 1.4.1 1.7l4.7 1.5 1.8 5.4c.3.8 1.1.9 1.7.4l2.6-2.4 4.8 3.5c.8.6 1.8.2 2-.8l3.1-14.6c.2-1-.7-1.6-1.6-1.3zM7.6 14.8l9.9-6.3-7.6 7.4"></path></svg></span>
+          <span class="msgl">Telegram</span>
+        </a>
+        <a class="msg msg-wa" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <span class="msgi"><i class="wa-ring"></i><i class="wa-ring wa-ring2"></i><i class="wa-ring wa-ring3"></i><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path class="wa-ic" d="M3.5 20.5l1.3-4.3A8.5 8.5 0 1 1 8 19.4zM9 8.3c-.3.9 0 2.6 1.6 4.2s3.4 2 4.3 1.6l.9-1.3-1.9-1-.9.8c-.8-.3-1.8-1.2-2.1-2.1l.8-.9-1-1.9z"></path></svg></span>
+          <span class="msgl">WhatsApp</span>
+        </a>
+        <a class="msg msg-li" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <span class="msgi">
+            <svg class="li-in" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3.5h16a.5.5 0 0 1 .5.5v16a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5zM8 10.5V17M8 7.3v.2M12 17v-6.5M12 13.5c0-2.6 4.5-3 4.5 0V17"></path></svg>
+            <span class="li-hs"><svg viewBox="0 0 24 24" width="31" height="31" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="m21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path><path d="M3 4h8"></path></svg></span>
+          </span>
+          <span class="msgl">LinkedIn</span>
+        </a>
+        <a class="msg msg-em" href="mailto:partners@illuminator.games" aria-label="E-mail">
+          <span class="msgi"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5.5h17v13h-17zM3.5 6.5 12 13l8.5-6.5"></path><g class="ml-seal"><circle cx="12" cy="14.5" r="4.4" fill="#D8126E" stroke="#FBC662" stroke-width="1"></circle><path d="M12 11.9c.3 1.4.5 1.6 1.9 1.9-1.4.3-1.6.5-1.9 1.9-.3-1.4-.5-1.6-1.9-1.9 1.4-.3 1.6-.5 1.9-1.9z" fill="#FBEAA4" stroke="none"></path></g></svg></span>
+          <span class="msgl">E-mail</span>
+        </a>
       </div>
     </div>
   </section>
@@ -542,20 +662,15 @@ const TEASER = { id: 'boom', target: new Date('2027-04-15T12:00:00+03:00').getTi
 const LAND = id => `assets/games/${id}-l.jpg`, PORT = id => `assets/games/${id}-p.jpg`, VIDEO = id => `assets/video/${id}.mp4`;
 const pad2 = n => String(n).padStart(2, '0');
 const plural = (n, a, b, c) => { const m10 = n % 10, m100 = n % 100; return m10 === 1 && m100 !== 11 ? a : m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20) ? b : c; };
-const ICONS = {
-  tg: 'M21.5 4.5 2.8 11.6c-.9.4-.9 1.4.1 1.7l4.7 1.5 1.8 5.4c.3.8 1.1.9 1.7.4l2.6-2.4 4.8 3.5c.8.6 1.8.2 2-.8l3.1-14.6c.2-1-.7-1.6-1.6-1.3zM7.6 14.8l9.9-6.3-7.6 7.4',
-  wa: 'M3.5 20.5l1.3-4.3A8.5 8.5 0 1 1 8 19.4zM9 8.3c-.3.9 0 2.6 1.6 4.2s3.4 2 4.3 1.6l.9-1.3-1.9-1-.9.8c-.8-.3-1.8-1.2-2.1-2.1l.8-.9-1-1.9z',
-  li: 'M4 3.5h16a.5.5 0 0 1 .5.5v16a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5zM8 10.5V17M8 7.3v.2M12 17v-6.5M12 13.5c0-2.6 4.5-3 4.5 0V17',
-  em: 'M3.5 5.5h17v13h-17zM3.5 6.5 12 13l8.5-6.5'
-};
 
 class Component extends DCLogic {
-  state = { W: window.innerWidth, H: window.innerHeight, stage: 'closed', spin: 0, burst: 0, denied: false,
+  state = { W: window.innerWidth, H: window.innerHeight, stage: 'closed', spin: 0, burst: 0, power: 0, denied: false,
     mode: 'players', menuOpen: false, scrolled: false, heroIdx: 0, filter: 'all', mech: 'all', query: '', openId: null, demoSent: false,
     now: Date.now(), rvTouched: false, rmEmail: '', rmSent: false, rmErr: false, cEmail: '', cSent: false, cErr: false };
   bgRef = React.createRef();
   rvRef = React.createRef();
   ctRef = React.createRef();
+  trailRef = React.createRef();
   mvRef = el => { if (el) { el.muted = true; const p = el.play(); p && p.then(() => { el.style.opacity = 1; }).catch(() => {}); } };
 
   constructor(p) {
@@ -563,8 +678,9 @@ class Component extends DCLogic {
     const E = React.createElement, cols = ['#FBC662', '#F21C7C', '#E81EE0', '#FBEAA4', '#FFFFFF', '#F7603E'];
     this._embers = E('div', { 'aria-hidden': true, style: { position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' } },
       Array.from({ length: 42 }, (_, i) => {
-        const s = 2 + Math.random() * 4, c = cols[i % cols.length], d = 6 + Math.random() * 8;
-        return E('span', { key: i, style: { position: 'absolute', left: (Math.random() * 100).toFixed(1) + '%', bottom: '-12px', width: s, height: s, borderRadius: '50%', background: c, boxShadow: `0 0 ${s * 3}px ${c}`, '--dx': ((Math.random() - 0.5) * 160).toFixed(0) + 'px', animation: `ember ${d.toFixed(1)}s linear ${(-Math.random() * d).toFixed(1)}s infinite` } });
+        const far = i % 3, s = (far === 0 ? 1.4 : far === 1 ? 2.4 : 3.6) + Math.random() * 2.6, c = cols[i % cols.length];
+        const d = (far === 0 ? 13 : far === 1 ? 9 : 6) + Math.random() * 7;
+        return E('span', { key: i, style: { position: 'absolute', left: (Math.random() * 100).toFixed(1) + '%', bottom: '-12px', width: s, height: s, borderRadius: '50%', background: c, opacity: far === 0 ? 0.45 : far === 1 ? 0.75 : 1, filter: far === 0 ? 'blur(2.2px)' : far === 1 ? 'blur(.9px)' : 'none', boxShadow: `0 0 ${s * 3}px ${c}`, '--dx': ((Math.random() - 0.5) * (far === 0 ? 90 : 190)).toFixed(0) + 'px', animation: `ember ${d.toFixed(1)}s linear ${(-Math.random() * d).toFixed(1)}s infinite` } });
       }));
   }
   preview() { return this.props.introPreview ?? 'live'; }
@@ -587,6 +703,8 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this._key);
     this._heroT = setInterval(() => { if (window.innerWidth < 760 && !this.state.openId && this.state.stage === 'done' && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) this.setState(st => ({ heroIdx: (st.heroIdx + 1) % 3 })); }, 4500);
     this._clock = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    const mm = window.matchMedia;
+    if (mm && mm('(hover: hover) and (pointer: fine)').matches && !mm('(prefers-reduced-motion: reduce)').matches) this.initTrail();
     let t = 0, last = performance.now();
     const loop = ts => {
       const dt = Math.min(50, ts - last); last = ts;
@@ -601,10 +719,50 @@ class Component extends DCLogic {
     this._raf = requestAnimationFrame(loop);
   }
   componentDidUpdate() { this.syncLock(); }
+  /* 06 — световой шлейф за курсором: только мышь, не мешает кликам */
+  initTrail() {
+    const cv = this.trailRef.current; if (!cv || !cv.getContext) return;
+    const ctx = cv.getContext('2d'); if (!ctx) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const size = () => { const w = window.innerWidth, h = window.innerHeight; cv.width = w * dpr; cv.height = h * dpr; cv.style.width = w + 'px'; cv.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    size(); this._trailSize = size; window.addEventListener('resize', size);
+    const pts = [], LIFE = 320;
+    this._trailMove = e => { if (e.pointerType && e.pointerType !== 'mouse') return; pts.push({ x: e.clientX, y: e.clientY, t: performance.now() }); if (pts.length > 48) pts.shift(); };
+    window.addEventListener('pointermove', this._trailMove, { passive: true });
+    const draw = () => {
+      const now = performance.now(), W = window.innerWidth, H = window.innerHeight;
+      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      ctx.clearRect(0, 0, W, H);
+      if (pts.length > 1) {
+        ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        for (let i = 1; i < pts.length; i++) {
+          const a = pts[i - 1], b = pts[i], k = Math.max(0, 1 - (now - b.t) / LIFE);
+          ctx.strokeStyle = `rgba(${Math.round(242 + 13 * k)},${Math.round(28 + 200 * k)},${Math.round(124 + 40 * k)},${(0.45 * k * k).toFixed(3)})`;
+          ctx.lineWidth = 1 + 5.5 * k * k;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+        const h = pts[pts.length - 1], hk = Math.max(0, 1 - (now - h.t) / LIFE);
+        if (hk > 0.02) {
+          const r = 17 * hk, g = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, r);
+          g.addColorStop(0, `rgba(255,241,201,${(0.45 * hk).toFixed(3)})`);
+          g.addColorStop(0.45, `rgba(251,198,98,${(0.18 * hk).toFixed(3)})`);
+          g.addColorStop(1, 'rgba(242,28,124,0)');
+          ctx.fillStyle = g; ctx.beginPath(); ctx.arc(h.x, h.y, r, 0, 6.2832); ctx.fill();
+        }
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      this._trailRaf = requestAnimationFrame(draw);
+    };
+    this._trailRaf = requestAnimationFrame(draw);
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this._rs); window.removeEventListener('scroll', this._sc); window.removeEventListener('keydown', this._key);
     clearInterval(this._heroT); clearInterval(this._clock); cancelAnimationFrame(this._raf);
-    [this._t1, this._t2, this._t3].forEach(clearTimeout);
+    (this._igT || []).forEach(clearTimeout);
+    if (this._trailRaf) cancelAnimationFrame(this._trailRaf);
+    if (this._trailMove) window.removeEventListener('pointermove', this._trailMove);
+    if (this._trailSize) window.removeEventListener('resize', this._trailSize);
     document.body.style.overflow = '';
   }
 
@@ -620,33 +778,113 @@ class Component extends DCLogic {
   ignite() {
     if (this._ign) return;
     this._ign = true;
-    this.setState(st => ({ spin: st.spin + 300, burst: st.burst + 1 }));
-    this._t3 = setTimeout(() => this.setState({ stage: 'lit' }), 160);
-    this._t1 = setTimeout(() => this.setState({ stage: 'exit' }), 2000);
-    this._t2 = setTimeout(() => { window.scrollTo(0, 0); this.setState({ stage: 'done' }); }, 3400);
+    const strike = p => this.setState(st => ({ spin: st.spin + 260, burst: st.burst + 1, power: p }));
+    strike(1);
+    this._igT = [
+      setTimeout(() => strike(2), 470),
+      setTimeout(() => strike(3), 950),
+      setTimeout(() => this.setState({ stage: 'lit' }), 1080),
+      setTimeout(() => this.setState({ stage: 'exit' }), 3200),
+      setTimeout(() => { window.scrollTo(0, 0); this.setState({ stage: 'done' }); }, 4600)
+    ];
   }
 
+  /* Искры привязаны к точке --flintx/--flinty на зажигалке:
+     при замене модели достаточно сдвинуть эти две переменные. */
+  sparkBurst(power) {
+    const E = React.createElement, HOT = ['#FFF6DC', '#FBEAA4', '#FBC662', '#F7603E'], kids = [];
+    const n = [0, 26, 34, 52][power] || 26, reach = [0, 1, 1.2, 1.55][power] || 1;
+    for (let i = 0; i < n; i++) {
+      const dx = -(18 + Math.random() * 215) * reach, dy = -(16 + Math.random() * 150) * reach;
+      const dz = dy + 90 + Math.random() * 260, dur = (0.52 + Math.random() * 0.68).toFixed(2);
+      const len = (6 + Math.random() * 26).toFixed(1), c = HOT[i % HOT.length];
+      kids.push(E('span', { key: 's' + i, style: { position: 'absolute', animation: `sparkx ${dur}s linear forwards`, '--dx': dx.toFixed(0) + 'px' } },
+        E('span', { style: { display: 'block', animation: `sparky ${dur}s ease-out forwards`, '--dy': dy.toFixed(0) + 'px', '--dz': dz.toFixed(0) + 'px' } },
+          E('span', {
+            style: {
+              display: 'block', width: len + 'px', height: (Math.random() < 0.35 ? 3.2 : 2.1) + 'px', borderRadius: '999px',
+              background: `linear-gradient(90deg,rgba(255,255,255,0) 0%,${c} 72%,#FFFFFF 100%)`, boxShadow: `0 0 ${(6 + Math.random() * 10).toFixed(0)}px ${c},0 0 ${(14 + Math.random() * 16).toFixed(0)}px rgba(247,96,62,.55)`,
+              transformOrigin: '100% 50%', animation: `sparklife ${dur}s ease-out forwards`,
+              '--rot': (Math.atan2(dy, dx) * 180 / Math.PI).toFixed(1) + 'deg'
+            }
+          }))));
+    }
+    for (let i = 0, soot = power >= 2 ? 5 : 3; i < soot; i++) {
+      const c = i % 2 ? '#F7603E' : '#FBC662', sz = (1.6 + Math.random() * 2).toFixed(1);
+      kids.push(E('span', {
+        key: 'e' + i, style: {
+          position: 'absolute', width: sz + 'px', height: sz + 'px', borderRadius: '50%', background: c, boxShadow: '0 0 7px ' + c,
+          filter: i % 3 === 0 ? 'blur(1px)' : 'none', '--dx': (-70 + Math.random() * 80).toFixed(0) + 'px', '--dy': (-80 - Math.random() * 90).toFixed(0) + 'px',
+          animation: `sootrise ${(1.3 + Math.random() * 1.1).toFixed(2)}s ease-out forwards`
+        }
+      }));
+    }
+    kids.push(E('span', {
+      key: 'f', style: {
+        position: 'absolute', left: -15, top: -15, width: 30, height: 30, borderRadius: '50%',
+        background: 'radial-gradient(circle,rgba(255,246,220,.95),rgba(247,96,62,.5) 45%,transparent 70%)',
+        animation: `flintflash ${power >= 3 ? 0.5 : 0.38}s ease-out forwards`
+      }
+    }));
+    return E('div', { key: 'b' + this.state.burst, style: { position: 'absolute' } }, kids);
+  }
+
+  /* Барабаны 5×3 с символами: каждая карточка показывает свою механику в деле */
   mechAnim(kind) {
-    const E = React.createElement;
-    const cell = (style, key, child) => E('div', { key, style: Object.assign({ width: 26, height: 26, background: '#1C1224', display: 'flex', alignItems: 'center', justifyContent: 'center' }, style) }, child);
-    const grid = (cols, kids) => E('div', { style: { display: 'grid', gridTemplateColumns: `repeat(${cols},26px)`, gap: 6, position: 'relative', zIndex: 1 } }, kids);
+    const E = React.createElement, SZ = 30, GAP = 5, P = SZ + GAP, GW = 5 * P - GAP, GH = 3 * P - GAP;
+    const base = { width: SZ, height: SZ, background: '#140D1B', border: '1px solid #2B1F35', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Geologica',sans-serif", fontSize: 14, fontWeight: 600, color: '#7A6684', position: 'relative' };
+    const chip = { position: 'absolute', padding: '3px 9px', borderRadius: 999, background: 'linear-gradient(90deg,#F21C7C,#FBC662)', color: '#0B0710', fontFamily: "'Geologica',sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: '.04em', boxShadow: '0 0 18px rgba(242,28,124,.5)', whiteSpace: 'nowrap' };
+    const grid = (kids, extra) => E('div', { key: 'g', style: Object.assign({ display: 'grid', gridTemplateColumns: `repeat(5,${SZ}px)`, gap: GAP, position: 'relative', zIndex: 1 }, extra) }, kids);
+    const svgLine = (key, pts, color, len, anim, w) => E('svg', { key, width: GW, height: GH, viewBox: `0 0 ${GW} ${GH}`, style: { position: 'absolute', left: 0, top: anim === 'payline' ? 0 : 0, zIndex: 3, overflow: 'visible', pointerEvents: 'none' } },
+      E('polyline', { points: pts, fill: 'none', stroke: color, strokeWidth: w || 2, strokeLinecap: 'round', strokeLinejoin: 'round', style: { filter: `drop-shadow(0 0 6px ${color})`, strokeDasharray: len, '--len': len, animation: `${anim} 4.2s ease-in-out infinite` } }));
+
     if (kind === 'swarm') {
-      const kids = [];
-      for (let r = 0; r < 4; r++) for (let c = 0; c < 7; c++) kids.push(cell({ animation: `swarm 3.6s ease-in-out ${((c + Math.abs(r - 1.5) * 1.2) * 0.14).toFixed(2)}s infinite` }, r + '-' + c));
-      return grid(7, kids);
+      const map = ['▲●◆●7', '▲◆◆◆●', '●▲7◆▲'], cl = [[1, 1], [0, 2], [1, 2], [1, 3], [2, 3]], kids = [];
+      const ord = (r, c) => cl.findIndex(p => p[0] === r && p[1] === c);
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) {
+        const k = ord(r, c);
+        kids.push(E('div', { key: r + '-' + c, style: Object.assign({}, base, k >= 0 ? { animation: `swarmhit 4.2s ease-in-out ${(k * 0.13).toFixed(2)}s infinite` } : null) }, map[r][c]));
+      }
+      return E('div', { style: { position: 'relative' } },
+        grid(kids),
+        svgLine('l', cl.map(([r, c]) => (c * P + SZ / 2) + ',' + (r * P + SZ / 2)).join(' '), '#F21C7C', 280, 'linkdraw'),
+        E('div', { key: 'c', style: Object.assign({}, chip, { left: GW - 46, top: -30, animation: 'chippop 4.2s ease-in-out infinite' }) }, '×3'));
     }
+
     if (kind === 'flood') {
-      const kids = [];
-      for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) kids.push(cell({ animation: `floodcell 3.4s ease-in-out ${(c * 0.34 + r * 0.05).toFixed(2)}s infinite` }, r + '-' + c));
-      return E(React.Fragment, null,
-        E('div', { key: 'beam', style: { position: 'absolute', left: '50%', top: -20, width: 260, height: 300, marginLeft: -130, transformOrigin: '50% 0', background: 'conic-gradient(from 165deg at 50% 0, transparent 0deg, rgba(255,255,255,.28) 15deg, transparent 30deg)', animation: 'beam 1.7s ease-in-out infinite alternate', pointerEvents: 'none', zIndex: 2 } }),
-        E('div', { key: 'src', style: { position: 'absolute', left: '50%', top: 6, width: 14, height: 14, marginLeft: -7, background: ACC, transform: 'rotate(45deg)', boxShadow: '0 0 18px 6px rgba(242,28,124,.7)', zIndex: 3 } }),
-        E('div', { key: 'g', style: { marginTop: 40 } }, grid(5, kids)));
+      const map = ['●▲7◆▲', '◆●▲7●', '▲7◆●▲'], kids = [];
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) {
+        const d = (c * 0.32 + r * 0.04).toFixed(2);
+        kids.push(E('div', { key: r + '-' + c, style: Object.assign({}, base, { overflow: 'hidden' }) },
+          E('span', { key: 'b', style: { animation: `wildoff 4.2s ease-in-out ${d}s infinite` } }, map[r][c]),
+          E('span', {
+            key: 'w', style: {
+              position: 'absolute', inset: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 4,
+              fontSize: 13, fontWeight: 700, color: '#2A1206', background: 'linear-gradient(160deg,#FBEAA4,#FBC662 55%,#F7603E)',
+              boxShadow: '0 0 14px rgba(251,198,98,.55)', animation: `wildon 4.2s ease-in-out ${d}s infinite`
+            }
+          }, 'W')));
+      }
+      return E('div', { style: { position: 'relative', paddingTop: 44 } },
+        E('div', { key: 'beam', style: { position: 'absolute', left: '50%', top: -16, width: 260, height: 300, marginLeft: -130, transformOrigin: '50% 0', background: 'conic-gradient(from 165deg at 50% 0, transparent 0deg, rgba(255,246,220,.26) 13deg, rgba(251,198,98,.10) 22deg, transparent 30deg)', filter: 'blur(1px)', animation: 'beam 2.1s ease-in-out infinite alternate', pointerEvents: 'none', zIndex: 2 } }),
+        E('div', { key: 'src', style: { position: 'absolute', left: '50%', top: 8, width: 13, height: 13, marginLeft: -6.5, background: '#FBEAA4', transform: 'rotate(45deg)', boxShadow: '0 0 20px 7px rgba(251,198,98,.6)', zIndex: 3 } }),
+        E('div', { key: 'gw', style: { position: 'relative' } },
+          grid(kids),
+          svgLine('p', `0,${P + SZ / 2} ${P},${SZ / 2} ${2 * P},${P + SZ / 2} ${3 * P},${2 * P + SZ / 2} ${4 * P + SZ},${P + SZ / 2}`, '#FBC662', 300, 'payline', 2)));
     }
-    const order = [7, 2, 11, 4, 9, 0, 13, 99, 5, 8, 3, 12, 1, 10, 6];
-    return grid(5, order.map((o, i) => o === 99
-      ? cell({ background: '#0B0710' }, i, E('span', { style: { width: 12, height: 12, background: '#FFFFFF', boxShadow: '0 0 14px ' + ACC + ',0 0 28px ' + ACC, animation: 'starburst 4s ease-in-out infinite' } }))
-      : cell({ animation: `blackcell 4s ease-in-out ${(o * 0.12).toFixed(2)}s infinite` }, i)));
+
+    const map = ['◆7▲●◆', '▲●◆▲7', '7▲●◆▲'], order = [7, 2, 11, 4, 9, 0, 13, 99, 5, 8, 3, 12, 1, 10, 6];
+    const kids = order.map((o, i) => {
+      const r = (i / 5) | 0, c = i % 5;
+      return o === 99
+        ? E('div', { key: i, style: Object.assign({}, base, { background: '#0B0710', borderColor: '#38273F' }) },
+          E('span', { key: 's', style: { position: 'absolute', width: 13, height: 13, background: '#FFFFFF', boxShadow: '0 0 14px ' + ACC + ',0 0 28px ' + ACC, animation: 'starburst 4.2s ease-in-out infinite' } }),
+          E('span', { key: 'y', style: { animation: 'blastsym 4.2s ease-in-out infinite' } }, '★'))
+        : E('div', { key: i, style: Object.assign({}, base, { animation: `bcell 4.2s ease-in-out ${(o * 0.11).toFixed(2)}s infinite` }) }, map[r][c]);
+    });
+    return E('div', { style: { position: 'relative' } },
+      grid(kids),
+      E('div', { key: 'c', style: Object.assign({}, chip, { left: GW - 54, top: -30, animation: 'chippop 4.2s ease-in-out infinite' }) }, '×25'));
   }
 
   gateVals() {
@@ -657,10 +895,7 @@ class Component extends DCLogic {
     if (pv === 'огонь') stage = 'lit';
     const open = stage !== 'closed', lit = stage === 'lit' || stage === 'exit';
     const zs = Math.max(0.62, Math.min(1.2, H * 0.36 / 316));
-    const sparksEl = s.burst > 0 && pv === 'live'
-      ? React.createElement('div', { key: 'b' + s.burst, style: { position: 'absolute' } },
-        Array.from({ length: 14 }, (_, i) => React.createElement('span', { key: i, style: { position: 'absolute', width: 3, height: 3, borderRadius: '50%', background: i % 3 ? '#FBEAA4' : ACC, boxShadow: '0 0 6px ' + ACC, '--dx': (-90 + Math.random() * 110) + 'px', '--dy': (-20 - Math.random() * 70) + 'px', animation: `sparkfly ${0.35 + Math.random() * 0.35}s ease-out forwards` } })))
-      : null;
+    const sparksEl = s.burst > 0 && pv === 'live' ? this.sparkBurst(s.power || 1) : null;
     return {
       gateOn: pv !== 'выкл' && (pv !== 'live' || stage !== 'done'),
       deniedOn: s.denied,
@@ -676,6 +911,7 @@ class Component extends DCLogic {
       txtOp: lit ? 1 : 0, txtY: lit ? '0px' : '14px',
       uiOpacity: lit ? 0 : 1,
       sparksEl,
+      strikeAnim: s.burst === 0 ? 'none' : (s.burst % 2 ? 'strike1 .36s ease-out' : 'strike2 .36s ease-out'),
       gateSteps: [['01 Открыть', true], ['02 Зажечь', open]].map(([label, on]) => ({ label, ink: on ? '#FFFFFF' : '#8C7884', dot: on ? ACC : '#3A2B46', glow: on ? '0 0 10px ' + ACC : 'none' })),
       hintTitle: open ? 'Высеките искру' : 'Откройте крышку',
       hintText: open ? 'Ещё раз прокрутите, свайпните или нажмите — и зажигалка загорится.' : 'Прокрутите вниз, свайпните вверх или нажмите на зажигалку.',
@@ -753,6 +989,7 @@ class Component extends DCLogic {
 
     return {
       ...this.gateVals(),
+      bgRef: this.bgRef, trailRef: this.trailRef,
       headerBg: s.scrolled ? 'rgba(11,7,16,.92)' : 'rgba(11,7,16,0)',
       headerBlur: s.scrolled ? '14px' : '0px',
       headerLine: s.scrolled ? '#241830' : 'transparent',
@@ -806,13 +1043,7 @@ class Component extends DCLogic {
       onCtMove: e => { const el = this.ctRef.current; if (!el) return; const r = el.getBoundingClientRect(); el.style.setProperty('--cx', (e.clientX - r.left) + 'px'); el.style.setProperty('--cy', (e.clientY - r.top) + 'px'); },
       cEmail: s.cEmail, onCEmail: e => this.setState({ cEmail: e.target.value, cErr: false }), cErr: s.cErr, cLine: s.cErr ? ACC : '#3A2B46',
       contactLabel: s.cSent ? 'Искра отправлена ◆' : 'Связаться',
-      onContact: () => emailOk(s.cEmail) ? this.setState({ cSent: true }) : this.setState({ cErr: true }),
-      messengers: [
-        { label: 'Telegram', href: 'https://t.me/', d: ICONS.tg },
-        { label: 'WhatsApp', href: 'https://wa.me/', d: ICONS.wa },
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/', d: ICONS.li },
-        { label: 'E-mail', href: 'mailto:partners@illuminator.games', d: ICONS.em }
-      ]
+      onContact: () => emailOk(s.cEmail) ? this.setState({ cSent: true }) : this.setState({ cErr: true })
     };
   }
 }
