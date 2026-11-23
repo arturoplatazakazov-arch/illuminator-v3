@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
   @keyframes hintpulse{0%,100%{opacity:.5}50%{opacity:1}}
   @keyframes flick{0%,100%{transform:scale(1,1) skewX(0deg)}20%{transform:scale(.97,1.04) skewX(1.6deg)}45%{transform:scale(1.03,.97) skewX(-1.2deg)}70%{transform:scale(.98,1.03) skewX(.8deg)}}
   @keyframes glowpulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-  @keyframes beam{0%{transform:rotate(-34deg)}100%{transform:rotate(34deg)}}
+  @keyframes beam{0%{transform:rotate(-42deg)}100%{transform:rotate(42deg)}}
   @keyframes starburst{0%,58%{opacity:0;transform:rotate(45deg) scale(.3)}70%{opacity:1;transform:rotate(45deg) scale(1.7)}82%{opacity:1;transform:rotate(45deg) scale(1)}95%,100%{opacity:0;transform:rotate(45deg) scale(.6)}}
   @keyframes heromarq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   @keyframes ember{0%{transform:translate(0,0);opacity:0}12%{opacity:1}100%{transform:translate(var(--dx),-760px);opacity:0}}
@@ -50,8 +50,17 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
   @keyframes swarmhit{0%,10%{background:#140D1B;border-color:#2B1F35;color:#7A6684;transform:scale(1);box-shadow:none}18%{background:rgba(242,28,124,.22);border-color:#F21C7C;color:#FFFFFF;transform:scale(1.12);box-shadow:0 0 20px rgba(242,28,124,.6)}70%{background:rgba(242,28,124,.16);border-color:#F21C7C;color:#FFFFFF;transform:scale(1);box-shadow:0 0 12px rgba(242,28,124,.4)}82%,100%{background:#140D1B;border-color:#2B1F35;color:#7A6684;transform:scale(1);box-shadow:none}}
   @keyframes linkdraw{0%,12%{stroke-dashoffset:var(--len);opacity:0}20%{opacity:1}34%,74%{stroke-dashoffset:0;opacity:1}86%,100%{stroke-dashoffset:0;opacity:0}}
   @keyframes chippop{0%,42%{opacity:0;transform:translateY(7px) scale(.7)}52%{opacity:1;transform:translateY(0) scale(1.14)}60%,78%{opacity:1;transform:translateY(0) scale(1)}88%,100%{opacity:0;transform:translateY(-7px) scale(.9)}}
-  @keyframes wildon{0%,8%{opacity:0;transform:scale(.45) rotateY(90deg)}16%{opacity:1;transform:scale(1.14) rotateY(0deg)}23%,50%{opacity:1;transform:scale(1) rotateY(0deg)}60%,100%{opacity:0;transform:scale(.6) rotateY(90deg)}}
-  @keyframes wildoff{0%,8%{opacity:1}16%,52%{opacity:0}62%,100%{opacity:1}}
+  /* Дикие символы загораются колонка за колонкой вслед за лучом и держатся до конца линии */
+  @keyframes wildon0{0%,3%{opacity:0;transform:scale(.45) rotateY(90deg)}6%{opacity:1;transform:scale(1.14) rotateY(0deg)}10%,86%{opacity:1;transform:scale(1) rotateY(0deg)}92%,100%{opacity:0;transform:scale(.6) rotateY(90deg)}}
+  @keyframes wildon1{0%,13%{opacity:0;transform:scale(.45) rotateY(90deg)}16%{opacity:1;transform:scale(1.14) rotateY(0deg)}20%,86%{opacity:1;transform:scale(1) rotateY(0deg)}92%,100%{opacity:0;transform:scale(.6) rotateY(90deg)}}
+  @keyframes wildon2{0%,23%{opacity:0;transform:scale(.45) rotateY(90deg)}26%{opacity:1;transform:scale(1.14) rotateY(0deg)}30%,86%{opacity:1;transform:scale(1) rotateY(0deg)}92%,100%{opacity:0;transform:scale(.6) rotateY(90deg)}}
+  @keyframes wildon3{0%,33%{opacity:0;transform:scale(.45) rotateY(90deg)}36%{opacity:1;transform:scale(1.14) rotateY(0deg)}40%,86%{opacity:1;transform:scale(1) rotateY(0deg)}92%,100%{opacity:0;transform:scale(.6) rotateY(90deg)}}
+  @keyframes wildon4{0%,43%{opacity:0;transform:scale(.45) rotateY(90deg)}46%{opacity:1;transform:scale(1.14) rotateY(0deg)}50%,86%{opacity:1;transform:scale(1) rotateY(0deg)}92%,100%{opacity:0;transform:scale(.6) rotateY(90deg)}}
+  @keyframes wildoff0{0%,3%{opacity:1}6%,88%{opacity:0}94%,100%{opacity:1}}
+  @keyframes wildoff1{0%,13%{opacity:1}16%,88%{opacity:0}94%,100%{opacity:1}}
+  @keyframes wildoff2{0%,23%{opacity:1}26%,88%{opacity:0}94%,100%{opacity:1}}
+  @keyframes wildoff3{0%,33%{opacity:1}36%,88%{opacity:0}94%,100%{opacity:1}}
+  @keyframes wildoff4{0%,43%{opacity:1}46%,88%{opacity:0}94%,100%{opacity:1}}
   @keyframes payline{0%,60%{stroke-dashoffset:var(--len);opacity:0}68%{opacity:1}74%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
   @keyframes bcell{0%,6%{background:#1B1222;border-color:#38273F;color:#C9B6CF}26%,88%{background:#0B0710;border-color:#160F1D;color:#1E1527}100%{background:#1B1222;border-color:#38273F;color:#C9B6CF}}
   @keyframes blastsym{0%,52%{color:#C9B6CF;text-shadow:none;transform:scale(1)}62%{color:#FFFFFF;text-shadow:0 0 18px #F21C7C,0 0 34px #F21C7C;transform:scale(1.3)}74%,88%{color:#FFFFFF;text-shadow:0 0 14px #F21C7C;transform:scale(1)}100%{color:#C9B6CF;text-shadow:none;transform:scale(1)}}
@@ -837,40 +846,47 @@ class Component extends DCLogic {
     const grid = (kids, extra) => E('div', { key: 'g', style: Object.assign({ display: 'grid', gridTemplateColumns: `repeat(5,${SZ}px)`, gap: GAP, position: 'relative', zIndex: 1 }, extra) }, kids);
     const svgLine = (key, pts, color, len, anim, w) => E('svg', { key, width: GW, height: GH, viewBox: `0 0 ${GW} ${GH}`, style: { position: 'absolute', left: 0, top: anim === 'payline' ? 0 : 0, zIndex: 3, overflow: 'visible', pointerEvents: 'none' } },
       E('polyline', { points: pts, fill: 'none', stroke: color, strokeWidth: w || 2, strokeLinecap: 'round', strokeLinejoin: 'round', style: { filter: `drop-shadow(0 0 6px ${color})`, strokeDasharray: len, '--len': len, animation: `${anim} 4.2s ease-in-out infinite` } }));
+    /* Настоящая линия выплат: по одной ячейке на барабан, слева направо, вход и выход по краям поля */
+    const payPts = rows => `0,${rows[0] * P + SZ / 2} ` + rows.map((r, c) => (c * P + SZ / 2) + ',' + (r * P + SZ / 2)).join(' ') + ` ${GW},${rows[4] * P + SZ / 2}`;
 
     if (kind === 'swarm') {
-      const map = ['▲●◆●7', '▲◆◆◆●', '●▲7◆▲'], cl = [[1, 1], [0, 2], [1, 2], [1, 3], [2, 3]], kids = [];
-      const ord = (r, c) => cl.findIndex(p => p[0] === r && p[1] === c);
+      /* Линия 1-0-1-2-1: пять ромбов подряд, по одному на барабане */
+      const rows = [1, 0, 1, 2, 1], map = ['▲◆●7▲', '◆●◆▲◆', '7▲●◆7'], kids = [];
       for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) {
-        const k = ord(r, c);
-        kids.push(E('div', { key: r + '-' + c, style: Object.assign({}, base, k >= 0 ? { animation: `swarmhit 4.2s ease-in-out ${(k * 0.13).toFixed(2)}s infinite` } : null) }, map[r][c]));
+        const hit = rows[c] === r;
+        kids.push(E('div', { key: r + '-' + c, style: Object.assign({}, base, hit ? { animation: `swarmhit 4.2s ease-in-out ${(c * 0.13).toFixed(2)}s infinite` } : null) }, map[r][c]));
       }
       return E('div', { style: { position: 'relative' } },
         grid(kids),
-        svgLine('l', cl.map(([r, c]) => (c * P + SZ / 2) + ',' + (r * P + SZ / 2)).join(' '), '#F21C7C', 280, 'linkdraw'),
+        svgLine('l', payPts(rows), '#F21C7C', 240, 'linkdraw'),
         E('div', { key: 'c', style: Object.assign({}, chip, { left: GW - 46, top: -30, animation: 'chippop 4.2s ease-in-out infinite' }) }, '×3'));
     }
 
     if (kind === 'flood') {
-      const map = ['●▲7◆▲', '◆●▲7●', '▲7◆●▲'], kids = [];
+      /* Линия 2-1-0-1-2: под лучом символы становятся дикими, линия собирается по ним */
+      const prows = [2, 1, 0, 1, 2], map = ['●▲7◆▲', '◆●▲7●', '▲7◆●▲'], kids = [];
       for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) {
-        const d = (c * 0.32 + r * 0.04).toFixed(2);
+        /* Луч идёт из ромба и пересекает поле ровно по этой линии: дикими становятся её ячейки */
+        const lit = prows[c] === r;
         kids.push(E('div', { key: r + '-' + c, style: Object.assign({}, base, { overflow: 'hidden' }) },
-          E('span', { key: 'b', style: { animation: `wildoff 4.2s ease-in-out ${d}s infinite` } }, map[r][c]),
-          E('span', {
+          E('span', { key: 'b', style: lit ? { animation: `wildoff${c} 4.2s ease-in-out infinite` } : null }, map[r][c]),
+          lit ? E('span', {
             key: 'w', style: {
               position: 'absolute', inset: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 4,
               fontSize: 13, fontWeight: 700, color: '#2A1206', background: 'linear-gradient(160deg,#FBEAA4,#FBC662 55%,#F7603E)',
-              boxShadow: '0 0 14px rgba(251,198,98,.55)', animation: `wildon 4.2s ease-in-out ${d}s infinite`
+              boxShadow: '0 0 14px rgba(251,198,98,.55)', animation: `wildon${c} 4.2s ease-in-out infinite`
             }
-          }, 'W')));
+          }, 'W') : null));
       }
+      /* Прожектор: вершина конуса и свечение совпадают с ромбом, он и есть источник */
       return E('div', { style: { position: 'relative', paddingTop: 44 } },
-        E('div', { key: 'beam', style: { position: 'absolute', left: '50%', top: -16, width: 260, height: 300, marginLeft: -130, transformOrigin: '50% 0', background: 'conic-gradient(from 165deg at 50% 0, transparent 0deg, rgba(255,246,220,.26) 13deg, rgba(251,198,98,.10) 22deg, transparent 30deg)', filter: 'blur(1px)', animation: 'beam 2.1s ease-in-out infinite alternate', pointerEvents: 'none', zIndex: 2 } }),
-        E('div', { key: 'src', style: { position: 'absolute', left: '50%', top: 8, width: 13, height: 13, marginLeft: -6.5, background: '#FBEAA4', transform: 'rotate(45deg)', boxShadow: '0 0 20px 7px rgba(251,198,98,.6)', zIndex: 3 } }),
+        E('div', { key: 'lamp', style: { position: 'absolute', left: '50%', top: 15, width: 0, height: 0, pointerEvents: 'none', zIndex: 2 } },
+          E('div', { key: 'beam', style: { position: 'absolute', left: -140, top: 0, width: 280, height: 300, transformOrigin: '50% 0', background: 'conic-gradient(from 168deg at 50% 0, transparent 0deg, rgba(255,246,220,.30) 9deg, rgba(251,198,98,.12) 18deg, transparent 24deg)', filter: 'blur(1px)', animation: 'beam 2.1s ease-in-out infinite alternate' } }),
+          E('div', { key: 'halo', style: { position: 'absolute', left: -27, top: -27, width: 54, height: 54, borderRadius: '50%', background: 'radial-gradient(circle,rgba(255,246,220,.5),rgba(251,198,98,.18) 45%,transparent 72%)' } })),
+        E('div', { key: 'src', style: { position: 'absolute', left: '50%', top: 8.5, width: 13, height: 13, marginLeft: -6.5, background: 'linear-gradient(160deg,#FFFFFF,#FBEAA4 55%,#FBC662)', transform: 'rotate(45deg)', boxShadow: '0 0 16px 4px rgba(251,198,98,.75)', zIndex: 3 } }),
         E('div', { key: 'gw', style: { position: 'relative' } },
           grid(kids),
-          svgLine('p', `0,${P + SZ / 2} ${P},${SZ / 2} ${2 * P},${P + SZ / 2} ${3 * P},${2 * P + SZ / 2} ${4 * P + SZ},${P + SZ / 2}`, '#FBC662', 300, 'payline', 2)));
+          svgLine('p', payPts(prows), '#F21C7C', 240, 'payline', 2.2)));
     }
 
     const map = ['◆7▲●◆', '▲●◆▲7', '7▲●◆▲'], order = [7, 2, 11, 4, 9, 0, 13, 99, 5, 8, 3, 12, 1, 10, 6];
