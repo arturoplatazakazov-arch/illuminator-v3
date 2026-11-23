@@ -130,6 +130,8 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
   .msg-em:hover .ml-seal{animation:sealdrop 2.4s cubic-bezier(.3,1.4,.4,1) infinite;}
   @keyframes sealdrop{0%{opacity:0;transform:translateY(-15px) scale(1.9)}18%{opacity:1;transform:translateY(0) scale(1)}24%{transform:translateY(0) scale(.88)}30%,82%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(0) scale(1)}}
   @media (max-width:430px){.msg{width:74px;}.msgl{font-size:12px;}}
+  /* Заставка: на десктопе поднимаем всю сцену, чтобы кнопки не лежали на нижнем крае */
+  @media (min-width:760px) and (min-height:640px){.gate{padding-bottom:min(170px,15vh)!important;}}
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
@@ -154,7 +156,7 @@ document.addEventListener('DOMContentLoaded',function(){fix(document);});})();
 <canvas ref="{{ trailRef }}" aria-hidden="true" style="position:fixed;inset:0;z-index:130;pointer-events:none;mix-blend-mode:screen;"></canvas>
 
 <sc-if value="{{ gateOn }}" hint-placeholder-val="{{ true }}">
-  <div data-screen-label="01 Заставка Zippo" onWheel="{{ onWheel }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}" style="position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse 55% 50% at 50% 42%,#1C1224 0%,#0B0710 60%,#000 100%);opacity:{{ gateOpacity }};transition:opacity .9s ease .35s;pointer-events:{{ gatePointer }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px;touch-action:none;user-select:none;overflow:hidden;">
+  <div class="gate" data-screen-label="01 Заставка Zippo" onWheel="{{ onWheel }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}" style="position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse 55% 50% at 50% 42%,#1C1224 0%,#0B0710 60%,#000 100%);opacity:{{ gateOpacity }};transition:opacity .9s ease .35s;pointer-events:{{ gatePointer }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px;touch-action:none;user-select:none;overflow:hidden;">
     <div style="position:absolute;left:50%;top:40%;width:1500px;height:1500px;margin:-750px 0 0 -750px;border-radius:50%;background:radial-gradient(circle,rgba(247,96,62,.34) 0%,rgba(232,30,224,.14) 22%,rgba(123,61,255,.07) 38%,transparent 58%);opacity:{{ warmOp }};transform:scale({{ warmSc }});transition:opacity .9s ease,transform 1.4s cubic-bezier(.2,1,.3,1);pointer-events:none;"></div>
     <div style="position:absolute;left:50%;top:0;width:520px;height:70%;margin-left:-260px;background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(255,255,255,.07),transparent 70%);pointer-events:none;"></div>
 
