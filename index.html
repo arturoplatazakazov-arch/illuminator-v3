@@ -999,36 +999,40 @@ class Component extends DCLogic {
     document.body.style.overflow = '';
   }
 
+  _igT = [];
   gateActive() { return this.preview() === 'live' && !this.state.denied && (this.state.stage === 'closed' || this.state.stage === 'open'); }
   step() {
     if (!this.gateActive()) return;
     const now = Date.now();
     if (now < (this._lock || 0)) return;
-    this._lock = now + 750;
-    if (this.state.stage === 'closed') this.setState({ stage: 'open' });
-    else this.ignite();
+    this._lock = now + 700;
+    if (this.state.stage === 'closed') { this.setState({ stage: 'open' }); return; }
+    this.strike();
   }
-  /* Один «чирк» = один оборот колёсика + ровно один сноп искр.
-     Колёсико проворачивается первым, искры вылетают в момент контакта (SPARK_AT). */
+  /* Один жест — один шаг: первый свайп открывает крышку, второй даёт
+     сноп искр, третий — ещё один, и от него зажигалка загорается.
+     Ни один чирк не выбрасывает больше одной кучки искр. */
+  strike() {
+    const SPARK_AT = 110, n = this._sn = (this._sn || 0) + 1, last = n >= 2;
+    if (n > 2) return;
+    this.setState(st => ({ scrape: st.scrape + 1, power: last ? 3 : 2 }));
+    this._igT.push(setTimeout(() => this.setState(st => ({ burst: st.burst + 1 })), SPARK_AT));
+    if (last) this._igT.push(
+      setTimeout(() => this.setState({ stage: 'lit' }), SPARK_AT + 170),
+      /* Фитиль занялся — дальше заставка уходит сама, без нажатия кнопки. */
+      setTimeout(() => this.enter(), SPARK_AT + 170 + 1100)
+    );
+  }
+  /* Возраст подтвердили раньше, чем зажигалка загорелась, — дочиркиваем сами. */
   ignite() {
     if (this._ign) return;
     this._ign = true;
-    const SPARK_AT = 110;
-    const strike = p => {
-      this.setState(st => ({ scrape: st.scrape + 1, power: p }));
-      this._igT.push(setTimeout(() => this.setState(st => ({ burst: st.burst + 1 })), SPARK_AT));
-    };
-    this._igT = [];
-    strike(1);
-    this._igT.push(
-      setTimeout(() => strike(2), 470),
-      setTimeout(() => strike(3), 950),
-      setTimeout(() => this.setState({ stage: 'lit' }), 950 + SPARK_AT + 60)
-    );
+    const left = Math.max(0, 2 - (this._sn || 0));
+    for (let k = 0; k < left; k++) this._igT.push(setTimeout(() => this.strike(), k * 520));
   }
 
-  /* Переход на сайт — только после подтверждения возраста. Сама зажигалка
-     лишь зажигается и ждёт: пока кнопку не нажали, заставка не уходит. */
+  /* Уход заставки: вызывается сам через паузу после того, как фитиль занялся,
+     и сразу по кнопке возраста, если её нажали раньше. */
   enter() {
     if (this._entered) return;
     this._entered = true;
@@ -1274,8 +1278,8 @@ class Component extends DCLogic {
       strikeAnim: s.scrape === 0 ? 'none' : (s.scrape % 2 ? 'strike1 .36s ease-out' : 'strike2 .36s ease-out'),
       scrapeAnim: s.scrape === 0 ? 'none' : (s.scrape % 2 ? 'flintroll .34s cubic-bezier(.2,.8,.3,1)' : 'flintroll2 .34s cubic-bezier(.2,.8,.3,1)'),
       gateSteps: [['01 Открыть', true], ['02 Зажечь', open]].map(([label, on]) => ({ label, ink: on ? '#FFFFFF' : '#8C7884', dot: on ? ACC : '#3A2B46', glow: on ? '0 0 10px ' + ACC : 'none' })),
-      hintTitle: lit ? 'Горит' : open ? 'Высеките искру' : 'Откройте крышку',
-      hintText: lit ? 'Подтвердите возраст — и мы впустим вас на сайт.' : open ? 'Ещё раз прокрутите, свайпните или нажмите — и зажигалка загорится.' : 'Прокрутите вниз, свайпните вверх или нажмите на зажигалку.',
+      hintTitle: lit ? 'Горит' : open ? (s.scrape ? 'Ещё искру' : 'Высеките искру') : 'Откройте крышку',
+      hintText: lit ? 'Заходите — мы открываем двери.' : open ? (s.scrape ? 'Ещё один раз — и фитиль займётся.' : 'Прокрутите, свайпните или нажмите — полетят искры.') : 'Прокрутите вниз, свайпните вверх или нажмите на зажигалку.',
       onStep: e => { e.stopPropagation(); this.step(); },
       onWheel: e => { if (e.deltaY > 6) this.step(); },
       onTouchStart: e => { this._ty = e.touches[0].clientY; },
